@@ -17,6 +17,7 @@ schema ทั้งหมดของโปรเจค · ชื่อไฟล
 | `..._admin_backoffice_functions`      | `is_platform_admin` + ฟังก์ชัน `admin_*` 5 ตัว (ดูตาราง definer ด้านล่าง)                       |
 | `..._current_workspace_is_writable`   | RPC ให้ UI ถามว่าร้านตัวเองออกบิลได้ไหม (FR-0.4) — invoker ไม่ใช่ definer                       |
 | `..._public_receipt_tax_and_language` | `get_public_receipt` คืน `tax_enabled` / `tax_rate` / `language` เพิ่ม                          |
+| `..._purchase_update_and_reports`     | `update_purchase` + ฟังก์ชันรายงาน 4 ตัว (`report_*`) — invoker ทั้งหมด                         |
 
 ## คำสั่ง
 

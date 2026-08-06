@@ -6,6 +6,7 @@ import { cookies } from "next/headers";
 import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { LOCALE_COOKIE, isLocale } from "@/i18n/locales";
+import { absoluteUrl } from "@/lib/public-url";
 
 /** ค่าที่กรอกไว้ ส่งกลับไปเติมในฟอร์มเมื่อ submit ไม่ผ่าน — ไม่รวมรหัสผ่าน */
 export type AuthState = {
@@ -132,7 +133,12 @@ export async function requestPasswordReset(
   if (!email) return { error: t("requiredField") };
 
   const supabase = await createClient();
-  await supabase.auth.resetPasswordForEmail(email);
+  // ลิงก์ในอีเมลต้องพากลับมาที่ /auth/confirm เพื่อแลก token เป็น session ก่อน
+  // แล้วค่อยส่งต่อไปหน้าตั้งรหัสใหม่ · ถ้าไม่ระบุ Supabase จะพาไป Site URL เฉยๆ
+  // ซึ่งเป็นหน้าแรกของแอป และผู้ใช้จะไม่มีทางตั้งรหัสใหม่ได้เลย
+  await supabase.auth.resetPasswordForEmail(email, {
+    redirectTo: await absoluteUrl("/auth/confirm?next=/reset-password/new"),
+  });
 
   // ตอบเหมือนกันเสมอไม่ว่าอีเมลจะมีในระบบหรือไม่
   // ถ้าตอบต่างกัน หน้านี้จะกลายเป็นเครื่องมือเช็คว่าใครสมัครไว้บ้าง
@@ -143,4 +149,30 @@ export async function signOut() {
   const supabase = await createClient();
   await supabase.auth.signOut();
   redirect("/login");
+}
+
+/**
+ * ตั้งรหัสผ่านใหม่หลังกดลิงก์จากอีเมล — FR-0.1
+ *
+ * ลิงก์ในอีเมลผ่าน /auth/confirm ซึ่งแลก token เป็น session ให้แล้ว
+ * ที่นี่จึงเป็นแค่ `updateUser` ของ session ที่มีอยู่ ไม่ได้รับ token อะไรมาเอง
+ * ⚠️ ถ้าไม่มี session แปลว่าลิงก์หมดอายุหรือถูกใช้ไปแล้ว ต้องบอกให้ชัด
+ *    ไม่ใช่ปล่อยให้กดบันทึกแล้วเงียบ
+ */
+export async function updatePassword(_prev: AuthState, formData: FormData): Promise<AuthState> {
+  const t = await getTranslations("auth");
+  const password = String(formData.get("password") ?? "");
+  const confirm = String(formData.get("confirm_password") ?? "");
+
+  if (password.length < 8) return { error: t("passwordTooShort") };
+  if (password !== confirm) return { error: t("passwordMismatch") };
+
+  const supabase = await createClient();
+  const { data } = await supabase.auth.getClaims();
+  if (!data?.claims) return { error: t("linkExpired") };
+
+  const { error } = await supabase.auth.updateUser({ password });
+  if (error) return { error: await translateAuthError(error, "signInFailed") };
+
+  redirect("/");
 }

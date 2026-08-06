@@ -1,0 +1,59 @@
+import type { Locale } from "@/i18n/locales";
+
+/**
+ * ขอบวันของรายงานเป็น **เวลาไทย** เสมอ ไม่ใช่ UTC และไม่ใช่ timezone ของเครื่อง
+ *
+ * เซิร์ฟเวอร์ที่ Vercel รันเป็น UTC — ถ้าใช้ `new Date().toISOString().slice(0,10)`
+ * ตอนตี 5 ครึ่งที่ไทย (= 22:30 UTC ของเมื่อวาน) "ยอดขายวันนี้" จะไปดึงของเมื่อวาน
+ * ฝั่ง DB ก็ตัดวันด้วย `at time zone 'Asia/Bangkok'` เหมือนกัน สองฝั่งต้องตรงกัน
+ */
+const TZ = "Asia/Bangkok";
+
+/** วันที่วันนี้ตามเวลาไทย รูปแบบ YYYY-MM-DD (รูปแบบที่ Postgres รับเป็น date) */
+export function bangkokToday(): string {
+  return new Intl.DateTimeFormat("en-CA", {
+    timeZone: TZ,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).format(new Date());
+}
+
+/** วันแรกของเดือนปัจจุบันตามเวลาไทย */
+export function bangkokMonthStart(): string {
+  return `${bangkokToday().slice(0, 7)}-01`;
+}
+
+/** "จ." "อ." … — ป้ายใต้แท่งกราฟรายวัน */
+export function weekdayLabel(isoDate: string, locale: Locale): string {
+  return new Intl.DateTimeFormat(locale === "th" ? "th-TH-u-ca-gregory" : "en-GB", {
+    weekday: "narrow",
+    timeZone: TZ,
+  }).format(new Date(`${isoDate}T00:00:00+07:00`));
+}
+
+/** "ส.ค." — ป้ายใต้แท่งกราฟรายเดือน และหัวข้อหน้ากำไร */
+export function monthLabel(isoDate: string, locale: Locale): string {
+  return new Intl.DateTimeFormat(locale === "th" ? "th-TH-u-ca-gregory" : "en-GB", {
+    month: "short",
+    timeZone: TZ,
+  }).format(new Date(`${isoDate}T00:00:00+07:00`));
+}
+
+/** "ส.ค. 2026" — ตัวเลือกเดือนบนหน้ากำไร */
+export function monthYearLabel(isoDate: string, locale: Locale): string {
+  return new Intl.DateTimeFormat(locale === "th" ? "th-TH-u-ca-gregory" : "en-GB", {
+    month: "short",
+    year: "numeric",
+    timeZone: TZ,
+  }).format(new Date(`${isoDate}T00:00:00+07:00`));
+}
+
+/** รายชื่อเดือนย้อนหลัง N เดือน (ล่าสุดก่อน) สำหรับ dropdown เลือกเดือน */
+export function recentMonths(count: number): string[] {
+  const [y, m] = bangkokToday().split("-").map(Number);
+  return Array.from({ length: count }, (_, i) => {
+    const d = new Date(Date.UTC(y, m - 1 - i, 1));
+    return `${d.getUTCFullYear()}-${String(d.getUTCMonth() + 1).padStart(2, "0")}-01`;
+  });
+}

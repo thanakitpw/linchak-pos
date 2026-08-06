@@ -627,9 +627,25 @@ export type Database = {
         };
         Returns: Database["public"]["Tables"]["purchases"]["Row"];
       };
+      update_purchase: {
+        Args: {
+          p_id: string;
+          p_items: Json;
+          p_note?: string;
+          p_purchased_at: string;
+          p_slip_path?: string;
+          p_total_override?: number;
+          p_vendor?: string;
+        };
+        Returns: Database["public"]["Tables"]["purchases"]["Row"];
+      };
       current_user_is_platform_admin: { Args: never; Returns: boolean };
       current_workspace_is_writable: { Args: never; Returns: boolean };
       get_public_receipt: { Args: { token: string }; Returns: Json };
+      report_sales: { Args: { p_from: string; p_to: string }; Returns: Json };
+      report_daily_sales: { Args: { p_days?: number }; Returns: Json };
+      report_monthly_profit: { Args: { p_month?: string }; Returns: Json };
+      report_profit_trend: { Args: { p_months?: number }; Returns: Json };
     };
     Enums: Record<never, never>;
     CompositeTypes: Record<never, never>;
