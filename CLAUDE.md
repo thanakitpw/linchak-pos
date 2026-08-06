@@ -80,11 +80,17 @@ GENERATED   AGENTS.md       Next.js เขียนทับทุกครั�
 
 ### ข้อมูลและความปลอดภัย (ยังไม่ implement — กฎล่วงหน้าสำหรับ P1)
 
+> schema เต็ม: `docs/data-model.md` · หลังบ้าน: `docs/admin-backoffice.md`
+
 26. **RLS ทุกตาราง scope ด้วย `workspace_id` ไม่มีข้อยกเว้น** (NFR-4) · ห้ามมี `service_role` ในฝั่ง browser · ตารางใหม่ที่ไม่มี policy คืออุบัติเหตุ ไม่ใช่ TODO
 27. **เลขบิล (`DDMMYYYY-NNNNNNNN`, BR-3) จัดสรรด้วย Postgres function ภายใต้ row lock ต่อ workspace ใน transaction เดียวกับที่ insert order** — ห้าม `MAX(bill_no)+1` ห้าม `count()` ห้ามคำนวณฝั่ง client · เช็คเอาต์พร้อมกันสองเครื่องในร้านเดียวกันต้องไม่ได้เลขชนกัน
-28. **`order_items` เขียน `name_snapshot` + `price_snapshot` เสมอ** (BR-4) — ห้าม resolve บิลเก่าผ่าน join กับ `products`
+28. **`order_items` เขียน `name_snapshot` + `price_snapshot` เสมอ** (BR-4) — ห้าม resolve บิลเก่าผ่าน join กับ `products` · ลบสินค้า = archive ไม่ใช่ DELETE
 29. **order + items และ purchase + items เป็น transaction เดียว** (NFR-7) เขียนสำเร็จครึ่งเดียวไม่ได้
-30. **route บิล public (FR-4.6) ไม่ต้องล็อกอิน และต้องไม่รั่วอะไรนอกจากบิลใบนั้น** — ไม่มี workspace id ไม่มีบิลอื่น ไม่มีรายการสินค้าของร้าน
+30. **route บิล public (FR-4.6) ไม่ต้องล็อกอิน และต้องไม่รั่วอะไรนอกจากบิลใบนั้น** — ไม่มี workspace id ไม่มีบิลอื่น ไม่มีรายการสินค้าของร้าน · ทำผ่านฟังก์ชัน `get_public_receipt(token)` แบบ `SECURITY DEFINER` **ห้ามเปิด RLS ให้ role `anon` อ่านตาราง**
+31. **gate สถานะการใช้งานต้องอยู่ที่ระดับ DB ไม่ใช่แค่ซ่อนปุ่มใน UI** — FR-0.4 บอกว่าหมด trial แล้วออกบิลใหม่ไม่ได้ ถ้าบังคับแค่ใน UI คนที่ยิง API ตรงยังออกได้ · ใช้ `workspace_is_writable()` ใน RLS policy ของ INSERT
+32. **สิทธิ์ในร้านมี 3 ระดับ `owner` / `manager` / `staff`** — เส้นแบ่งสำคัญคือ **`staff` ไม่เห็นตัวเลขเงินย้อนหลังเลย** (ไม่เห็นต้นทุน กำไร ยอดรวมวัน เห็นแค่บิลที่ตัวเองออก) · MVP สร้างแค่ `owner` แต่ **เขียน RLS ให้ตรวจ role ตั้งแต่แรก** เพราะเติมทีหลังต้องรื้อ policy ทุกตาราง
+33. **หลังบ้าน `/admin` เป็น server component + server action ทั้งหมด** · ตรวจ `is_platform_admin()` ที่ชั้น DB ด้วย ไม่ใช่แค่ middleware · **ทุก mutation เขียน `audit_logs`** ไม่มีข้อยกเว้น · `audit_logs` เป็น append-only ไม่มี policy ให้ UPDATE/DELETE แม้แต่ superadmin
+34. **admin ไม่เห็นข้อมูลบิล/สินค้าของลูกค้าโดย default** — เห็นแค่ตัวเลขสรุป การเข้าไปดูของจริงต้องผ่าน impersonate ที่บังคับกรอกเหตุผล เขียน audit หมดอายุใน 30 นาที มีแถบเตือนค้างบนจอ และเป็นโหมดอ่านอย่างเดียว
 
 ### ใบเสร็จ
 
@@ -127,7 +133,9 @@ GENERATED   AGENTS.md       Next.js เขียนทับทุกครั�
 ## ลิงก์
 
 - `docs/design-system.md` — token, กฎ, ตาราง migration, สถานะพอร์ตทั้ง 28 หน้า
-- `docs/pos-prd.md` — FR / BR / NFR / data model
+- `docs/data-model.md` — Supabase เก็บอะไรบ้าง: ตาราง, RLS, storage, state machine
+- `docs/admin-backoffice.md` — หลังบ้าน: สิทธิ์ platform admin, role ในร้าน, ลำดับที่ควรทำ
+- `docs/pos-prd.md` — FR / BR / NFR / data model (ต้นฉบับ)
 - `docs/pos-business-plan.md` — โมเดลธุรกิจ ราคา GTM
 - `/dev/tokens` — หน้าพิสูจน์ token (dev เท่านั้น)
 - `/dev/receipt` — พิสูจน์ใบเสร็จ → รูป (กฎ 31)
