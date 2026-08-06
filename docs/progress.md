@@ -20,6 +20,10 @@
 ⚠️ **แก้ `src/messages/*.json` แล้วต้องรีสตาร์ท dev server** — Turbopack cache dynamic import ของ JSON ไว้
 
 repo: **https://github.com/thanakitpw/linchak-pos** · CI เขียว · local ตรงกับ remote
+**ขึ้นจริงแล้ว: https://linchak-pos.vercel.app** (Vercel production · env ตั้งครบ 3 environment)
+
+🚨 **ตอนนี้เว็บเปิดสาธารณะโดยที่ยังปิด "ยืนยันอีเมล" อยู่** — ใครเจอ URL ก็สมัครด้วยอีเมลคนอื่นได้
+ถ้ายังไม่พร้อมให้คนนอกเข้า ให้เปิด Vercel → Settings → Deployment Protection ไว้ก่อน
 
 ---
 
@@ -27,12 +31,14 @@ repo: **https://github.com/thanakitpw/linchak-pos** · CI เขียว · loc
 
 **ฟีเจอร์ตาม PRD ครบแล้ว** — ที่เหลือคือของที่ต้องทำก่อนให้คนนอกใช้จริง
 
-### 1. เตรียมขึ้นจริง ← **งานหลักถัดไป**
-เรียงตามที่บล็อกแรงที่สุด (รายละเอียดอยู่หัวข้อ "ค้างอยู่" ด้านล่าง):
-1. **ต่อ SMTP (Resend) + เปิด Confirm email กลับ** — ถ้าไม่ทำ ลูกค้าจริงไม่ได้รับอีเมลเลย
-2. ตั้ง Site URL / Redirect URLs + minimum password length = 8 ใน Dashboard
-3. deploy ขึ้น Vercel + ผูกโดเมน
-4. หน้า FR-0.4 ตอน trial หมด (ตอนนี้มีแค่แถบเตือนในหน้าขาย ยังไม่มีหน้าจ่ายเงิน)
+### 1. ปิดช่องโหว่หลัง deploy ← **งานหลักถัดไป**
+deploy ขึ้น Vercel แล้ว แต่ยังไม่พร้อมให้คนนอกใช้จริง (รายละเอียดในหัวข้อ "ค้างอยู่"):
+1. 🔴 **ตั้ง Site URL / Redirect URLs ใน Supabase ให้ตรงกับโดเมนจริง** — ไม่ตั้งแล้วลิงก์ในอีเมลพัง
+2. 🔴 **ต่อ SMTP (Resend) + เปิด Confirm email กลับ** — ถ้าไม่ทำ ลูกค้าจริงไม่ได้รับอีเมลเลย
+   และตอนนี้ใครก็สมัครด้วยอีเมลคนอื่นได้
+3. ตั้ง minimum password length = 8 ใน Dashboard
+4. ผูกโดเมนจริงแทน `*.vercel.app`
+5. หน้า FR-0.4 ตอน trial หมด (ตอนนี้มีแค่แถบเตือนในหน้าขาย ยังไม่มีหน้าจ่ายเงิน)
 
 ### 2. PWA (NFR-5) + ทดสอบบนเครื่องจริง
 `@serwist/next` ยังไม่ได้ติดตั้ง · `pb-safe` กับ `100dvh` ยังไม่เคยเจอ iPhone จริง
@@ -258,6 +264,19 @@ subtotal 210 − ส่วนลด 20 = 190 · รับ 300 → ทอน 110 
 | **รายงานข้ามร้าน** | ตัวเลขของ QA user ไม่ปนกับอีกร้านเลย |
 | ตอนยังไม่มีข้อมูล | ทุกฟังก์ชันคืน 0 ไม่ใช่ null และไม่นับแถวว่างเป็น 1 บิล |
 
+### เฟส 12 · deploy ขึ้น Vercel
+
+- โปรเจค `linchak-pos` · production: **https://linchak-pos.vercel.app**
+- env `NEXT_PUBLIC_SUPABASE_URL` + `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`
+  ตั้งครบทั้ง production / preview / development
+- **ไม่ต้องตั้ง env ของ URL แอปเอง** — `src/lib/public-url.ts` อ่าน host จาก header
+  จึงใช้ได้ทั้ง localhost, preview ที่โดเมนเปลี่ยนทุก deploy และโดเมนจริง
+- `docs/test-checklist.md` — รายการทดสอบก่อนใช้งานจริง แยก 🤖 (ยิง API ทดสอบแล้ว)
+  ออกจาก 👤 (ต้องใช้คนเทส) เพื่อไม่ให้เสียเวลากับสิ่งที่เครื่องตรวจไปแล้ว
+
+**ทดสอบบนโดเมนจริงแล้ว:** สมัคร → ได้ session → เปิด `/sell` `/products` `/costs`
+`/reports` `/settings` ได้ 200 ทุกหน้า ต่อ Supabase ติด ฟอนต์ไอคอนโหลดขึ้น
+
 ---
 
 ## กับดักที่เจอมาแล้ว — อย่าเสียเวลาซ้ำ
@@ -285,13 +304,19 @@ subtotal 210 − ส่วนลด 20 = 190 · รับ 300 → ทอน 110 
 | **`<Link href={{pathname, params}}>`** | รูปแบบ object ที่มี `params` ใช้กับ Next เวอร์ชันนี้ไม่ได้ (TS2769) | ใช้ template string `` href={`/products/${id}`} `` ตรงๆ |
 | **แก้ `messages/*.json` แล้วหน้าไม่เปลี่ยน** | Turbopack cache dynamic import ของ JSON ใน `i18n/request.ts` ไว้ · เสียเวลาไล่หาว่าโค้ดผิดตรงไหนทั้งที่ไฟล์ถูกแล้ว | รีสตาร์ท dev server ทุกครั้งที่แก้ไฟล์ข้อความ |
 | **`formatPercent` มี % มาให้แล้ว** | เขียน `{percent}%` ในไฟล์ข้อความ ได้ "44%%" | ข้อความที่รับค่าจาก `formatPercent` ห้ามเติม % เอง |
+| **`vercel link` เขียนทับ `.env.local`** | มันเติม `VERCEL_OIDC_TOKEN` ต่อท้ายไฟล์ · ครั้งนี้ค่าเดิมอยู่ครบ แต่เป็นไฟล์ที่มีค่าจริงอยู่ ควรเช็คทุกครั้ง | หลัง `vercel link` ให้ `grep` ดูว่าตัวแปรเดิมยังอยู่ก่อนทำอย่างอื่น |
 | **ลบ user** | membership cascade ไป แต่ **workspace ค้างเป็น orphan** (ไม่ได้ผูกกับ user โดยตรง) | ตั้งใจให้เป็นแบบนี้ (ประวัติการขายไม่ควรหายเพราะลบ login) แต่ยังไม่มีทางโอนความเป็นเจ้าของ — ต้องทำในหน้า `/admin` |
 
 ---
 
 ## ค้างอยู่ / ยังไม่ตัดสินใจ
 
-**ต้องทำใน Dashboard (ผมทำผ่าน MCP ไม่ได้)**
+**ต้องทำใน Dashboard (ผมทำผ่าน MCP ไม่ได้) — เรียงตามความเร่งด่วนหลัง deploy**
+
+- 🔴 **ตั้ง Site URL / Redirect URLs ให้ตรงกับโดเมนจริง** (Authentication → URL Configuration)
+  Site URL: `https://linchak-pos.vercel.app`
+  Redirect URLs: `https://linchak-pos.vercel.app/**` และ `http://localhost:3000/**`
+  **ถ้าไม่ตั้ง ลิงก์รีเซ็ตรหัสผ่านและยืนยันอีเมลจะพากลับไปที่ localhost ของคนอื่น**
 - ~~เปิด **Leaked Password Protection**~~ — **ทำไม่ได้บน free tier** (Pro plan ขึ้นไปเท่านั้น)
   security advisor จะแนะนำเรื่องนี้ตลอด — ข้ามไปก่อน ไว้อัปเกรดแผนแล้วค่อยเปิด
 - ตั้ง **Minimum password length = 8** ให้ตรงกับที่ฟอร์มบังคับ (default ของ Supabase คือ 6)
