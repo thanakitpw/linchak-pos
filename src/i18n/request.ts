@@ -12,9 +12,13 @@ import { DEFAULT_LOCALE, LOCALE_COOKIE, isLocale } from "./locales";
  *    ผูกกับภาษา ซึ่งเป็นบั๊กชุดที่น่ารำคาญมาก
  *  - ไม่มี next-intl middleware = ไม่ชนกับ middleware ของ Supabase ตอน P1
  */
-export default getRequestConfig(async () => {
+export default getRequestConfig(async ({ requestLocale }) => {
+  // ปกติเป็น undefined (ไม่มี locale ใน URL ก็ไม่มีอะไรมาบอก) แล้วตกไปใช้ cookie
+  // ที่ต้องมีเพราะ `getTranslations({ locale })` ส่งค่ามาทางนี้ —
+  // หน้าบิล public (FR-4.6) ต้อง render ด้วยภาษาของ **ร้าน** ไม่ใช่ของคนเปิดลิงก์
+  const requested = await requestLocale;
   const cookieStore = await cookies();
-  const raw = cookieStore.get(LOCALE_COOKIE)?.value;
+  const raw = requested ?? cookieStore.get(LOCALE_COOKIE)?.value;
   const locale = isLocale(raw) ? raw : DEFAULT_LOCALE;
 
   return {

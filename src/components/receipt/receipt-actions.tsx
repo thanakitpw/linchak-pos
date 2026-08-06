@@ -1,7 +1,6 @@
 "use client";
 
 import { useRef, useState } from "react";
-import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { toBlob } from "html-to-image";
 import { Button } from "@/components/ui/button";
@@ -107,10 +106,19 @@ export function ReceiptActions({
         </p>
       )}
 
+      {/* FR-4.6 · เปิดหน้าเดียวกับที่ลูกค้าจะเห็น — แท็บใหม่เพราะแม่ค้ายังอยู่กลางการขาย
+          ใช้ <a> ไม่ใช่ <Link> ตั้งใจ: นี่คือ URL เต็มข้ามได้ทั้ง origin
+          และเป็นการ "ดูของจริง" ไม่ใช่ navigation ภายในแอป */}
       <p className="text-center">
-        <Link href="/sell" className="text-label-lg text-primary underline underline-offset-4">
-          {t("sellAgain")}
-        </Link>
+        <a
+          href={publicUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex min-h-touch items-center gap-1 text-label-lg text-primary underline underline-offset-4"
+        >
+          <Icon name="qr_code_scanner" size={20} />
+          {t("viewOnline")}
+        </a>
       </p>
     </div>
   );

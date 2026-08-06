@@ -247,6 +247,7 @@
     "billNo": "Bill no.",
     "date": "Date",
     "scanToPay": "Scan with your banking app to pay",
+    "scanForBill": "Scan to open this bill online",
     "promptpayAmount": "PromptPay",
     "noPromptpay": "PromptPay not set — add it in Settings so receipts carry a payment QR",
     "share": "Share",
@@ -256,6 +257,9 @@
     "viewOnline": "View online",
     "preparing": "Preparing image…",
     "shareFailed": "Couldn't share",
-    "thankYou": "Thank you"
+    "thankYou": "Thank you",
+    "notFoundTitle": "Bill not found",
+    "notFoundBody": "The link may be incomplete or mistyped. Ask the shop for the link again.",
+    "poweredBy": "Billed with {app}"
   }
 }

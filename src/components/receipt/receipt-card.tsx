@@ -19,8 +19,14 @@ export type ReceiptData = {
   change: number | null;
   taxEnabled: boolean;
   taxRate: number;
-  /** data URL ของ QR PromptPay — สร้างฝั่ง server เพื่อให้ฝังอยู่ใน DOM ตั้งแต่แรก */
-  qrDataUrl: string | null;
+  /**
+   * QR ที่พิมพ์ลงใบเสร็จ — สร้างฝั่ง server เพื่อให้ฝังอยู่ใน DOM ตั้งแต่แรก
+   *
+   * **มีได้ทีละอันเท่านั้น** ไม่ใช่ข้อจำกัดทางเทคนิคแต่เป็นการตัดสินใจ:
+   * QR สองอันในรูปเดียว ลูกค้าที่เปิดแอปธนาคารมาสแกนจะจับผิดอันได้
+   * (`promptpay` = จ่ายเงิน FR-4.2 · `bill` = เปิดบิลออนไลน์ FR-4.3)
+   */
+  qr: { dataUrl: string; kind: "promptpay" | "bill" } | null;
 };
 
 /**
@@ -34,10 +40,14 @@ export type ReceiptData = {
  *
  * ⚠️ ห้ามใส่ interactive element ในนี้ — ปุ่มอยู่นอกการ์ดเสมอ
  *    ไม่งั้นปุ่มจะติดไปในรูปที่แชร์
+ *
+ * ⚠️ ภาษามาจาก prop ไม่ใช่จาก request — บิลใบเดียวกันต้องอ่านได้เหมือนกันทุกคน
+ *    หน้าบิล public เปิดโดยลูกค้าที่ cookie คนละใบกับเจ้าของร้าน
+ *    ถ้าปล่อยให้ next-intl resolve เอง บิลจะเปลี่ยนภาษาตามคนดู
  */
 export async function ReceiptCard({ data, locale }: { data: ReceiptData; locale: Locale }) {
-  const t = await getTranslations("receipt");
-  const tMoney = await getTranslations("money");
+  const t = await getTranslations({ locale, namespace: "receipt" });
+  const tMoney = await getTranslations({ locale, namespace: "money" });
 
   return (
     <div className="mx-auto w-full max-w-[360px] rounded-md bg-receipt-paper p-5 text-on-surface">
@@ -133,17 +143,26 @@ export async function ReceiptCard({ data, locale }: { data: ReceiptData; locale:
         )}
       </dl>
 
-      {/* PromptPay QR — FR-4.2 · ระบุจำนวนเงินไว้แล้ว */}
-      {data.qrDataUrl && (
+      {/* QR — FR-4.2 (จ่ายเงิน ระบุยอดไว้แล้ว) หรือ FR-4.3 (เปิดบิลออนไลน์) */}
+      {data.qr && (
         <>
           <div className="my-4 border-t border-dashed border-receipt-rule" />
           <div className="flex flex-col items-center gap-2">
-            <p className="text-label-lg text-on-surface">
-              {t("promptpayAmount")} {formatTHB(satang(Math.round(data.total * 100)), locale)}
-            </p>
+            {data.qr.kind === "promptpay" && (
+              <p className="text-label-lg text-on-surface">
+                {t("promptpayAmount")} {formatTHB(satang(Math.round(data.total * 100)), locale)}
+              </p>
+            )}
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={data.qrDataUrl} alt="PromptPay QR" width={180} height={180} />
-            <p className="text-center text-label-sm text-on-surface-variant">{t("scanToPay")}</p>
+            <img
+              src={data.qr.dataUrl}
+              alt=""
+              width={data.qr.kind === "promptpay" ? 180 : 132}
+              height={data.qr.kind === "promptpay" ? 180 : 132}
+            />
+            <p className="text-center text-label-sm text-on-surface-variant">
+              {t(data.qr.kind === "promptpay" ? "scanToPay" : "scanForBill")}
+            </p>
           </div>
         </>
       )}

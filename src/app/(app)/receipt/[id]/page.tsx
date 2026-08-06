@@ -1,13 +1,13 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { headers } from "next/headers";
 import { getLocale, getTranslations } from "next-intl/server";
-import QRCode from "qrcode";
 import { createClient } from "@/lib/supabase/server";
 import { Icon } from "@/components/ui/icon";
 import { ReceiptCard, type ReceiptData } from "@/components/receipt/receipt-card";
 import { ReceiptActions } from "@/components/receipt/receipt-actions";
 import { promptPayPayload } from "@/lib/promptpay";
+import { publicReceiptUrl } from "@/lib/public-url";
+import { receiptQr } from "@/lib/qr";
 import { toSatang } from "@/lib/money";
 import type { Locale } from "@/i18n/locales";
 
@@ -21,6 +21,7 @@ import type { Locale } from "@/i18n/locales";
 export default async function ReceiptPage({ params }: PageProps<"/receipt/[id]">) {
   const { id } = await params;
   const t = await getTranslations("receipt");
+  const tCommon = await getTranslations("common");
   const locale = (await getLocale()) as Locale;
   const supabase = await createClient();
 
@@ -47,23 +48,24 @@ export default async function ReceiptPage({ params }: PageProps<"/receipt/[id]">
   ]);
   if (!ws) notFound();
 
-  // FR-4.2 · QR ระบุจำนวนเงินเท่ายอดสุทธิ · ไม่ตั้ง PromptPay = ไม่มี QR (AC ของ FR-1.2)
-  const qrDataUrl = ws.promptpay_id
-    ? await QRCode.toDataURL(promptPayPayload(ws.promptpay_id, toSatang(Number(order.total))), {
-        width: 360,
-        margin: 1,
-        // สีทึบล้วน — กฎ 31 · color-mix() ทำให้ QR เพี้ยนตอน render เป็นรูป
-        color: { dark: "#121c28", light: "#f7f7f2" }, // lint-tokens-ok: option ของ qrcode
-      })
-    : null;
-
   const logoUrl = ws.logo_path
     ? supabase.storage.from("logos").getPublicUrl(ws.logo_path).data.publicUrl
     : null;
 
-  const host = (await headers()).get("host") ?? "localhost:3000";
-  const proto = host.startsWith("localhost") ? "http" : "https";
-  const publicUrl = `${proto}://${host}/r/${order.public_token}`;
+  const publicUrl = await publicReceiptUrl(order.public_token);
+
+  /**
+   * QR บนใบเสร็จมีได้อันเดียว (เหตุผลใน ReceiptCard) เลือกตามที่มีประโยชน์กว่า:
+   *   ตั้ง PromptPay แล้ว → QR จ่ายเงินระบุยอด (FR-4.2) คือสิ่งที่ลูกค้าที่ยืนอยู่หน้าร้านต้องใช้
+   *   ยังไม่ตั้ง        → QR เปิดบิลออนไลน์ (FR-4.3) ตาม AC ของ FR-1.2
+   *                       ที่บอกว่า "ไม่ตั้ง PromptPay → ไม่โชว์ QR จ่ายเงิน แต่ยังมี QR เปิดบิลได้"
+   */
+  const qr = ws.promptpay_id
+    ? {
+        dataUrl: await receiptQr(promptPayPayload(ws.promptpay_id, toSatang(Number(order.total)))),
+        kind: "promptpay" as const,
+      }
+    : { dataUrl: await receiptQr(publicUrl, 264), kind: "bill" as const };
 
   const data: ReceiptData = {
     billNo: order.bill_no,
@@ -86,7 +88,7 @@ export default async function ReceiptPage({ params }: PageProps<"/receipt/[id]">
     change: order.change_amount === null ? null : Number(order.change_amount),
     taxEnabled: ws.tax_enabled,
     taxRate: Number(ws.tax_rate),
-    qrDataUrl,
+    qr,
   };
 
   return (
@@ -96,9 +98,15 @@ export default async function ReceiptPage({ params }: PageProps<"/receipt/[id]">
           href="/sell"
           className="flex size-11 items-center justify-center rounded-full text-on-surface transition-colors hover:bg-surface-container-low"
         >
-          <Icon name="close" label={t("sellAgain")} />
+          <Icon name="close" label={tCommon("close")} />
         </Link>
-        <h1 className="text-title-lg text-on-surface">{t("title")}</h1>
+        <h1 className="flex-1 text-title-lg text-on-surface">{t("title")}</h1>
+        <Link
+          href="/sell"
+          className="flex min-h-touch items-center rounded-full px-3 text-label-lg text-primary transition-colors hover:bg-surface-container-low"
+        >
+          {t("sellAgain")}
+        </Link>
       </header>
 
       {/* id นี้คือสิ่งที่ html-to-image จับไป render — ต้องครอบเฉพาะการ์ด ไม่รวมปุ่ม */}
