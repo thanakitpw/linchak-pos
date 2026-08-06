@@ -23,19 +23,23 @@ export default async function SettingsPage() {
   const t = await getTranslations("settings");
   const supabase = await createClient();
 
-  // RLS คืนเฉพาะร้านที่ผู้ใช้เป็นสมาชิก — ไม่ต้องกรอง workspace_id เอง
-  const { data: ws } = await supabase
-    .from("workspaces")
-    .select(
-      "name, branch, phone, logo_path, promptpay_id, promptpay_type, tax_enabled, tax_rate, language"
-    )
-    .limit(1)
-    .maybeSingle();
+  // ยิงพร้อมกัน ไม่ใช่ต่อคิว — สองอย่างนี้ไม่ขึ้นต่อกัน
+  // แต่ละ round trip ไป Supabase คือเวลาที่ผู้ใช้รอจริง จึงไม่ควรบวกกัน
+  const [{ data: ws }, { data: claims }] = await Promise.all([
+    // RLS คืนเฉพาะร้านที่ผู้ใช้เป็นสมาชิก — ไม่ต้องกรอง workspace_id เอง
+    supabase
+      .from("workspaces")
+      .select(
+        "name, branch, phone, logo_path, promptpay_id, promptpay_type, tax_enabled, tax_rate, language"
+      )
+      .limit(1)
+      .maybeSingle(),
+    // อีเมลมาจาก claims ของ session ไม่ใช่จากตาราง — เป็นข้อมูลของ auth ไม่ใช่ของร้าน
+    supabase.auth.getClaims(),
+  ]);
 
   if (!ws) notFound();
 
-  // อีเมลมาจาก claims ของ session ไม่ใช่จากตาราง — เป็นข้อมูลของ auth ไม่ใช่ของร้าน
-  const { data: claims } = await supabase.auth.getClaims();
   const email = (claims?.claims?.email as string | undefined) ?? "";
 
   // bucket `logos` เป็น public เพราะโลโก้ต้องขึ้นบนหน้าบิลที่ลูกค้าเปิดโดยไม่ล็อกอิน
