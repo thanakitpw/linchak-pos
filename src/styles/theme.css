@@ -7,7 +7,14 @@
    ⚠️ pos_design/verdant_growth/DESIGN.md STALE (radius เพี้ยน 1 ขั้น) — ไฟล์นี้แทนที่
    ============================================================================= */
 
-@theme {
+/* `static` ไม่ใช่ `@theme` เฉยๆ
+   @theme ปกติจะ tree-shake ตัวแปรที่ไม่มี utility ตัวไหนอ้างถึงออกจาก :root
+   แต่โค้ดของเราอ่าน var ตรงๆ อยู่หลายที่ซึ่ง Tailwind มองไม่เห็น:
+     - style={{ backgroundColor: "var(--color-cat-6)" }}  (inline style ไม่ถูกสแกน)
+     - getComputedStyle(...).getPropertyValue("--color-placeholder")  ใน /dev/tokens
+   ถ้าไม่ใส่ static ค่าพวกนี้จะหายไปเงียบๆ แล้วหน้าพิสูจน์จะโชว์ swatch ว่างเปล่า
+   ราคาที่จ่ายคือ ~54 บรรทัด custom property ใน :root ซึ่ง gzip แล้วแทบไม่มีผล */
+@theme static {
   /* ── 0. เคลียร์ default ของ Tailwind ────────────────────────────────────────
      เพื่อให้ class ที่พอร์ตผิดพัง "เสียงดัง" ไม่ใช่เงียบ
      เช่น `bg-slate-500`, `text-lg`, `shadow-sm`, `rounded-2xl` ต้องไม่ resolve
