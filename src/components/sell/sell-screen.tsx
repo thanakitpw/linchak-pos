@@ -3,7 +3,8 @@
 import { useCallback, useEffect, useRef, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
-import { ProductGrid, type Category, type Product } from "./product-grid";
+import { ProductGrid } from "./product-grid";
+import type { Category, Product } from "@/lib/catalog";
 import { BillPanel, type PaymentMethod } from "./bill-panel";
 import { Icon } from "@/components/ui/icon";
 import { checkout } from "@/app/(app)/sell/actions";

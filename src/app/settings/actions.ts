@@ -26,10 +26,16 @@ async function currentWorkspaceId() {
 /**
  * RLS ปฏิเสธการเขียนอยู่แล้วถ้าไม่ใช่ owner แต่ error ที่ได้จะเป็นข้อความดิบ
  * แปลงเป็นข้อความที่อ่านรู้เรื่องก่อนส่งกลับ
+ *
+ * ⚠️ ดู `error.code` ไม่ใช่แค่ `error.message` — PostgREST แยกสองอย่างนี้
+ * ข้อความของ 23505 ไม่มีเลข 23505 อยู่ในนั้นเลย การ grep หาเลขในข้อความจึงไม่เจอ
+ * (เคส RLS รอดมาได้เพราะข้อความมีคำว่า "policy" อยู่พอดี ซึ่งเป็นความบังเอิญ)
  */
-async function saveFailure(t: Awaited<ReturnType<typeof getTranslations>>, message: string) {
-  // RLS บล็อก UPDATE → PostgREST คืน 0 แถวหรือ error 42501
-  if (message.includes("42501") || message.toLowerCase().includes("policy")) {
+async function saveFailure(
+  t: Awaited<ReturnType<typeof getTranslations>>,
+  error: { code?: string; message: string }
+) {
+  if (error.code === "42501" || error.message.toLowerCase().includes("policy")) {
     return { error: t("notOwner") };
   }
   return { error: t("saveFailed") };
@@ -56,7 +62,7 @@ export async function updateStoreInfo(
     })
     .eq("id", id);
 
-  if (error) return saveFailure(t, error.message);
+  if (error) return saveFailure(t, error);
   revalidatePath("/settings");
   return { ok: t("saved") };
 }
@@ -79,7 +85,7 @@ export async function updatePromptPay(
       .from("workspaces")
       .update({ promptpay_id: null, promptpay_type: null })
       .eq("id", id);
-    if (error) return saveFailure(t, error.message);
+    if (error) return saveFailure(t, error);
     revalidatePath("/settings");
     return { ok: t("saved") };
   }
@@ -107,7 +113,7 @@ export async function updatePromptPay(
     .update({ promptpay_id: result.value, promptpay_type: type })
     .eq("id", id);
 
-  if (error) return saveFailure(t, error.message);
+  if (error) return saveFailure(t, error);
   revalidatePath("/settings");
   return { ok: t("saved") };
 }
@@ -129,7 +135,7 @@ export async function updateTax(_prev: SettingsState, formData: FormData): Promi
     })
     .eq("id", id);
 
-  if (error) return saveFailure(t, error.message);
+  if (error) return saveFailure(t, error);
   revalidatePath("/", "layout");
   return { ok: t("saved") };
 }
@@ -147,7 +153,7 @@ export async function updateLanguage(
   if (!isLocale(lang)) return { error: t("saveFailed") };
 
   const { error } = await supabase.from("workspaces").update({ language: lang }).eq("id", id);
-  if (error) return saveFailure(t, error.message);
+  if (error) return saveFailure(t, error);
 
   // FR-1.4 · เปลี่ยนภาษาแล้วต้องมีผลทันทีทุกหน้า
   // ภาษาอ่านจาก cookie จึงต้องอัปเดต cookie ด้วย ไม่ใช่แค่ในฐานข้อมูล
@@ -176,13 +182,13 @@ export async function uploadLogo(_prev: SettingsState, formData: FormData): Prom
   const { error } = await supabase.storage
     .from("logos")
     .upload(path, file, { upsert: true, contentType: file.type });
-  if (error) return saveFailure(t, error.message);
+  if (error) return saveFailure(t, error);
 
   const { error: dbError } = await supabase
     .from("workspaces")
     .update({ logo_path: path })
     .eq("id", id);
-  if (dbError) return saveFailure(t, dbError.message);
+  if (dbError) return saveFailure(t, dbError);
 
   revalidatePath("/settings");
   return { ok: t("saved") };

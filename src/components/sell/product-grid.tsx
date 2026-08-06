@@ -4,21 +4,12 @@ import { useMemo, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { Icon } from "@/components/ui/icon";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import { Chip } from "@/components/ui/chip";
 import { QuickAdd } from "./quick-add";
 import { formatTHB } from "@/lib/format";
 import { toSatang, type Satang } from "@/lib/money";
+import type { Category, Product } from "@/lib/catalog";
 import type { Locale } from "@/i18n/locales";
-import { cn } from "@/lib/utils";
-
-export type Product = {
-  id: string;
-  name: string;
-  price: number; // บาท (numeric จาก DB)
-  category_id: string | null;
-  image_url: string | null;
-};
-export type Category = { id: string; name: string; color_index: number };
 
 /**
  * ตะแกรงสินค้า — FR-3.1 (ก) แตะเลือก (ข) ค้นหา (ค) instant add
@@ -139,32 +130,3 @@ export function ProductGrid({
     </div>
   );
 }
-
-function Chip({
-  active,
-  onClick,
-  children,
-}: {
-  active: boolean;
-  onClick: () => void;
-  children: React.ReactNode;
-}) {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      aria-pressed={active}
-      className={cn(
-        "min-h-touch shrink-0 rounded-full border px-4 text-label-lg whitespace-nowrap transition-colors active:scale-95",
-        active
-          ? // #2bb14f คู่กับตัวหนังสือเขียวเข้มเท่านั้น — ตัวขาวได้ 2.80:1 ตก AA (กฎ 5)
-            "border-primary-container bg-primary-container text-on-primary-container"
-          : "border-outline-variant bg-surface-container-lowest text-on-surface"
-      )}
-    >
-      {children}
-    </button>
-  );
-}
-
-export { Button };

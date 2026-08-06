@@ -327,7 +327,7 @@ mockup มี **4 ชุดแท็บที่ต่างกัน** อี�
 | Card | 4 token เส้นขอบต่างกัน | `<Card/>` | `mobile_8` | `border-outline-variant` · `rounded-md` · `shadow-card` |
 | Product tile | 3 string | `<ProductCard/>` | `mobile_8` | `aspect-square` · fallback ใช้ `<Icon name="image"/>` |
 | KPI / stat card | 4 string (ค่าใช้ 20px บ้าง 24px บ้าง) | `<StatCard/>` | `dashboard_mobile` | ค่า = `text-headline-md tnum` · label = `text-label-sm` |
-| Chip หมวดหมู่ | 3 string · สีพื้นตอนเลือกต่างกัน | `<Chip/>` | `mobile_12` | เลือกแล้ว = `bg-primary-container text-on-primary-container` |
+| Chip หมวดหมู่ | 3 string · สีพื้นตอนเลือกต่างกัน | `<Chip/>` **`components/ui/chip.tsx`** | `mobile_12` | เลือกแล้ว = `bg-primary-container text-on-primary-container` · ใช้ทั้งหน้าขายและหน้าสินค้า |
 | Qty stepper | 3 string | `<QtyStepper/>` | `mobile_12` | `rounded-full` · ปุ่ม ≥44px · ตัวเลข `tnum` |
 | Bottom sheet | 2 string | `<Sheet/>` | `mobile_12` | มุมบน **16px** (mockup render 12px — ตั้งใจต่าง §13) |
 | Modal | 2 string | `<Dialog/>` | `mobile_11` | `rounded-lg` · `shadow-overlay` |
@@ -351,8 +351,8 @@ mockup มี **4 ชุดแท็บที่ต่างกัน** อี�
 | `mobile_12` / `tablet_split_view` | ขาย | FR-3 | ✓ | ✅ `/sell` ออกบิลได้จริง |
 | `mobile_9` / `tablet_10` | ใบเสร็จ + PromptPay QR | FR-4 | ✓ | ✅ `/receipt/[id]` + `/r/[token]` |
 | `mobile_3` / `tablet_8` | รายการบิล | FR-6.4 | ✓ | ☐ |
-| `mobile_8` / `tablet_6` | สินค้า (list) | FR-2.4 | ✓ | ☐ |
-| `mobile_10` / `tablet_4` | เพิ่มสินค้า | FR-2.2 | ✓ | ☐ |
+| `mobile_8` / `tablet_6` | สินค้า (list) | FR-2.4 | ✓ | ✅ `/products` |
+| `mobile_10` / `tablet_4` | เพิ่มสินค้า | FR-2.2 | ✓ | ✅ `/products/new` + `/products/[id]` (แก้ไข — ออกแบบใหม่) |
 | `mobile_11` / `tablet_3` | ต้นทุน (list) | FR-5.1 | ✓ | ☐ |
 | `mobile_2` / `tablet_5` | บันทึกการซื้อ | FR-5.2/5.3 | ✓ | ☐ |
 | `dashboard_mobile` / `dashboard_tablet` | สรุป | FR-6.1/6.2 | ✓ | ☐ |
@@ -363,12 +363,12 @@ mockup มี **4 ชุดแท็บที่ต่างกัน** อี�
 
 - ~~**FR-1 หน้าตั้งค่าทั้งหมด**~~ → ✅ ทำแล้วที่ `/settings` **ออกแบบใหม่ทั้งหมด ไม่มี mockup** ·
   4 หัวข้อ: ข้อมูลร้าน+โลโก้ · PromptPay (มี QR preview สด) · VAT · ภาษา
-- FR-2.1 CRUD หมวดหมู่ + สี · FR-2.3 checkbox "ราคานี้รวมภาษีแล้ว"
+- ~~FR-2.1 CRUD หมวดหมู่ + สี~~ → ✅ `/products/categories` **ออกแบบใหม่** · ~~FR-2.3 checkbox "ราคานี้รวมภาษีแล้ว"~~ → ✅ ในฟอร์มสินค้า (โผล่เฉพาะตอน VAT เปิด)
 - ~~FR-2.5 instant add ในหน้าขาย~~ → ✅ `<QuickAdd/>` ในหน้า `/sell` (mockup ไม่มี — ออกแบบใหม่)
 - ~~FR-4.6 หน้าบิล public~~ → ✅ `/r/[token]` **ออกแบบใหม่** (mockup มีแต่ปุ่ม "ดูบิลออนไลน์" ไม่มีหน้าปลายทาง) ·
   ใช้ `<ReceiptCard>` ตัวเดียวกับใบเสร็จของแม่ค้า ต่างที่ไม่มี QR ไม่มีปุ่ม ไม่มีแท็บล่าง
 - FR-0.4 หน้า trial หมดอายุ / จ่ายเงิน
-- หน้าแก้ไข (mockup มีแต่ "เพิ่ม" ทั้งสินค้าและการซื้อ)
+- หน้าแก้ไข (mockup มีแต่ "เพิ่ม") — สินค้าทำแล้ว เหลือการซื้อ
 - FR-6.2 หน้ารายงาน Daily / Monthly / Custom range (มีแค่ลิงก์ในเมนู)
 - empty state / loading / error ทุกหน้า
 - เวอร์ชันภาษาอังกฤษ (mockup hardcode ไทยทั้งหมด)

@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Field, Input } from "@/components/ui/input";
 import { Icon } from "@/components/ui/icon";
 import { quickAddProduct } from "@/app/(app)/sell/actions";
-import type { Product } from "./product-grid";
+import type { Product } from "@/lib/catalog";
 
 /**
  * FR-2.5 · instant add — กรอกแค่ชื่อกับราคา ใช้ในบิลได้ทันที
