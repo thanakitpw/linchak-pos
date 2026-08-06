@@ -14,6 +14,8 @@ schema ทั้งหมดของโปรเจค · ชื่อไฟล
 | `..._purchases_payments_audit`       | purchases, purchase_items, `create_purchase`, payments, audit_logs                              |
 | `..._storage_buckets`                | bucket 4 ตัว + policy                                                                           |
 | `..._fix_indexes_and_policy_overlap` | index บน FK + แยก policy `FOR ALL` (แก้ performance advisor)                                    |
+| `..._admin_backoffice_functions`     | `is_platform_admin` + ฟังก์ชัน `admin_*` 5 ตัว (ดูตาราง definer ด้านล่าง)                       |
+| `..._current_workspace_is_writable`  | RPC ให้ UI ถามว่าร้านตัวเองออกบิลได้ไหม (FR-0.4) — invoker ไม่ใช่ definer                       |
 
 ## คำสั่ง
 

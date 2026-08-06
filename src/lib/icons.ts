@@ -64,7 +64,7 @@ export type IconName = (typeof ICON_NAMES)[number];
  * ⚙️ ตั้งค่า อยู่ที่ top app bar (mobile) / ท้าย side nav (tablet) ไม่ใช่แท็บ
  */
 export const NAV_TABS = [
-  { key: "sell", href: "/", icon: "point_of_sale" },
+  { key: "sell", href: "/sell", icon: "point_of_sale" },
   { key: "products", href: "/products", icon: "inventory_2" },
   { key: "costs", href: "/costs", icon: "payments" },
   { key: "reports", href: "/reports", icon: "leaderboard" },

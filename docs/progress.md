@@ -11,7 +11,7 @@
 
 | ส่วน | สถานะ |
 |---|---|
-| **หน้าตา** (design system + หน้าจอ) | ✅ **6 หน้าใช้งานได้** — login, signup, reset password, ตั้งค่าร้าน, `/admin`, `/admin/stores/[id]` |
+| **หน้าตา** (design system + หน้าจอ) | ✅ **8 หน้าใช้งานได้** — auth 3 หน้า, ตั้งค่าร้าน, **ขาย**, **ใบเสร็จ**, `/admin` 2 หน้า |
 | **ฐานข้อมูล** (Supabase) | ✅ 12 ตาราง RLS ครบ + ฟังก์ชันหลังบ้าน · ทดสอบผ่าน |
 | **ระบบทำงาน** (แอปคุยกับ DB) | ✅ **auth ใช้งานได้จริงแล้ว** — สมัครผ่านหน้าเว็บ → สร้างร้าน+owner อัตโนมัติ → เข้าระบบ → เห็นข้อมูลร้านผ่าน RLS (ยืนยันด้วยบัญชีจริงแล้ว) · ฟีเจอร์อื่นยังไม่ได้ต่อ |
 
@@ -23,17 +23,16 @@ repo: **https://github.com/thanakitpw/linchak-pos** · CI เขียว · loc
 
 ## ขั้นถัดไป (เรียงตามที่ควรทำ)
 
-### 1. หน้าขาย (FR-3) ← **งานหลักถัดไป**
-mockup: `mobile_12` + `tablet_split_view` · เป็นหน้าที่ผู้ใช้อยู่นานที่สุด
-DB พร้อมแล้ว (`create_order` atomic + เลขบิลล็อกแถว) เหลือแค่ UI
+### 1. หน้าบิล public `/r/[token]` (FR-4.6) ← **งานหลักถัดไป**
+ปุ่ม "คัดลอกลิงก์" ในใบเสร็จชี้ไปที่นี่แล้ว แต่หน้ายัง 404
+DB พร้อม (`get_public_receipt` ทดสอบแล้วว่า anon เปิดได้และไม่รั่ว)
 
-### 2. ใบเสร็จ + PromptPay QR (FR-4)
-ต่อจากหน้าขาย · `/dev/receipt` พิสูจน์การ render เป็นรูปไว้แล้ว
-`promptpay.ts` พร้อมใช้ · เหลือหน้าบิล public `/r/[token]` ที่ยัง 404
-ตาม `docs/admin-backoffice.md` — **ต้องมาก่อนหน้าจอฟีเจอร์ส่วนใหญ่**
-เพราะแผนธุรกิจขายผ่าน LINE แบบรับโอนเอง ถ้าไม่มีหน้ากดเปิดบัญชี ก็รับเงินลูกค้าคนแรกไม่ได้
+### 2. หน้าสินค้า (FR-2.4) + ต้นทุน (FR-5) + สรุป (FR-6)
+สามแท็บที่เหลือ ตอนนี้เป็น `<NotPortedYet>` stub · mockup มีครบทั้งสามหน้า
+หน้าสินค้าเร่งด่วนกว่าเพื่อน — ตอนนี้เพิ่มสินค้าได้ทางเดียวคือ instant add จากหน้าขาย
+ซึ่งแก้ราคาหรือลบทีหลังไม่ได้เลย
 
-### 3. หน้าจอที่เหลืออีก 23 หน้า
+### 3. หน้าจอที่เหลืออีก 21 หน้า
 ตาราง burn-down อยู่ใน `docs/design-system.md` §12
 
 ### 4. งานเล็กที่ค้าง
@@ -83,6 +82,7 @@ migration 7 ไฟล์อยู่ใน `supabase/migrations/` ตรงก�
 | ลิงก์บิล public (FR-4.6) | `get_public_receipt(token)` แทนการเปิด RLS ให้ anon | anon อ่าน 4 ตารางได้ 0 แถว แต่ token เปิดบิลได้ 1 ใบ |
 
 ทดสอบเพิ่ม: สมัคร → สร้างร้าน+owner อัตโนมัติ ✓ · RLS แยกร้าน (A เห็น 1 จาก 2) ✓ · staff ไม่เห็นเงิน ✓
+
 ### เฟส 5 · Auth ต่อกับแอป
 
 - `@supabase/ssr` — client ฝั่ง browser / server / proxy แยกกัน 3 ไฟล์ใน `src/lib/supabase/`
@@ -128,6 +128,24 @@ migration 7 ไฟล์อยู่ใน `supabase/migrations/` ตรงก�
 
 ⚠️ **ยังไม่ทำ:** impersonate (เข้าไปดูในมุมของร้าน) · หน้าจัดการ platform admin (เพิ่มผ่าน SQL ไปก่อน)
 
+### เฟส 8 · หน้าขาย + ใบเสร็จ (FR-3, FR-4)
+
+- **หน้าขาย** `/sell` — พอร์ตจาก `mobile_12` + `tablet_split_view`
+  mobile = คอลัมน์เดียว + แถบสรุปล่าง → bottom sheet · tablet = split view (md 768px)
+  `<BillPanel>` ตัวเดียวกันทั้งสองแบบ ต่างแค่ container
+- **แท็บล่าง** ชุดตาม PRD · `/products` `/costs` `/reports` เป็น stub ไปก่อน
+- **instant add** (FR-2.5) — ร้านที่เพิ่งสมัครยังไม่มีสินค้า ถ้าบังคับไปหน้าจัดการก่อนจะออกบิลใบแรกไม่ได้สักที
+- **บิลไม่หายตอนรีเฟรช** — เก็บใน sessionStorage · ที่หน้าร้านการเผลอรีเฟรชแล้วบิล 10 รายการหายคือความเสียหายจริง
+- `src/lib/cart.ts` + **10 unit test** — แตะซ้ำ = เพิ่มจำนวน, ลดถึง 0 = ลบบรรทัด, ยอดตรงกับที่ DB คิด
+- **ใบเสร็จ** `/receipt/[id]` — QR PromptPay ระบุยอด สร้างฝั่ง server ฝังเป็น data URL ตั้งแต่ HTML แรก
+  (ถ้าโหลดทีหลังฝั่ง client จะมีจังหวะที่กดแชร์แล้วได้รูปที่ยังไม่มี QR)
+  ปุ่มแชร์/บันทึกรูป/คัดลอกลิงก์อยู่ **นอก** การ์ด ไม่งั้นติดไปในรูป
+
+**ทดสอบแล้ว:** เพิ่มสินค้า 3 ชิ้น → ออกบิล 2 รายการ ชิ้นละ 2 → `06082026-00000001`
+subtotal 210 − ส่วนลด 20 = 190 · รับ 300 → ทอน 110 ถูกทั้งหมด
+
+**migration เพิ่ม 1 ไฟล์:** `current_workspace_is_writable()` — RPC ให้ UI ถาม DB ว่าร้านออกบิลได้ไหม
+แทนที่จะคำนวณเงื่อนไข trial ซ้ำใน TypeScript (แหล่งความจริงเดียวคือ DB)
 
 ---
 
@@ -145,7 +163,8 @@ migration 7 ไฟล์อยู่ใน `supabase/migrations/` ตรงก�
 | **สร้าง user ด้วย SQL** | ล็อกอินไม่ได้ ขึ้น `Database error querying schema` — เพราะ GoTrue อ่านคอลัมน์ token ที่เป็น `NULL` เข้า Go string ไม่ได้ | ต้อง set `confirmation_token`, `recovery_token`, `email_change`, `email_change_token_new` ฯลฯ เป็น `''` ไม่ใช่ NULL · ปกติควรสมัครผ่าน Auth API ไม่ใช่ SQL |
 | **อีเมลทดสอบ** | Supabase ปฏิเสธโดเมน `.local` และ `example.com` (`email_address_invalid`) | ใช้โดเมนที่ดูจริง หรือสร้าง user ผ่าน SQL ถ้าไม่อยากให้ส่งอีเมลออก |
 | **`redirect()` กับ typedRoutes** | รับ string ที่คำนวณตอน runtime ไม่ได้ | cast `as Route` **แต่ต้องกรอง open redirect เองก่อน** (ขึ้นต้น `/` และไม่ใช่ `//`) — type ไม่ได้ให้ความปลอดภัย |
-| **`setState` ใน `useEffect`** | ESLint (react-hooks) ฟ้อง — เจอ 2 ครั้งแล้ว (swatch, QR preview) | ถ้าเป็นการ "วัด/วาดลง DOM" ให้ใช้ callback ref หรือ effect ที่เขียนลง canvas ตรงๆ · ถ้าคำนวณได้จาก props ให้ใช้ `useMemo` |
+| **`setState` ใน `useEffect`** | ESLint (react-hooks) ฟ้อง — **เจอ 3 ครั้งแล้ว** (swatch, QR preview, กู้บิลจาก sessionStorage) | ถ้าเป็นการ "อ่าน/วัด/วาด DOM หรือ storage ตอน mount" ให้ใช้ **callback ref** (ทำงานก่อน effect) · ถ้าคำนวณได้จาก props ให้ `useMemo` · effect ที่เขียนลงระบบภายนอกอย่างเดียวใช้ได้ปกติ |
+| **`Date.now()` ใน component** | ESLint กฎ purity ฟ้อง แม้ใน server component | สัญญาณว่ากำลังเขียนตรรกะซ้ำกับที่มีใน DB — ย้ายไปถาม DB แทน (เคสนี้เกิดจากคำนวณ `workspace_is_writable` ซ้ำใน TS แล้วเลยเพิ่ม RPC `current_workspace_is_writable()`) |
 | **guard `dark:` false positive** | ฟ้อง `{ dark: "#121c28" }` ที่เป็น option ของ qrcode | แก้ regex เป็น `dark:(?=\S)` — Tailwind variant ไม่มีช่องว่างหลัง colon แต่ object key ของ JS มี |
 | **Supabase CLI** | login แยกจาก MCP · `pnpm db:types` ต้อง `supabase login` ก่อน | |
 | **ลบ user** | membership cascade ไป แต่ **workspace ค้างเป็น orphan** (ไม่ได้ผูกกับ user โดยตรง) | ตั้งใจให้เป็นแบบนี้ (ประวัติการขายไม่ควรหายเพราะลบ login) แต่ยังไม่มีทางโอนความเป็นเจ้าของ — ต้องทำในหน้า `/admin` |

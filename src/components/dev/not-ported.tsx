@@ -17,8 +17,8 @@ export function NotPortedYet({ mockup }: { mockup: string }) {
     <main className="mx-auto flex min-h-dvh max-w-form flex-col items-center justify-center gap-4 p-8 text-center">
       <p className="text-title-lg text-on-surface">ยังไม่ได้พอร์ตหน้านี้</p>
       <code className="text-label-lg text-on-surface-variant">pos_design/{mockup}/screen.png</code>
-      <Link href="/login" className="text-body-md text-primary underline underline-offset-4">
-        กลับไปหน้าเข้าสู่ระบบ
+      <Link href="/sell" className="text-body-md text-primary underline underline-offset-4">
+        กลับไปหน้าขาย
       </Link>
     </main>
   );

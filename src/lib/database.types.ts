@@ -628,6 +628,7 @@ export type Database = {
         Returns: Database["public"]["Tables"]["purchases"]["Row"];
       };
       current_user_is_platform_admin: { Args: never; Returns: boolean };
+      current_workspace_is_writable: { Args: never; Returns: boolean };
       get_public_receipt: { Args: { token: string }; Returns: Json };
     };
     Enums: Record<never, never>;
