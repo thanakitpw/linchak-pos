@@ -17,34 +17,28 @@
 
 เปิด `pnpm dev` แล้วดูได้ที่ `/login`, `/dev/tokens`, `/dev/receipt`
 
+repo: **https://github.com/thanakitpw/linchak-pos** · CI เขียว · local ตรงกับ remote
+
 ---
 
 ## ขั้นถัดไป (เรียงตามที่ควรทำ)
 
-### 1. push ขึ้น GitHub — ติดอยู่ รอคุณ
-```
-! gh auth refresh -h github.com -s workflow
-```
-token ปัจจุบันมีสิทธิ์ `repo` แต่ไม่มี `workflow` จึง push ไฟล์ `.github/workflows/ci.yml` ไม่ได้
-remote ตั้งไว้แล้ว: `https://github.com/thanakitpw/linchak-pos.git` (ยังว่าง)
-commit ที่รอ push: ทั้งหมด 11 อัน
-
-### 2. ต่อ Supabase เข้ากับแอป ← **งานหลักถัดไป**
+### 1. ต่อ Supabase เข้ากับแอป ← **งานหลักถัดไป**
 - ติดตั้ง `@supabase/ssr` + สร้าง client ฝั่ง browser/server
 - `middleware.ts` refresh session (ระวัง: **ห้ามใส่ next-intl middleware** จะชนกัน — ดู CLAUDE.md ข้อ 20)
 - ต่อหน้า `/login` ให้สมัคร/เข้าสู่ระบบได้จริง
 - พอร์ตหน้า signup (`mobile_4`) + reset password (`mobile_6`) ที่ตอนนี้เป็น stub
 - seed cookie `NEXT_LOCALE` จาก `workspaces.language` ตอนล็อกอิน (FR-1.4)
 
-### 3. หน้าตั้งค่าร้าน (FR-1) — **ไม่มี mockup ต้องออกแบบใหม่**
+### 2. หน้าตั้งค่าร้าน (FR-1) — **ไม่มี mockup ต้องออกแบบใหม่**
 ช่องว่างใหญ่สุดของโปรเจค: เป็นที่ที่ลูกค้าใส่เลข PromptPay
 ถ้าไม่มีหน้านี้ ฟีเจอร์หลักของแอป (แนบ QR ในบิล) ใช้ไม่ได้เลย
 
-### 4. หลังบ้าน `/admin`
+### 3. หลังบ้าน `/admin`
 ตาม `docs/admin-backoffice.md` — **ต้องมาก่อนหน้าจอฟีเจอร์ส่วนใหญ่**
 เพราะแผนธุรกิจขายผ่าน LINE แบบรับโอนเอง ถ้าไม่มีหน้ากดเปิดบัญชี ก็รับเงินลูกค้าคนแรกไม่ได้
 
-### 5. หน้าจอที่เหลืออีก 26 หน้า
+### 4. หน้าจอที่เหลืออีก 26 หน้า
 ตาราง burn-down อยู่ใน `docs/design-system.md` §12
 
 ---
@@ -102,6 +96,8 @@ migration 7 ไฟล์อยู่ใน `supabase/migrations/` ตรงก�
 | **Tailwind สแกน mockup** | ถ้าไม่มี `source("../")` มันจะสแกน `pos_design/*.html` แล้ว emit class ที่ตายไปแล้ว ทำให้ lint จับความผิดพลาดไม่ได้ | บรรทัด `@import "tailwindcss" source("../")` ใน `globals.css` **ห้ามลบ** |
 | **dynamic class** | `text-${step}` ไม่ถูก Tailwind detect จะไม่ถูก generate | เขียน class เต็มไว้ใน lookup table |
 | **`typedRoutes`** | `<Link>` ชี้ไปหน้าที่ยังไม่พอร์ต = build error | ใช้ `<NotPortedYet mockup="…"/>` เป็น stub |
+| **`LayoutProps` / `RouteContext`** | Next generate type พวกนี้ตอน build เก็บใน `.next/` ซึ่ง gitignore ไว้ → CI เช็คเอาต์ใหม่แล้ว `tsc` พัง ทั้งที่เครื่องเราผ่าน (เพราะเคย build) | `typecheck` รัน `next typegen` ก่อนเสมอ · ทดสอบด้วยการ `rm -rf .next` แล้วรัน verify ทั้งชุด |
+| **push ไฟล์ workflow** | token GitHub ต้องมี scope `workflow` ไม่ใช่แค่ `repo` ไม่งั้น push `.github/workflows/*` ไม่ได้ | `gh auth refresh -h github.com -s workflow` |
 | **Supabase CLI** | login แยกจาก MCP · `pnpm db:types` ต้อง `supabase login` ก่อน | |
 | **ลบ user** | membership cascade ไป แต่ **workspace ค้างเป็น orphan** (ไม่ได้ผูกกับ user โดยตรง) | ตั้งใจให้เป็นแบบนี้ (ประวัติการขายไม่ควรหายเพราะลบ login) แต่ยังไม่มีทางโอนความเป็นเจ้าของ — ต้องทำในหน้า `/admin` |
 
