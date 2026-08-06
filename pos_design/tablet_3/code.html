@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+
+<html lang="th"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ต้นทุน - ระบบจัดการร้านค้า</title>
+<!-- Google Fonts: IBM Plex Sans Thai -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-background": "#121c28",
+                      "tertiary": "#57615b",
+                      "on-primary-fixed-variant": "#00531d",
+                      "secondary-fixed-dim": "#9dd3aa",
+                      "on-tertiary-fixed-variant": "#3f4944",
+                      "on-surface-variant": "#3e4a3d",
+                      "surface-container-low": "#eef4ff",
+                      "inverse-surface": "#27313e",
+                      "on-secondary-fixed-variant": "#1d5031",
+                      "secondary": "#366847",
+                      "on-secondary-container": "#3d6f4d",
+                      "background": "#f8f9ff",
+                      "surface": "#f8f9ff",
+                      "primary": "#006e29",
+                      "tertiary-fixed-dim": "#bfc9c2",
+                      "error": "#ba1a1a",
+                      "on-error-container": "#93000a",
+                      "secondary-fixed": "#b8f0c5",
+                      "error-container": "#ffdad6",
+                      "on-secondary": "#ffffff",
+                      "on-error": "#ffffff",
+                      "on-tertiary": "#ffffff",
+                      "surface-variant": "#d9e3f4",
+                      "on-primary-fixed": "#002107",
+                      "on-secondary-fixed": "#00210e",
+                      "surface-container-high": "#dfe9fa",
+                      "on-tertiary-container": "#2b3530",
+                      "surface-dim": "#d1dbec",
+                      "tertiary-container": "#939d97",
+                      "inverse-primary": "#60df77",
+                      "inverse-on-surface": "#eaf1ff",
+                      "on-primary": "#ffffff",
+                      "surface-container-highest": "#d9e3f4",
+                      "surface-container-lowest": "#ffffff",
+                      "primary-fixed": "#7dfc90",
+                      "tertiary-fixed": "#dbe5de",
+                      "outline-variant": "#bdcab9",
+                      "on-surface": "#121c28",
+                      "surface-bright": "#f8f9ff",
+                      "surface-tint": "#006e29",
+                      "outline": "#6e7b6b",
+                      "surface-container": "#e5eeff",
+                      "on-tertiary-fixed": "#151d19",
+                      "primary-container": "#2bb14f",
+                      "on-primary-container": "#003c13",
+                      "secondary-container": "#b8f0c5",
+                      "primary-fixed-dim": "#60df77"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "xs": "4px",
+                      "lg": "24px",
+                      "container-margin": "16px",
+                      "md": "16px",
+                      "sm": "8px",
+                      "xl": "32px",
+                      "unit": "4px",
+                      "gutter": "12px"
+              },
+              "fontFamily": {
+                      "label-lg": ["IBM Plex Sans Thai", "sans-serif"],
+                      "display-lg": ["IBM Plex Sans Thai", "sans-serif"],
+                      "title-lg": ["IBM Plex Sans Thai", "sans-serif"],
+                      "headline-lg": ["IBM Plex Sans Thai", "sans-serif"],
+                      "headline-md": ["IBM Plex Sans Thai", "sans-serif"],
+                      "body-md": ["IBM Plex Sans Thai", "sans-serif"],
+                      "label-sm": ["IBM Plex Sans Thai", "sans-serif"],
+                      "headline-lg-mobile": ["IBM Plex Sans Thai", "sans-serif"],
+                      "body-lg": ["IBM Plex Sans Thai", "sans-serif"]
+              },
+              "fontSize": {
+                      "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                      "display-lg": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "title-lg": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                      "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        body { font-family: 'IBM Plex Sans Thai', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .icon-fill { font-variation-settings: 'FILL' 1; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface antialiased flex flex-col min-h-screen">
+<!-- TopAppBar -->
+<header class="bg-surface dark:bg-on-background text-primary dark:text-primary-fixed docked full-width top-0 flat no shadows flex items-center justify-between px-md w-full h-16 sticky z-40 border-b border-surface-container-highest">
+<!-- Leading / Brand -->
+<div class="flex items-center gap-4">
+<button class="text-primary hover:bg-surface-container-high transition-colors p-2 rounded-full active:scale-95 duration-150 md:hidden flex items-center justify-center">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h1 class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed">ต้นทุน</h1>
+</div>
+<!-- Tablet/Desktop Navigation Cluster (Hidden on Mobile) -->
+<nav class="hidden md:flex items-center gap-2">
+<a class="px-4 py-2 rounded-full font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-high transition-colors flex items-center gap-2" href="#">
+<span class="material-symbols-outlined">home</span>
+                หน้าหลัก
+            </a>
+<a class="px-4 py-2 rounded-full font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-high transition-colors flex items-center gap-2" href="#">
+<span class="material-symbols-outlined">receipt_long</span>
+                การขาย
+            </a>
+<a class="px-4 py-2 rounded-full font-label-lg text-label-lg text-primary bg-secondary-container font-semibold transition-colors flex items-center gap-2" href="#">
+<span class="material-symbols-outlined icon-fill">inventory_2</span>
+                ต้นทุน
+            </a>
+<a class="px-4 py-2 rounded-full font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-high transition-colors flex items-center gap-2" href="#">
+<span class="material-symbols-outlined">analytics</span>
+                รายงาน
+            </a>
+</nav>
+<!-- Trailing Action -->
+<button class="text-primary hover:bg-surface-container-high transition-colors p-2 rounded-full active:scale-95 duration-150 flex items-center justify-center">
+<span class="material-symbols-outlined">filter_list</span>
+</button>
+</header>
+<!-- Main Content Area (Centered Column for Tablet) -->
+<main class="flex-grow w-full max-w-[640px] mx-auto px-container-margin py-lg pb-24 md:pb-lg relative">
+<!-- Summary Strip -->
+<div class="bg-primary-container text-on-primary-container rounded-xl p-md mb-6 shadow-sm flex flex-row items-center justify-between border border-outline-variant/20 relative overflow-hidden">
+<div class="absolute inset-0 bg-white/10 opacity-50 rounded-xl pointer-events-none"></div>
+<div>
+<p class="font-body-md text-body-md opacity-90 mb-1">ต้นทุนเดือนนี้</p>
+<p class="font-display-lg text-display-lg">฿4,250.00</p>
+</div>
+<div class="bg-white/20 p-3 rounded-full flex items-center justify-center backdrop-blur-sm">
+<span class="material-symbols-outlined text-[32px]">trending_up</span>
+</div>
+</div>
+<!-- Section Header -->
+<div class="flex justify-between items-center mb-4">
+<h2 class="font-title-lg text-title-lg text-on-surface">รายการสั่งซื้อล่าสุด</h2>
+<button class="text-primary font-label-lg text-label-lg flex items-center gap-1 hover:underline">
+                ดูทั้งหมด <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+</button>
+</div>
+<!-- Purchase List -->
+<div class="flex flex-col gap-4">
+<!-- Card 1 -->
+<div class="bg-surface-container-lowest rounded-[16px] p-4 shadow-[0px_4px_12px_rgba(0,0,0,0.02)] border border-outline-variant/30 flex items-center gap-4 hover:shadow-[0px_8px_16px_rgba(0,0,0,0.04)] transition-shadow cursor-pointer active:scale-[0.99]">
+<!-- Date/Thumbnail Box -->
+<div class="w-14 h-14 rounded-lg overflow-hidden flex-shrink-0 bg-surface-container flex flex-col items-center justify-center border border-outline-variant/20">
+<span class="font-label-sm text-label-sm text-tertiary">14 ส.ค.</span>
+<span class="font-title-lg text-title-lg text-on-surface">67</span>
+</div>
+<!-- Details -->
+<div class="flex-grow">
+<h3 class="font-title-lg text-title-lg text-on-surface truncate">แม็คโคร สาขาลาดพร้าว</h3>
+<p class="font-body-md text-body-md text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">shopping_basket</span>
+                        12 รายการ
+                    </p>
+</div>
+<!-- Total -->
+<div class="text-right flex-shrink-0">
+<p class="font-headline-md text-headline-md text-primary">฿1,850</p>
+<span class="inline-block bg-tertiary-container/20 text-tertiary px-2 py-0.5 rounded-full font-label-sm text-label-sm mt-1">ชำระแล้ว</span>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-container-lowest rounded-[16px] p-4 shadow-[0px_4px_12px_rgba(0,0,0,0.02)] border border-outline-variant/30 flex items-center gap-4 hover:shadow-[0px_8px_16px_rgba(0,0,0,0.04)] transition-shadow cursor-pointer active:scale-[0.99]">
+<!-- Image Thumbnail Example -->
+<div class="w-14 h-14 rounded-lg overflow-hidden flex-shrink-0 border border-outline-variant/20">
+<img class="w-full h-full object-cover" data-alt="A clean, minimalist vector illustration of a fresh produce market stall, featuring bright green and subtle earthy tones, set against a pristine white background. The lighting is soft and flat, emphasizing clarity and modern corporate aesthetics." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC5nhDuzepnlI2BZN5ceLO3hQ8kShrNpqbKSW85BjFo01-9i3uXQNShx2Mnjc6hrmMXX4bX8OMjYaT3M4RtCn42Rhf8SMQaXxgXvv2sL7Lp6LQiKIKYZ4gwfLwmkvSVF6XkVS3HHAJy32fYd4stvrtcExO2USw4fYCm5kmFbDaBzOZpdr8UzfuxRAPDIhTIKTVu67c-GrJNwSsfjyG4qEWEO8qakDZpAhBJnlIyk2gHDTYL9VJY3V3_"/>
+</div>
+<!-- Details -->
+<div class="flex-grow">
+<h3 class="font-title-lg text-title-lg text-on-surface truncate">ตลาดไท - เจ๊พรผักสด</h3>
+<p class="font-body-md text-body-md text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">shopping_basket</span>
+                        5 รายการ
+                    </p>
+</div>
+<!-- Total -->
+<div class="text-right flex-shrink-0">
+<p class="font-headline-md text-headline-md text-primary">฿920</p>
+<span class="inline-block bg-tertiary-container/20 text-tertiary px-2 py-0.5 rounded-full font-label-sm text-label-sm mt-1">ชำระแล้ว</span>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface-container-lowest rounded-[16px] p-4 shadow-[0px_4px_12px_rgba(0,0,0,0.02)] border border-outline-variant/30 flex items-center gap-4 hover:shadow-[0px_8px_16px_rgba(0,0,0,0.04)] transition-shadow cursor-pointer active:scale-[0.99]">
+<div class="w-14 h-14 rounded-lg overflow-hidden flex-shrink-0 bg-surface-container flex flex-col items-center justify-center border border-outline-variant/20">
+<span class="font-label-sm text-label-sm text-tertiary">12 ส.ค.</span>
+<span class="font-title-lg text-title-lg text-on-surface">67</span>
+</div>
+<div class="flex-grow">
+<h3 class="font-title-lg text-title-lg text-on-surface truncate">ร้านขายส่งแพคเกจจิ้ง</h3>
+<p class="font-body-md text-body-md text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">shopping_basket</span>
+                        3 รายการ
+                    </p>
+</div>
+<div class="text-right flex-shrink-0">
+<p class="font-headline-md text-headline-md text-primary">฿1,480</p>
+<span class="inline-block bg-error-container/50 text-error px-2 py-0.5 rounded-full font-label-sm text-label-sm mt-1">ค้างชำระ</span>
+</div>
+</div>
+</div>
+</main>
+<!-- FAB (Floating Action Button) -->
+<button class="fixed bottom-24 right-4 md:bottom-8 md:right-[calc(50%-320px+16px)] bg-primary text-on-primary w-14 h-14 rounded-2xl flex items-center justify-center shadow-[0px_4px_12px_rgba(0,0,0,0.2)] hover:shadow-[0px_8px_24px_rgba(0,0,0,0.25)] transition-all active:scale-95 z-40">
+<span class="material-symbols-outlined text-[28px]">add</span>
+</button>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden bg-surface-container-lowest dark:bg-on-background shadow-[0px_-4px_12px_rgba(0,0,0,0.05)] fixed bottom-0 w-full z-50 flex justify-around items-center px-container-margin py-2 rounded-t-xl border-t border-transparent">
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:opacity-80 active:scale-90 transition-transform w-16">
+<span class="material-symbols-outlined mb-1">home</span>
+<span class="font-label-sm text-label-sm">หน้าหลัก</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:opacity-80 active:scale-90 transition-transform w-16">
+<span class="material-symbols-outlined mb-1">receipt_long</span>
+<span class="font-label-sm text-label-sm">การขาย</span>
+</button>
+<button class="flex flex-col items-center justify-center bg-secondary-container dark:bg-on-secondary-fixed-variant text-on-secondary-container dark:text-secondary-fixed rounded-full px-4 py-1 hover:opacity-80 active:scale-90 transition-transform">
+<span class="material-symbols-outlined mb-1 icon-fill">inventory_2</span>
+<span class="font-label-sm text-label-sm font-semibold">ต้นทุน</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:opacity-80 active:scale-90 transition-transform w-16">
+<span class="material-symbols-outlined mb-1">analytics</span>
+<span class="font-label-sm text-label-sm">รายงาน</span>
+</button>
+</nav>
+</body></html>

@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+
+<html class="light" lang="th"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>บันทึกการซื้อ</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&amp;family=IBM+Plex+Sans+Thai:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<style>
+        body {
+            font-family: 'IBM Plex Sans Thai', 'IBM Plex Sans', sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.fill-icon {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-background": "#121c28",
+                    "tertiary": "#57615b",
+                    "on-primary-fixed-variant": "#00531d",
+                    "secondary-fixed-dim": "#9dd3aa",
+                    "on-tertiary-fixed-variant": "#3f4944",
+                    "on-surface-variant": "#3e4a3d",
+                    "surface-container-low": "#eef4ff",
+                    "inverse-surface": "#27313e",
+                    "on-secondary-fixed-variant": "#1d5031",
+                    "secondary": "#366847",
+                    "on-secondary-container": "#3d6f4d",
+                    "background": "#f8f9ff",
+                    "surface": "#f8f9ff",
+                    "primary": "#006e29",
+                    "tertiary-fixed-dim": "#bfc9c2",
+                    "error": "#ba1a1a",
+                    "on-error-container": "#93000a",
+                    "secondary-fixed": "#b8f0c5",
+                    "error-container": "#ffdad6",
+                    "on-secondary": "#ffffff",
+                    "on-error": "#ffffff",
+                    "on-tertiary": "#ffffff",
+                    "surface-variant": "#d9e3f4",
+                    "on-primary-fixed": "#002107",
+                    "on-secondary-fixed": "#00210e",
+                    "surface-container-high": "#dfe9fa",
+                    "on-tertiary-container": "#2b3530",
+                    "surface-dim": "#d1dbec",
+                    "tertiary-container": "#939d97",
+                    "inverse-primary": "#60df77",
+                    "inverse-on-surface": "#eaf1ff",
+                    "on-primary": "#ffffff",
+                    "surface-container-highest": "#d9e3f4",
+                    "surface-container-lowest": "#ffffff",
+                    "primary-fixed": "#7dfc90",
+                    "tertiary-fixed": "#dbe5de",
+                    "outline-variant": "#bdcab9",
+                    "on-surface": "#121c28",
+                    "surface-bright": "#f8f9ff",
+                    "surface-tint": "#006e29",
+                    "outline": "#6e7b6b",
+                    "surface-container": "#e5eeff",
+                    "on-tertiary-fixed": "#151d19",
+                    "primary-container": "#2bb14f",
+                    "on-primary-container": "#003c13",
+                    "secondary-container": "#b8f0c5",
+                    "primary-fixed-dim": "#60df77"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "xs": "4px",
+                    "lg": "24px",
+                    "container-margin": "16px",
+                    "md": "16px",
+                    "sm": "8px",
+                    "xl": "32px",
+                    "unit": "4px",
+                    "gutter": "12px"
+            },
+            "fontFamily": {
+                    "label-lg": [
+                            "IBM Plex Sans"
+                    ],
+                    "display-lg": [
+                            "IBM Plex Sans"
+                    ],
+                    "title-lg": [
+                            "IBM Plex Sans"
+                    ],
+                    "headline-lg": [
+                            "IBM Plex Sans"
+                    ],
+                    "headline-md": [
+                            "IBM Plex Sans"
+                    ],
+                    "body-md": [
+                            "IBM Plex Sans"
+                    ],
+                    "label-sm": [
+                            "IBM Plex Sans"
+                    ],
+                    "headline-lg-mobile": [
+                            "IBM Plex Sans"
+                    ],
+                    "body-lg": [
+                            "IBM Plex Sans"
+                    ]
+            },
+            "fontSize": {
+                    "label-lg": [
+                            "14px",
+                            {
+                                    "lineHeight": "20px",
+                                    "letterSpacing": "0.01em",
+                                    "fontWeight": "500"
+                            }
+                    ],
+                    "display-lg": [
+                            "40px",
+                            {
+                                    "lineHeight": "48px",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "title-lg": [
+                            "20px",
+                            {
+                                    "lineHeight": "28px",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "headline-lg": [
+                            "32px",
+                            {
+                                    "lineHeight": "40px",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "headline-md": [
+                            "24px",
+                            {
+                                    "lineHeight": "32px",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "body-md": [
+                            "16px",
+                            {
+                                    "lineHeight": "24px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "label-sm": [
+                            "12px",
+                            {
+                                    "lineHeight": "16px",
+                                    "fontWeight": "500"
+                            }
+                    ],
+                    "headline-lg-mobile": [
+                            "24px",
+                            {
+                                    "lineHeight": "32px",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "body-lg": [
+                            "18px",
+                            {
+                                    "lineHeight": "28px",
+                                    "fontWeight": "400"
+                            }
+                    ]
+            }
+    },
+        },
+      }
+    </script>
+</head>
+<body class="bg-background text-on-background antialiased min-h-screen flex flex-col items-center">
+<!-- TopAppBar -->
+<header class="bg-surface dark:bg-on-background text-primary dark:text-primary-fixed docked full-width top-0 w-full z-50 sticky shadow-sm">
+<div class="flex items-center justify-between px-md w-full h-16 max-w-[600px] mx-auto">
+<button class="p-2 -ml-2 text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-full active:scale-95 duration-150 flex items-center justify-center">
+<span class="material-symbols-outlined text-[24px]">close</span>
+</button>
+<h1 class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed">บันทึกการซื้อ</h1>
+<button class="font-label-lg text-label-lg text-primary-container font-semibold px-4 py-2 hover:bg-surface-container-high rounded-full transition-colors active:scale-95 duration-150">
+                บันทึก
+            </button>
+</div>
+</header>
+<!-- Main Content -->
+<main class="w-full max-w-[600px] px-md py-lg flex flex-col gap-lg pb-32">
+<!-- Form Section 1: Basic Info -->
+<section class="bg-surface-container-lowest p-md rounded-xl shadow-[0px_4px_12px_rgba(0,0,0,0.05)] border border-outline-variant/30 flex flex-col gap-md">
+<div class="flex flex-col gap-sm">
+<label class="font-label-lg text-label-lg text-on-surface-variant" for="date">วันที่ซื้อ</label>
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">calendar_today</span>
+<input class="w-full pl-10 pr-3 py-3 rounded-lg border border-outline-variant focus:border-primary-container focus:ring-1 focus:ring-primary-container bg-transparent font-body-md text-body-md text-on-surface outline-none transition-colors appearance-none" id="date" type="date" value="2023-10-27"/>
+</div>
+</div>
+<div class="flex flex-col gap-sm">
+<label class="font-label-lg text-label-lg text-on-surface-variant" for="vendor">ผู้ขาย / ร้านค้า (ถ้ามี)</label>
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">storefront</span>
+<input class="w-full pl-10 pr-3 py-3 rounded-lg border border-outline-variant focus:border-primary-container focus:ring-1 focus:ring-primary-container bg-transparent font-body-md text-body-md text-on-surface outline-none transition-colors" id="vendor" placeholder="เช่น ร้านเฮียชูว" type="text"/>
+</div>
+</div>
+</section>
+<!-- Form Section 2: Items -->
+<section class="bg-surface-container-lowest p-md rounded-xl shadow-[0px_4px_12px_rgba(0,0,0,0.05)] border border-outline-variant/30 flex flex-col gap-md">
+<div class="flex items-center justify-between border-b border-outline-variant/30 pb-2">
+<h2 class="font-title-lg text-title-lg text-on-background">รายการสินค้า</h2>
+<button class="text-primary-container flex items-center gap-1 font-label-lg text-label-lg hover:opacity-80 transition-opacity p-2 -mr-2 rounded-lg hover:bg-surface-container-high">
+<span class="material-symbols-outlined text-[20px]">add_circle</span>
+                    เพิ่มรายการ
+                </button>
+</div>
+<!-- Header Row for Tablet/Larger Mobile -->
+<div class="hidden sm:grid grid-cols-[2fr_1fr_1fr_1fr_auto] gap-sm px-2 font-label-sm text-label-sm text-on-surface-variant mt-2">
+<div>ชื่อสินค้า/วัตถุดิบ</div>
+<div class="text-right">จำนวน</div>
+<div class="text-right">ราคา/หน่วย</div>
+<div class="text-right">รวม</div>
+<div class="w-8"></div>
+</div>
+<div class="flex flex-col gap-md" id="item-list">
+<!-- Item 1 -->
+<div class="flex flex-col sm:grid sm:grid-cols-[2fr_1fr_1fr_1fr_auto] gap-sm items-start sm:items-center bg-surface sm:bg-transparent p-3 sm:p-2 rounded-lg border border-outline-variant/30 sm:border-none">
+<div class="w-full sm:col-span-1 flex flex-col gap-1">
+<label class="sm:hidden font-label-sm text-label-sm text-outline">ชื่อสินค้า</label>
+<input class="w-full px-3 py-2 rounded-lg border border-outline-variant focus:border-primary-container focus:ring-1 focus:ring-primary-container bg-transparent font-body-md text-body-md text-on-surface outline-none" placeholder="ชื่อสินค้า" type="text" value="เนื้อหมู"/>
+</div>
+<div class="w-full sm:col-span-1 flex flex-col gap-1">
+<label class="sm:hidden font-label-sm text-label-sm text-outline">จำนวน</label>
+<div class="relative w-full">
+<input class="w-full px-3 py-2 pr-8 rounded-lg border border-outline-variant focus:border-primary-container focus:ring-1 focus:ring-primary-container bg-transparent font-body-md text-body-md text-on-surface outline-none text-right" type="number" value="10"/>
+<span class="absolute right-3 top-1/2 -translate-y-1/2 text-outline-variant font-label-sm">กก.</span>
+</div>
+</div>
+<div class="w-full sm:col-span-1 flex flex-col gap-1">
+<label class="sm:hidden font-label-sm text-label-sm text-outline">ราคา/หน่วย</label>
+<div class="relative w-full">
+<input class="w-full px-3 py-2 pr-6 rounded-lg border border-outline-variant focus:border-primary-container focus:ring-1 focus:ring-primary-container bg-transparent font-body-md text-body-md text-on-surface outline-none text-right" type="number" value="150"/>
+<span class="absolute right-3 top-1/2 -translate-y-1/2 text-outline-variant font-label-sm">฿</span>
+</div>
+</div>
+<div class="w-full sm:col-span-1 flex items-center justify-between sm:justify-end gap-2 pt-2 sm:pt-0 border-t sm:border-none border-outline-variant/30 mt-2 sm:mt-0">
+<span class="sm:hidden font-label-sm text-label-sm text-outline">รวม</span>
+<span class="font-body-md text-body-md text-on-background font-medium">1,500 ฿</span>
+</div>
+<button class="hidden sm:flex text-outline hover:text-error transition-colors p-2 rounded-full hover:bg-error-container/20">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+<!-- Mobile delete button -->
+<button class="sm:hidden w-full text-error border border-error/50 rounded-lg py-2 mt-2 font-label-lg text-label-lg flex items-center justify-center gap-1 active:bg-error-container/20">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+                         ลบรายการนี้
+                     </button>
+</div>
+<!-- Item 2 -->
+<div class="flex flex-col sm:grid sm:grid-cols-[2fr_1fr_1fr_1fr_auto] gap-sm items-start sm:items-center bg-surface sm:bg-transparent p-3 sm:p-2 rounded-lg border border-outline-variant/30 sm:border-none">
+<div class="w-full sm:col-span-1 flex flex-col gap-1">
+<label class="sm:hidden font-label-sm text-label-sm text-outline">ชื่อสินค้า</label>
+<input class="w-full px-3 py-2 rounded-lg border border-outline-variant focus:border-primary-container focus:ring-1 focus:ring-primary-container bg-transparent font-body-md text-body-md text-on-surface outline-none" placeholder="ชื่อสินค้า" type="text" value="ผักสดรวม"/>
+</div>
+<div class="w-full sm:col-span-1 flex flex-col gap-1">
+<label class="sm:hidden font-label-sm text-label-sm text-outline">จำนวน</label>
+<div class="relative w-full">
+<input class="w-full px-3 py-2 pr-8 rounded-lg border border-outline-variant focus:border-primary-container focus:ring-1 focus:ring-primary-container bg-transparent font-body-md text-body-md text-on-surface outline-none text-right" type="number" value="5"/>
+<span class="absolute right-3 top-1/2 -translate-y-1/2 text-outline-variant font-label-sm">ถุง</span>
+</div>
+</div>
+<div class="w-full sm:col-span-1 flex flex-col gap-1">
+<label class="sm:hidden font-label-sm text-label-sm text-outline">ราคา/หน่วย</label>
+<div class="relative w-full">
+<input class="w-full px-3 py-2 pr-6 rounded-lg border border-outline-variant focus:border-primary-container focus:ring-1 focus:ring-primary-container bg-transparent font-body-md text-body-md text-on-surface outline-none text-right" type="number" value="50"/>
+<span class="absolute right-3 top-1/2 -translate-y-1/2 text-outline-variant font-label-sm">฿</span>
+</div>
+</div>
+<div class="w-full sm:col-span-1 flex items-center justify-between sm:justify-end gap-2 pt-2 sm:pt-0 border-t sm:border-none border-outline-variant/30 mt-2 sm:mt-0">
+<span class="sm:hidden font-label-sm text-label-sm text-outline">รวม</span>
+<span class="font-body-md text-body-md text-on-background font-medium">250 ฿</span>
+</div>
+<button class="hidden sm:flex text-outline hover:text-error transition-colors p-2 rounded-full hover:bg-error-container/20">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+<!-- Mobile delete button -->
+<button class="sm:hidden w-full text-error border border-error/50 rounded-lg py-2 mt-2 font-label-lg text-label-lg flex items-center justify-center gap-1 active:bg-error-container/20">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+                         ลบรายการนี้
+                     </button>
+</div>
+</div>
+<!-- Add New Item Row (Empty) -->
+<div class="hidden sm:grid grid-cols-[2fr_1fr_1fr_1fr_auto] gap-sm items-center mt-2 opacity-50 hover:opacity-100 transition-opacity">
+<input class="w-full px-3 py-2 rounded-lg border border-outline-variant focus:border-primary-container focus:ring-1 focus:ring-primary-container bg-surface font-body-md text-body-md text-on-surface outline-none" placeholder="ชื่อสินค้า/วัตถุดิบ" type="text"/>
+<input class="w-full px-3 py-2 rounded-lg border border-outline-variant focus:border-primary-container focus:ring-1 focus:ring-primary-container bg-surface font-body-md text-body-md text-on-surface outline-none text-right" placeholder="จำนวน" type="number"/>
+<input class="w-full px-3 py-2 rounded-lg border border-outline-variant focus:border-primary-container focus:ring-1 focus:ring-primary-container bg-surface font-body-md text-body-md text-on-surface outline-none text-right" placeholder="ราคา/หน่วย" type="number"/>
+<div class="text-right text-outline-variant font-body-md">-</div>
+<div class="w-10"></div>
+</div>
+</section>
+<!-- Form Section 3: Extra Info & Total -->
+<section class="bg-surface-container-lowest p-md rounded-xl shadow-[0px_4px_12px_rgba(0,0,0,0.05)] border border-outline-variant/30 flex flex-col gap-lg">
+<div class="flex flex-col gap-sm">
+<label class="font-label-lg text-label-lg text-on-surface-variant">แนบรูปใบเสร็จ (ถ้ามี)</label>
+<div class="border-2 border-dashed border-outline-variant rounded-xl p-md flex flex-col items-center justify-center gap-2 bg-surface hover:bg-surface-container-high transition-colors cursor-pointer group">
+<div class="w-12 h-12 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined">add_a_photo</span>
+</div>
+<span class="font-label-lg text-label-lg text-primary text-center">แตะเพื่อถ่ายรูป หรือ เลือกจากแกลเลอรี</span>
+</div>
+</div>
+<div class="flex flex-col gap-sm">
+<label class="font-label-lg text-label-lg text-on-surface-variant" for="notes">หมายเหตุ (เพิ่มเติม)</label>
+<textarea class="w-full p-3 rounded-lg border border-outline-variant focus:border-primary-container focus:ring-1 focus:ring-primary-container bg-transparent font-body-md text-body-md text-on-surface outline-none resize-none" id="notes" placeholder="รายละเอียดเพิ่มเติม..." rows="2"></textarea>
+</div>
+<div class="bg-secondary-container/30 p-md rounded-xl border border-secondary/20 flex items-center justify-between mt-2">
+<span class="font-title-lg text-title-lg text-on-background">ยอดรวมทั้งหมด</span>
+<span class="font-display-lg text-display-lg text-primary font-bold">1,750 <span class="font-headline-lg text-headline-lg">฿</span></span>
+</div>
+</section>
+</main>
+<!-- Bottom Fixed Actions (Optional on Tablet, useful on Mobile) -->
+<div class="fixed bottom-0 left-0 w-full bg-surface-container-lowest border-t border-outline-variant/20 p-md shadow-[0px_-4px_12px_rgba(0,0,0,0.05)] z-40">
+<div class="max-w-[600px] mx-auto flex gap-md">
+<button class="flex-1 py-3 px-4 rounded-full border border-outline text-on-surface font-label-lg text-label-lg font-semibold text-center hover:bg-surface-container-high active:bg-surface-variant transition-colors duration-200">
+                ยกเลิก
+            </button>
+<button class="flex-[2] py-3 px-4 rounded-full bg-primary-container text-on-primary font-label-lg text-label-lg font-semibold text-center hover:bg-primary hover:shadow-md active:scale-[0.98] transition-all duration-200 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">save</span>
+                บันทึกรายการ
+            </button>
+</div>
+</div>
+</body></html>

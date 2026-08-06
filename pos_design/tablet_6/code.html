@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+
+<html class="light" lang="th"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Product List</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-variant": "#d9e3f4",
+                        "on-secondary-container": "#3d6f4d",
+                        "primary-fixed-dim": "#60df77",
+                        "inverse-primary": "#60df77",
+                        "secondary-container": "#b8f0c5",
+                        "on-tertiary-fixed-variant": "#3f4944",
+                        "surface-container-low": "#eef4ff",
+                        "secondary-fixed-dim": "#9dd3aa",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-fixed-variant": "#1d5031",
+                        "surface-container-highest": "#d9e3f4",
+                        "on-secondary": "#ffffff",
+                        "on-surface": "#121c28",
+                        "inverse-on-surface": "#eaf1ff",
+                        "on-error-container": "#93000a",
+                        "tertiary-fixed-dim": "#bfc9c2",
+                        "primary-fixed": "#7dfc90",
+                        "surface-dim": "#d1dbec",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-fixed": "#151d19",
+                        "surface-bright": "#f8f9ff",
+                        "outline-variant": "#bdcab9",
+                        "primary": "#006e29",
+                        "error-container": "#ffdad6",
+                        "on-primary-fixed-variant": "#00531d",
+                        "surface-tint": "#006e29",
+                        "on-primary-fixed": "#002107",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-fixed": "#00210e",
+                        "error": "#ba1a1a",
+                        "surface-container": "#e5eeff",
+                        "outline": "#6e7b6b",
+                        "secondary": "#366847",
+                        "secondary-fixed": "#b8f0c5",
+                        "surface-container-high": "#dfe9fa",
+                        "surface": "#f8f9ff",
+                        "primary-container": "#2bb14f",
+                        "tertiary-fixed": "#dbe5de",
+                        "background": "#f8f9ff",
+                        "tertiary-container": "#939d97",
+                        "on-surface-variant": "#3e4a3d",
+                        "tertiary": "#57615b",
+                        "on-tertiary-container": "#2b3530",
+                        "inverse-surface": "#27313e",
+                        "on-primary-container": "#003c13",
+                        "on-background": "#121c28",
+                        "on-error": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "sm": "8px",
+                        "xs": "4px",
+                        "lg": "24px",
+                        "gutter": "12px",
+                        "container-margin": "16px",
+                        "unit": "4px",
+                        "md": "16px",
+                        "xl": "32px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["IBM Plex Sans"],
+                        "label-lg": ["IBM Plex Sans"],
+                        "body-lg": ["IBM Plex Sans"],
+                        "display-lg": ["IBM Plex Sans"],
+                        "title-lg": ["IBM Plex Sans"],
+                        "headline-lg-mobile": ["IBM Plex Sans"],
+                        "body-md": ["IBM Plex Sans"],
+                        "label-sm": ["IBM Plex Sans"],
+                        "headline-lg": ["IBM Plex Sans"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "display-lg": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "title-lg": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col pb-[80px]">
+<!-- Top App Bar -->
+<header class="w-full top-0 sticky z-50 bg-surface flex items-center justify-between px-md h-16 w-full">
+<button class="text-on-surface-variant p-2 active:scale-95 transition-transform duration-150 hover:bg-surface-container-high rounded-full">
+<span class="material-symbols-outlined">filter_list</span>
+</button>
+<h1 class="font-headline-md text-headline-md font-bold text-primary">สินค้า</h1>
+<button class="text-on-surface-variant p-2 active:scale-95 transition-transform duration-150 hover:bg-surface-container-high rounded-full">
+<span class="material-symbols-outlined">sort</span>
+</button>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow w-full max-w-[1120px] mx-auto px-container-margin py-md">
+<!-- Search & Chips -->
+<div class="mb-lg space-y-md">
+<!-- Search Bar -->
+<div class="relative w-full max-w-md mx-auto">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full pl-[48px] pr-4 py-3 bg-surface-container-lowest border border-outline-variant rounded-full text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary font-body-md text-body-md transition-colors placeholder:text-on-surface-variant/60" placeholder="ค้นหาสินค้า" type="text"/>
+</div>
+<!-- Category Chips -->
+<div class="flex overflow-x-auto no-scrollbar gap-sm py-1 -mx-container-margin px-container-margin md:mx-0 md:px-0">
+<button class="whitespace-nowrap px-4 py-2 rounded-full bg-primary-container text-on-primary font-label-lg text-label-lg transition-colors shadow-sm">ทั้งหมด</button>
+<button class="whitespace-nowrap px-4 py-2 rounded-full bg-surface-container-low text-on-surface border border-outline-variant hover:bg-surface-variant transition-colors font-label-lg text-label-lg">เครื่องดื่ม</button>
+<button class="whitespace-nowrap px-4 py-2 rounded-full bg-surface-container-low text-on-surface border border-outline-variant hover:bg-surface-variant transition-colors font-label-lg text-label-lg">ขนมขบเคี้ยว</button>
+<button class="whitespace-nowrap px-4 py-2 rounded-full bg-surface-container-low text-on-surface border border-outline-variant hover:bg-surface-variant transition-colors font-label-lg text-label-lg">ของใช้</button>
+<button class="whitespace-nowrap px-4 py-2 rounded-full bg-surface-container-low text-on-surface border border-outline-variant hover:bg-surface-variant transition-colors font-label-lg text-label-lg">อาหารแห้ง</button>
+</div>
+</div>
+<!-- Product Grid -->
+<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-md">
+<!-- Card 1 -->
+<div class="bg-surface-container-lowest border border-surface-variant rounded-xl overflow-hidden hover:shadow-[0px_4px_12px_rgba(0,0,0,0.05)] transition-shadow group relative flex flex-col">
+<div class="aspect-square w-full bg-surface-container-high relative overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="A beautifully lit close-up of a refreshing iced green tea in a clear plastic cup on a clean white surface. Soft natural light, modern clean background, corporate professional aesthetic, hinting at growth and freshness. A subtle primary green accent color in the styling." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCcEF-zLqMDhAb84zg4s0ccbOrkIsUz0ZxlzT9uxVrayZX16UNX47LKvxZe4jGmfvOHCk8iOgvXB1HttVntVEDjzfmFayg1Wr8036eRMw82mMdQFr8YDku2oxdy25gArtxqHMErFdg_FK6NRjfSyU7A1ZqiVNAbs82l9D0eDxtGylOJHiMotnwRe-FAecxbx5nenswxjAwQhA8CadktPRljsZSrTpxN1qtghn3C9CsqcMCqbK3zE2eK"/>
+<div class="absolute top-2 right-2 w-3 h-3 rounded-full bg-primary" title="Category Color"></div>
+</div>
+<div class="p-sm flex flex-col flex-grow justify-between">
+<div>
+<h3 class="font-body-md text-body-md text-on-surface line-clamp-2 mb-1">ชาเขียวเย็น</h3>
+</div>
+<div class="font-title-lg text-title-lg text-primary mt-2">฿35.00</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-container-lowest border border-surface-variant rounded-xl overflow-hidden hover:shadow-[0px_4px_12px_rgba(0,0,0,0.05)] transition-shadow group relative flex flex-col">
+<div class="aspect-square w-full bg-surface-container-high relative overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="A clean, minimalist shot of a fresh hot coffee cup with a professional lid, placed on a crisp white counter. The lighting is bright and evenly distributed, creating a modern, airy feel. Accents of deep green provide a corporate yet welcoming touch, perfect for a high-utility market app." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRfNXYc7UMZsL3JPXDr3thG8OcfjLzUglw0kaSqvTWc728U5kvMdm5R9-2Lls6DxclXsqq2p3w9iCK2ZJa_fVrpUyKYpGAOVcVicz8P2WzMoC2hQb9lI1m5fRaAmbW8ft0oDs6RL_cZQWnHM4HBwox3lKam6s-HpPVWNUzvzsDvdp-D973E5uoqn0gp37WNxNSSSbiORdidioBCn-Zeny2mBu1-9txccZ3BYudRxEtT-ZCKwHabdX-"/>
+<div class="absolute top-2 right-2 w-3 h-3 rounded-full bg-primary" title="Category Color"></div>
+</div>
+<div class="p-sm flex flex-col flex-grow justify-between">
+<div>
+<h3 class="font-body-md text-body-md text-on-surface line-clamp-2 mb-1">กาแฟร้อน</h3>
+</div>
+<div class="font-title-lg text-title-lg text-primary mt-2">฿40.00</div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface-container-lowest border border-surface-variant rounded-xl overflow-hidden hover:shadow-[0px_4px_12px_rgba(0,0,0,0.05)] transition-shadow group relative flex flex-col">
+<div class="aspect-square w-full bg-surface-container-high relative overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="A neat stack of generic, unbranded snack bags on a sterile, minimalist shelf. The environment is highly professional with bright, diffuse lighting and a subtle hint of primary green in the background to convey reliability and structure in a retail setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBCDMnD8iJtACIaixj09vV4QobBKL-oo6AWggL6wezMlWxl3ZFet1kqGafAt9acn9fZOrBkKcQTj3TcSr6jyhzklwKrBPDCt690N5NBZ4HScasZp56XJSYgBRg_0xygMpoGXVrvlCs3rKjyZp06cgalUvIOha_t-hGu9aR0A5jTbUr_QxiSBk6lmHAZLMpu0isFG-rRrJOjnnke-MgTOPClOnQNmZWSq2Yvz7h393QDvucDlj7wIzxf"/>
+<div class="absolute top-2 right-2 w-3 h-3 rounded-full bg-secondary" title="Category Color"></div>
+</div>
+<div class="p-sm flex flex-col flex-grow justify-between">
+<div>
+<h3 class="font-body-md text-body-md text-on-surface line-clamp-2 mb-1">มันฝรั่งทอดกรอบ รสออริจินัล ขนาดใหญ่พิเศษ</h3>
+</div>
+<div class="font-title-lg text-title-lg text-primary mt-2">฿25.00</div>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="bg-surface-container-lowest border border-surface-variant rounded-xl overflow-hidden hover:shadow-[0px_4px_12px_rgba(0,0,0,0.05)] transition-shadow group relative flex flex-col">
+<div class="aspect-square w-full bg-surface-container-high relative overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="A pristine bottle of clear mineral water standing on a white surface, lit by soft, pure daylight. The aesthetic is extremely clean and minimalist, conveying hydration and purity, with soft shadows and a very subtle corporate green hue reflected in the glass." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC17Ww0d6VBfGzPmY7c1UzpF4lUAEUYtBphrokaTI9Fyd2tIj_DM0rnFkTIbZ7lcb_2dnDgCKSdS7EiTtH039oS2edXmbD7XhfOqQSmWsU58mG6UY_ZBWthkaJcFetASREunDcbanM-iIKTfYiopko34gNuHIKgeo5IBVPezDIV-KwPAR1KSvFh7tmHJmeBxWvxtXiNAXGduKS4cCWbEE596dLZ3sjC1PQArjI6javRoNeG-p8tufyB"/>
+<div class="absolute top-2 right-2 w-3 h-3 rounded-full bg-primary" title="Category Color"></div>
+</div>
+<div class="p-sm flex flex-col flex-grow justify-between">
+<div>
+<h3 class="font-body-md text-body-md text-on-surface line-clamp-2 mb-1">น้ำดื่มบริสุทธิ์</h3>
+</div>
+<div class="font-title-lg text-title-lg text-primary mt-2">฿10.00</div>
+</div>
+</div>
+<!-- Card 5 -->
+<div class="bg-surface-container-lowest border border-surface-variant rounded-xl overflow-hidden hover:shadow-[0px_4px_12px_rgba(0,0,0,0.05)] transition-shadow group relative flex flex-col">
+<div class="aspect-square w-full bg-surface-container-high relative overflow-hidden flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined text-[48px] opacity-50">image</span>
+<div class="absolute top-2 right-2 w-3 h-3 rounded-full bg-tertiary" title="Category Color"></div>
+</div>
+<div class="p-sm flex flex-col flex-grow justify-between">
+<div>
+<h3 class="font-body-md text-body-md text-on-surface line-clamp-2 mb-1">สบู่ก้อน</h3>
+</div>
+<div class="font-title-lg text-title-lg text-primary mt-2">฿15.00</div>
+</div>
+</div>
+<!-- Card 6 -->
+<div class="bg-surface-container-lowest border border-surface-variant rounded-xl overflow-hidden hover:shadow-[0px_4px_12px_rgba(0,0,0,0.05)] transition-shadow group relative flex flex-col">
+<div class="aspect-square w-full bg-surface-container-high relative overflow-hidden flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined text-[48px] opacity-50">image</span>
+<div class="absolute top-2 right-2 w-3 h-3 rounded-full bg-secondary" title="Category Color"></div>
+</div>
+<div class="p-sm flex flex-col flex-grow justify-between">
+<div>
+<h3 class="font-body-md text-body-md text-on-surface line-clamp-2 mb-1">ลูกอมรสมินต์ (แพ็ค)</h3>
+</div>
+<div class="font-title-lg text-title-lg text-primary mt-2">฿20.00</div>
+</div>
+</div>
+</div>
+</main>
+<!-- FAB -->
+<button class="fixed bottom-[96px] right-container-margin w-14 h-14 bg-primary-container text-on-primary rounded-2xl flex items-center justify-center shadow-[0px_4px_12px_rgba(0,0,0,0.15)] hover:bg-primary-fixed transition-colors active:scale-95 z-40">
+<span class="material-symbols-outlined text-[28px]">add</span>
+</button>
+<!-- Bottom Nav Bar -->
+<nav class="fixed bottom-0 w-full z-50 flex justify-around items-center px-gutter py-sm shadow-[0px_-4px_12px_rgba(0,0,0,0.05)] bg-surface rounded-t-xl md:hidden border-t border-surface-variant/50">
+<!-- Inactive -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-variant transition-colors active:scale-90 duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined mb-1">point_of_sale</span>
+<span class="font-label-sm text-label-sm">ขาย</span>
+</a>
+<!-- Active -->
+<a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-4 py-1 hover:bg-surface-variant transition-colors active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 1;">inventory_2</span>
+<span class="font-label-sm text-label-sm">สินค้า</span>
+</a>
+<!-- Inactive -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-variant transition-colors active:scale-90 duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined mb-1">payments</span>
+<span class="font-label-sm text-label-sm">ต้นทุน</span>
+</a>
+<!-- Inactive -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-variant transition-colors active:scale-90 duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined mb-1">leaderboard</span>
+<span class="font-label-sm text-label-sm">สรุป</span>
+</a>
+</nav>
+</body></html>

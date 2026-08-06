@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+
+<html lang="th"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>POS Design System Style Guide</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+                "surface-dim": "#d1dbec",
+                "on-secondary-fixed-variant": "#1d5031",
+                "on-tertiary": "#ffffff",
+                "surface-variant": "#d9e3f4",
+                "primary-fixed": "#7dfc90",
+                "on-tertiary-container": "#2b3530",
+                "on-tertiary-fixed-variant": "#3f4944",
+                "surface-container-low": "#eef4ff",
+                "error-container": "#ffdad6",
+                "on-tertiary-fixed": "#151d19",
+                "surface": "#f8f9ff",
+                "primary-fixed-dim": "#60df77",
+                "surface-container": "#e5eeff",
+                "surface-container-high": "#dfe9fa",
+                "surface-bright": "#f8f9ff",
+                "outline-variant": "#bdcab9",
+                "inverse-on-surface": "#eaf1ff",
+                "on-secondary": "#ffffff",
+                "on-primary": "#ffffff",
+                "on-primary-fixed": "#002107",
+                "on-secondary-fixed": "#00210e",
+                "outline": "#6e7b6b",
+                "secondary-fixed": "#b8f0c5",
+                "secondary": "#366847",
+                "on-background": "#121c28",
+                "surface-container-highest": "#d9e3f4",
+                "on-error": "#ffffff",
+                "inverse-primary": "#60df77",
+                "on-primary-container": "#003c13",
+                "on-primary-fixed-variant": "#00531d",
+                "secondary-container": "#b8f0c5",
+                "tertiary-container": "#939d97",
+                "secondary-fixed-dim": "#9dd3aa",
+                "tertiary-fixed": "#dbe5de",
+                "on-surface-variant": "#3e4a3d",
+                "inverse-surface": "#27313e",
+                "primary": "#006e29",
+                "surface-container-lowest": "#ffffff",
+                "surface-tint": "#006e29",
+                "on-secondary-container": "#3d6f4d",
+                "primary-container": "#2bb14f",
+                "background": "#f8f9ff",
+                "tertiary-fixed-dim": "#bfc9c2",
+                "on-surface": "#121c28",
+                "on-error-container": "#93000a",
+                "tertiary": "#57615b",
+                "error": "#ba1a1a"
+        },
+        "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+        },
+        "spacing": {
+                "lg": "24px",
+                "md": "16px",
+                "container-margin": "16px",
+                "sm": "8px",
+                "xl": "32px",
+                "unit": "4px",
+                "xs": "4px",
+                "gutter": "12px",
+                "margin-mobile": "16px",
+                "margin-desktop": "64px",
+                "touch_target_min": "48px"
+        },
+        "fontFamily": {
+                "headline-md": [
+                        "IBM Plex Sans"
+                ],
+                "display-lg": [
+                        "IBM Plex Sans"
+                ],
+                "body-lg": [
+                        "IBM Plex Sans"
+                ],
+                "headline-lg": [
+                        "IBM Plex Sans"
+                ],
+                "label-lg": [
+                        "IBM Plex Sans"
+                ],
+                "headline-lg-mobile": [
+                        "IBM Plex Sans"
+                ],
+                "body-md": [
+                        "IBM Plex Sans"
+                ],
+                "label-sm": [
+                        "IBM Plex Sans"
+                ],
+                "title-lg": [
+                        "IBM Plex Sans"
+                ],
+                "label-md": [
+                        "IBM Plex Sans"
+                ]
+        },
+        "fontSize": {
+                "headline-md": [
+                        "24px",
+                        {
+                                "lineHeight": "32px",
+                                "fontWeight": "600"
+                        }
+                ],
+                "display-lg": [
+                        "40px",
+                        {
+                                "lineHeight": "48px",
+                                "letterSpacing": "-0.02em",
+                                "fontWeight": "700"
+                        }
+                ],
+                "body-lg": [
+                        "18px",
+                        {
+                                "lineHeight": "28px",
+                                "fontWeight": "400"
+                        }
+                ],
+                "headline-lg": [
+                        "32px",
+                        {
+                                "lineHeight": "40px",
+                                "fontWeight": "600"
+                        }
+                ],
+                "label-lg": [
+                        "14px",
+                        {
+                                "lineHeight": "20px",
+                                "letterSpacing": "0.01em",
+                                "fontWeight": "500"
+                        }
+                ],
+                "headline-lg-mobile": [
+                        "24px",
+                        {
+                                "lineHeight": "32px",
+                                "fontWeight": "600"
+                        }
+                ],
+                "body-md": [
+                        "16px",
+                        {
+                                "lineHeight": "24px",
+                                "fontWeight": "400"
+                        }
+                ],
+                "label-sm": [
+                        "12px",
+                        {
+                                "lineHeight": "16px",
+                                "fontWeight": "500"
+                        }
+                ],
+                "title-lg": [
+                        "20px",
+                        {
+                                "lineHeight": "28px",
+                                "fontWeight": "600"
+                        }
+                ],
+                "label-md": [
+                        "14px",
+                        {
+                                "lineHeight": "20px",
+                                "letterSpacing": "0.01em",
+                                "fontWeight": "500"
+                        }
+                ]
+        }
+},
+    },
+  }
+</script>
+<style>
+        body { font-family: 'IBM Plex Sans', sans-serif; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-background pb-24 font-body-md">
+<!-- Top App Bar -->
+<header class="flex justify-between items-center px-margin-mobile h-touch_target_min w-full max-w-7xl mx-auto border-b border-outline-variant bg-surface dark:bg-surface-dim docked full-width top-0 sticky z-10">
+<h1 class="font-headline-md text-headline-md text-primary dark:text-primary-fixed">บันทึกยอดขาย</h1>
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-on-surface-variant">settings</span>
+<span class="material-symbols-outlined text-on-surface-variant">help_outline</span>
+</div>
+</header>
+<main class="p-margin-mobile max-w-md mx-auto space-y-xl">
+<!-- Header -->
+<div>
+<h1 class="font-headline-md text-headline-md text-on-background mb-2">POS Design System</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Style guide for micro-merchants POS application.</p>
+</div>
+<!-- 1. Color Swatches -->
+<section class="bg-surface-container-lowest rounded-xl border border-outline-variant p-md">
+<h2 class="font-body-lg text-body-lg text-on-background mb-4 font-semibold">1. Colors</h2>
+<div class="grid grid-cols-2 gap-4">
+<div class="space-y-2">
+<div class="h-16 rounded-lg bg-background border border-outline-variant shadow-sm"></div>
+<p class="font-label-md text-label-md">Background</p>
+<p class="font-label-sm text-label-sm font-normal text-on-surface-variant">#F8F9FF</p>
+</div>
+<div class="space-y-2">
+<div class="h-16 rounded-lg bg-primary border border-outline-variant shadow-sm"></div>
+<p class="font-label-md text-label-md">Primary (Brand)</p>
+<p class="font-label-sm text-label-sm font-normal text-on-surface-variant">#006E29</p>
+</div>
+<div class="space-y-2">
+<div class="h-16 rounded-lg bg-primary-container border border-outline-variant shadow-sm"></div>
+<p class="font-label-md text-label-md">Accent</p>
+<p class="font-label-sm text-label-sm font-normal text-on-surface-variant">#2BB14F</p>
+</div>
+<div class="space-y-2">
+<div class="h-16 rounded-lg bg-on-background border border-outline-variant shadow-sm"></div>
+<p class="font-label-md text-label-md">Text</p>
+<p class="font-label-sm text-label-sm font-normal text-on-surface-variant">#121C28</p>
+</div>
+<div class="space-y-2">
+<div class="h-16 rounded-lg bg-primary border border-outline-variant shadow-sm"></div>
+<p class="font-label-md text-label-md">Success</p>
+</div>
+<div class="space-y-2">
+<div class="h-16 rounded-lg bg-[#F59E0B] border border-outline-variant shadow-sm"></div>
+<p class="font-label-md text-label-md">Warning</p>
+</div>
+<div class="space-y-2">
+<div class="h-16 rounded-lg bg-error border border-outline-variant shadow-sm"></div>
+<p class="font-label-md text-label-md">Error</p>
+</div>
+</div>
+</section>
+<!-- 2. Typography -->
+<section class="bg-surface-container-lowest rounded-xl border border-outline-variant p-md space-y-4">
+<h2 class="font-body-lg text-body-lg text-on-background font-semibold">2. Typography</h2>
+<div class="space-y-4">
+<div>
+<p class="font-headline-lg text-headline-lg text-on-background tabular-nums">฿1,250.00</p>
+<p class="font-label-sm text-label-sm font-normal text-on-surface-variant">Display Total (32px, Bold, Tabular)</p>
+</div>
+<div>
+<p class="font-headline-md text-headline-md text-on-background">Heading 1</p>
+<p class="font-label-sm text-label-sm font-normal text-on-surface-variant">H1 (24px, Semibold)</p>
+</div>
+<div>
+<p class="font-body-lg text-body-lg text-on-background font-semibold">Heading 2</p>
+<p class="font-label-sm text-label-sm font-normal text-on-surface-variant">H2 (18px, Semibold)</p>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-background">Button Text</p>
+<p class="font-label-sm text-label-sm font-normal text-on-surface-variant">Button (14px, Medium)</p>
+</div>
+<div>
+<p class="font-body-md text-body-md text-on-background">Body text goes here.</p>
+<p class="font-label-sm text-label-sm font-normal text-on-surface-variant">Body (16px, Regular)</p>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-background">Label Text</p>
+<p class="font-label-sm text-label-sm font-normal text-on-surface-variant">Label (14px, Medium)</p>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-on-background font-normal">Caption text.</p>
+<p class="font-label-sm text-label-sm font-normal text-on-surface-variant">Caption (12px, Regular)</p>
+</div>
+</div>
+</section>
+<!-- 3. Buttons -->
+<section class="bg-surface-container-lowest rounded-xl border border-outline-variant p-md space-y-6">
+<h2 class="font-body-lg text-body-lg text-on-background font-semibold">3. Buttons</h2>
+<!-- Primary -->
+<div class="space-y-2">
+<p class="font-label-md text-label-md text-on-surface-variant">Primary</p>
+<button class="w-full h-touch_target_min bg-primary text-on-primary font-label-md text-label-md rounded-xl flex items-center justify-center">Calculate / Pay</button>
+<button class="w-full h-touch_target_min bg-primary/80 text-on-primary font-label-md text-label-md rounded-xl flex items-center justify-center scale-95 transition-transform">Pressed State</button>
+<button class="w-full h-touch_target_min bg-surface-variant text-on-surface-variant/50 font-label-md text-label-md rounded-xl flex items-center justify-center cursor-not-allowed">Disabled</button>
+</div>
+<!-- Secondary -->
+<div class="space-y-2">
+<p class="font-label-md text-label-md text-on-surface-variant">Secondary</p>
+<button class="w-full h-touch_target_min bg-surface-container-lowest border border-outline-variant text-on-background font-label-md text-label-md rounded-xl flex items-center justify-center">Add Note</button>
+</div>
+<!-- Destructive -->
+<div class="space-y-2">
+<p class="font-label-md text-label-md text-on-surface-variant">Destructive</p>
+<button class="w-full h-touch_target_min bg-error text-on-error font-label-md text-label-md rounded-xl flex items-center justify-center">Void Bill</button>
+</div>
+<!-- Text Button -->
+<div class="space-y-2">
+<p class="font-label-md text-label-md text-on-surface-variant">Text Button</p>
+<button class="h-touch_target_min text-primary font-label-md text-label-md px-4 rounded-xl flex items-center justify-center hover:bg-surface-container-low">View Details</button>
+</div>
+</section>
+<!-- 4. Form Inputs -->
+<section class="bg-surface-container-lowest rounded-xl border border-outline-variant p-md space-y-6">
+<h2 class="font-body-lg text-body-lg text-on-background font-semibold">4. Form Inputs &amp; Interactions</h2>
+<!-- Text Input -->
+<div class="space-y-1">
+<label class="font-label-md text-label-md text-on-background block">Item Name</label>
+<input class="w-full h-touch_target_min border border-outline-variant rounded-xl px-4 font-body-md text-body-md bg-surface-container-lowest focus:outline-none focus:border-primary" placeholder="Enter product name" type="text"/>
+</div>
+<!-- Quantity Stepper -->
+<div class="space-y-1">
+<label class="font-label-md text-label-md text-on-background block">Quantity</label>
+<div class="flex items-center gap-4">
+<button class="w-12 h-touch_target_min border border-outline-variant rounded-xl flex items-center justify-center bg-surface-container-lowest text-on-background active:bg-surface-container-low">
+<span class="material-symbols-outlined">remove</span>
+</button>
+<span class="font-body-lg text-body-lg font-semibold w-8 text-center text-on-background">1</span>
+<button class="w-12 h-touch_target_min border border-outline-variant rounded-xl flex items-center justify-center bg-surface-container-lowest text-on-background active:bg-surface-container-low">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+</div>
+<!-- Search Bar -->
+<div class="relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full h-touch_target_min border border-outline-variant rounded-xl pl-12 pr-4 font-body-md text-body-md bg-surface-container-lowest focus:outline-none focus:border-primary" placeholder="Search items..." type="text"/>
+</div>
+<!-- Toggle -->
+<div class="flex items-center justify-between">
+<span class="font-body-md text-body-md text-on-background">Apply Tax</span>
+<button class="w-12 h-6 rounded-full bg-primary relative transition-colors duration-200">
+<span class="absolute right-1 top-1 w-4 h-4 bg-white rounded-full transition-transform duration-200"></span>
+</button>
+</div>
+</section>
+<!-- 5. Lists & Cards -->
+<section class="bg-surface-container-lowest rounded-xl border border-outline-variant p-md space-y-6">
+<h2 class="font-body-lg text-body-lg text-on-background font-semibold">5. Lists &amp; Cards</h2>
+<!-- Product Row -->
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant mb-2">Product Row</p>
+<div class="flex items-center justify-between h-[56px] border-b border-outline-variant pb-2">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-surface-container-high rounded-lg overflow-hidden">
+<img class="object-cover w-full h-full" data-alt="A small square thumbnail image of a fresh, delicious-looking artisan coffee cup on a wooden table, top-down view, soft natural lighting, modern minimalist cafe aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD8cBvDRbS9l73o9DgOYx_uTSbe4svbD2eI0TMr-4l0m7oGVIN0kkYpuI6U1UTWiqB7bDOrS3obwOw-Tfdeyw1UFCQX7BlF9iWraLfBVhyYHg_BXAdGCeZmmcr877meqRIRXAgyxwQMed4oCxO_tsEatYwffVTuBfngNp2ugcBCepqV21TSCnq416bdZCtTLWhFuOxzmyOpEoJAz4BTwmY4e3-ev4ij1WTnUsgpJzSfF-KnZowlfHgY"/>
+</div>
+<div>
+<p class="font-body-md text-body-md text-on-background line-clamp-1">Latte (Hot)</p>
+<p class="font-label-sm text-label-sm font-normal text-on-surface-variant">฿65.00</p>
+</div>
+</div>
+<div class="font-body-md text-body-md text-on-background font-medium">x2</div>
+</div>
+</div>
+<!-- Bill Row -->
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant mb-2">Bill Row</p>
+<div class="flex items-center justify-between py-3 border border-outline-variant rounded-xl px-4 bg-surface-container-lowest">
+<div>
+<p class="font-body-lg text-body-lg font-semibold text-on-background">#1042</p>
+<p class="font-label-sm text-label-sm font-normal text-on-surface-variant">14:30 • 3 Items</p>
+</div>
+<div class="flex flex-col items-end gap-1">
+<span class="font-body-md text-body-md text-on-background font-semibold">฿195.00</span>
+<span class="px-2 py-0.5 bg-primary/10 text-primary rounded-full font-label-sm text-label-sm font-medium border border-primary/20">จ่ายแล้ว</span>
+</div>
+</div>
+</div>
+</section>
+<!-- 7. Amount Summary -->
+<section class="bg-surface-container-lowest rounded-xl border border-outline-variant p-md flex justify-between items-center bg-primary/5">
+<span class="font-body-lg text-body-lg font-semibold text-primary">ยอดรวม</span>
+<span class="font-headline-lg text-headline-lg text-primary tabular-nums">฿1,250.00</span>
+</section>
+</main>
+<!-- Bottom App Bar -->
+<nav class="fixed bottom-0 w-full z-50 flex justify-around items-center px-4 py-2 pb-safe bg-surface-container-lowest dark:bg-surface-container border-t border-outline-variant shadow-sm rounded-t-xl docked full-width bottom-0 md:hidden">
+<button class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-4 py-1 active:scale-90 duration-150">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">point_of_sale</span>
+<span class="font-label-md text-label-md">ขาย</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high transition-all active:scale-90 duration-150 px-4 py-1 rounded-full">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-label-md text-label-md">สินค้า</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high transition-all active:scale-90 duration-150 px-4 py-1 rounded-full">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-label-md text-label-md">ต้นทุน</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high transition-all active:scale-90 duration-150 px-4 py-1 rounded-full">
+<span class="material-symbols-outlined">equalizer</span>
+<span class="font-label-md text-label-md">สรุป</span>
+</button>
+</nav>
+</body></html>

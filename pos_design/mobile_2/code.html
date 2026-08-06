@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+
+<html lang="th"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>บันทึกการซื้อ</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&amp;family=IBM+Plex+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-background": "#121c28",
+                        "tertiary": "#57615b",
+                        "on-primary-fixed-variant": "#00531d",
+                        "secondary-fixed-dim": "#9dd3aa",
+                        "on-tertiary-fixed-variant": "#3f4944",
+                        "on-surface-variant": "#3e4a3d",
+                        "surface-container-low": "#eef4ff",
+                        "inverse-surface": "#27313e",
+                        "on-secondary-fixed-variant": "#1d5031",
+                        "secondary": "#366847",
+                        "on-secondary-container": "#3d6f4d",
+                        "background": "#f8f9ff",
+                        "surface": "#f8f9ff",
+                        "primary": "#006e29",
+                        "tertiary-fixed-dim": "#bfc9c2",
+                        "error": "#ba1a1a",
+                        "on-error-container": "#93000a",
+                        "secondary-fixed": "#b8f0c5",
+                        "error-container": "#ffdad6",
+                        "on-secondary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "surface-variant": "#d9e3f4",
+                        "on-primary-fixed": "#002107",
+                        "on-secondary-fixed": "#00210e",
+                        "surface-container-high": "#dfe9fa",
+                        "on-tertiary-container": "#2b3530",
+                        "surface-dim": "#d1dbec",
+                        "tertiary-container": "#939d97",
+                        "inverse-primary": "#60df77",
+                        "inverse-on-surface": "#eaf1ff",
+                        "on-primary": "#ffffff",
+                        "surface-container-highest": "#d9e3f4",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed": "#7dfc90",
+                        "tertiary-fixed": "#dbe5de",
+                        "outline-variant": "#bdcab9",
+                        "on-surface": "#121c28",
+                        "surface-bright": "#f8f9ff",
+                        "surface-tint": "#006e29",
+                        "outline": "#6e7b6b",
+                        "surface-container": "#e5eeff",
+                        "on-tertiary-fixed": "#151d19",
+                        "primary-container": "#2bb14f",
+                        "on-primary-container": "#003c13",
+                        "secondary-container": "#b8f0c5",
+                        "primary-fixed-dim": "#60df77"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xs": "4px",
+                        "lg": "24px",
+                        "container-margin": "16px",
+                        "md": "16px",
+                        "sm": "8px",
+                        "xl": "32px",
+                        "unit": "4px",
+                        "gutter": "12px"
+                    },
+                    "fontFamily": {
+                        "label-lg": ["IBM Plex Sans Thai", "IBM Plex Sans", "sans-serif"],
+                        "display-lg": ["IBM Plex Sans Thai", "IBM Plex Sans", "sans-serif"],
+                        "title-lg": ["IBM Plex Sans Thai", "IBM Plex Sans", "sans-serif"],
+                        "headline-lg": ["IBM Plex Sans Thai", "IBM Plex Sans", "sans-serif"],
+                        "headline-md": ["IBM Plex Sans Thai", "IBM Plex Sans", "sans-serif"],
+                        "body-md": ["IBM Plex Sans Thai", "IBM Plex Sans", "sans-serif"],
+                        "label-sm": ["IBM Plex Sans Thai", "IBM Plex Sans", "sans-serif"],
+                        "headline-lg-mobile": ["IBM Plex Sans Thai", "IBM Plex Sans", "sans-serif"],
+                        "body-lg": ["IBM Plex Sans Thai", "IBM Plex Sans", "sans-serif"]
+                    },
+                    "fontSize": {
+                        "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500" }],
+                        "display-lg": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "title-lg": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "600" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        /* Base styles to ensure inputs respect border radius properly without default styles overriding */
+        input[type="text"], input[type="date"], textarea {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+        }
+        /* Hide scrollbar for a cleaner mobile look but keep functionality */
+        ::-webkit-scrollbar {
+            width: 0px;
+            background: transparent;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface antialiased font-body-md h-screen flex flex-col justify-center items-center">
+<!-- Mobile Screen Container (Max-Width for Preview on Desktop, Full Width on Mobile) -->
+<div class="w-full max-w-md h-full max-h-screen bg-background relative flex flex-col overflow-hidden shadow-2xl md:rounded-[32px] md:h-[850px]">
+<!-- TopAppBar (Customized for Transactional Screen) -->
+<header class="flex items-center justify-between px-md w-full h-16 bg-surface z-10 flex-shrink-0">
+<button aria-label="Close" class="w-10 h-10 flex items-center justify-center text-on-surface-variant hover:bg-surface-container-high rounded-full transition-colors active:scale-95 duration-150">
+<span class="material-symbols-outlined" data-icon="close">close</span>
+</button>
+<h1 class="font-title-lg text-title-lg text-on-background font-bold tracking-tight">บันทึกการซื้อ</h1>
+<button class="h-10 px-sm flex items-center justify-center text-primary hover:bg-surface-container-high rounded-lg transition-colors active:scale-95 duration-150">
+<span class="font-label-lg text-label-lg font-semibold">บันทึก</span>
+</button>
+</header>
+<!-- Main Content Scroll Area -->
+<main class="flex-1 overflow-y-auto px-md py-lg space-y-lg pb-32">
+<!-- Date Input -->
+<div class="flex flex-col gap-xs">
+<label class="font-label-lg text-label-lg text-on-surface-variant">วันที่ซื้อ</label>
+<div class="relative flex items-center">
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-xl px-4 py-3 font-body-md text-body-md text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors cursor-pointer" readonly="" type="text" value="12 พ.ย. 2023"/>
+<span class="material-symbols-outlined absolute right-4 text-outline" data-icon="calendar_month">calendar_month</span>
+</div>
+</div>
+<!-- Source Input -->
+<div class="flex flex-col gap-xs">
+<label class="font-label-lg text-label-lg text-on-surface-variant">ร้าน / แหล่งที่ซื้อ</label>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-xl px-4 py-3 font-body-md text-body-md text-on-surface placeholder:text-outline-variant focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors" placeholder="เช่น ตลาดไท, ร้านเจ๊ปุ๊, Shopee" type="text"/>
+</div>
+<hr class="border-surface-variant"/>
+<!-- Items Section -->
+<section class="space-y-md">
+<h2 class="font-title-lg text-title-lg font-semibold text-on-background">รายการที่ซื้อ</h2>
+<!-- Item Card 1 -->
+<div class="bg-surface-container-lowest border border-surface-variant rounded-xl p-md flex flex-col gap-md shadow-[0px_2px_8px_rgba(0,0,0,0.02)]">
+<div class="flex justify-between items-start">
+<input class="font-title-lg text-title-lg font-semibold text-on-background bg-transparent border-none p-0 focus:outline-none focus:ring-0 w-2/3" placeholder="ชื่อสินค้า" type="text" value="ผักบุ้ง"/>
+<button class="text-error hover:bg-error-container p-2 rounded-full transition-colors active:scale-95 duration-150">
+<span class="material-symbols-outlined" data-icon="delete">delete</span>
+</button>
+</div>
+<div class="flex flex-wrap items-end justify-between gap-4">
+<!-- Stepper -->
+<div class="flex flex-col gap-xs">
+<label class="font-label-sm text-label-sm text-outline">จำนวน</label>
+<div class="flex items-center border border-outline-variant rounded-full h-10 bg-surface">
+<button class="w-10 h-full flex items-center justify-center text-on-surface-variant active:bg-surface-variant rounded-l-full transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="remove">remove</span>
+</button>
+<span class="w-8 text-center font-label-lg text-label-lg font-semibold">5</span>
+<button class="w-10 h-full flex items-center justify-center text-primary active:bg-surface-variant rounded-r-full transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="add">add</span>
+</button>
+</div>
+</div>
+<!-- Price / Unit -->
+<div class="flex flex-col gap-xs flex-1 min-w-[80px]">
+<label class="font-label-sm text-label-sm text-outline">ราคา/หน่วย</label>
+<input class="w-full bg-surface border border-outline-variant rounded-xl px-3 py-2 font-body-md text-body-md text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors text-right" type="text" value="฿10.00"/>
+</div>
+<!-- Total -->
+<div class="flex flex-col gap-xs items-end w-24">
+<label class="font-label-sm text-label-sm text-outline">รวม</label>
+<span class="font-title-lg text-title-lg font-semibold text-on-background h-10 flex items-center">฿50.00</span>
+</div>
+</div>
+</div>
+<!-- Item Card 2 -->
+<div class="bg-surface-container-lowest border border-surface-variant rounded-xl p-md flex flex-col gap-md shadow-[0px_2px_8px_rgba(0,0,0,0.02)]">
+<div class="flex justify-between items-start">
+<input class="font-title-lg text-title-lg font-semibold text-on-background bg-transparent border-none p-0 focus:outline-none focus:ring-0 w-2/3" placeholder="ชื่อสินค้า" type="text" value="น้ำมันพืช"/>
+<button class="text-error hover:bg-error-container p-2 rounded-full transition-colors active:scale-95 duration-150">
+<span class="material-symbols-outlined" data-icon="delete">delete</span>
+</button>
+</div>
+<div class="flex flex-wrap items-end justify-between gap-4">
+<!-- Stepper -->
+<div class="flex flex-col gap-xs">
+<label class="font-label-sm text-label-sm text-outline">จำนวน</label>
+<div class="flex items-center border border-outline-variant rounded-full h-10 bg-surface">
+<button class="w-10 h-full flex items-center justify-center text-on-surface-variant active:bg-surface-variant rounded-l-full transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="remove">remove</span>
+</button>
+<span class="w-8 text-center font-label-lg text-label-lg font-semibold">2</span>
+<button class="w-10 h-full flex items-center justify-center text-primary active:bg-surface-variant rounded-r-full transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="add">add</span>
+</button>
+</div>
+</div>
+<!-- Price / Unit -->
+<div class="flex flex-col gap-xs flex-1 min-w-[80px]">
+<label class="font-label-sm text-label-sm text-outline">ราคา/หน่วย</label>
+<input class="w-full bg-surface border border-outline-variant rounded-xl px-3 py-2 font-body-md text-body-md text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors text-right" type="text" value="฿45.00"/>
+</div>
+<!-- Total -->
+<div class="flex flex-col gap-xs items-end w-24">
+<label class="font-label-sm text-label-sm text-outline">รวม</label>
+<span class="font-title-lg text-title-lg font-semibold text-on-background h-10 flex items-center">฿90.00</span>
+</div>
+</div>
+</div>
+<!-- Add Item Button -->
+<button class="w-full border-2 border-dashed border-outline-variant bg-surface-container-lowest rounded-xl py-3 flex items-center justify-center gap-2 text-primary font-label-lg text-label-lg font-semibold hover:bg-surface-container transition-colors active:scale-[0.98] duration-150">
+<span class="material-symbols-outlined text-[20px]" data-icon="add">add</span>
+                    เพิ่มรายการ
+                </button>
+</section>
+<!-- Grand Total -->
+<div class="bg-primary-container/10 border border-primary-container/20 rounded-xl p-lg flex items-center justify-between mt-sm">
+<span class="font-title-lg text-title-lg text-on-surface font-medium">ยอดรวมทั้งหมด</span>
+<span class="font-display-lg text-display-lg font-bold text-primary">฿140.00</span>
+</div>
+<!-- Notes -->
+<div class="flex flex-col gap-xs">
+<label class="font-label-lg text-label-lg text-on-surface-variant">โน้ต</label>
+<textarea class="w-full bg-surface-container-lowest border border-outline-variant rounded-xl px-4 py-3 font-body-md text-body-md text-on-surface placeholder:text-outline-variant focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors resize-none" placeholder="เพิ่มรายละเอียดเพิ่มเติม..." rows="3"></textarea>
+</div>
+<!-- Attachment -->
+<div class="flex flex-col gap-sm">
+<label class="font-label-lg text-label-lg text-on-surface-variant">แนบสลิป/ใบเสร็จ</label>
+<button class="w-24 h-24 bg-surface-container-lowest border-2 border-dashed border-outline-variant rounded-xl flex flex-col items-center justify-center gap-1 text-outline hover:bg-surface-container hover:text-primary hover:border-primary transition-all active:scale-95 duration-150">
+<span class="material-symbols-outlined" data-icon="add_a_photo" data-weight="fill" style="font-variation-settings: 'FILL' 1;">add_a_photo</span>
+<span class="font-label-sm text-label-sm font-medium">แนบรูป</span>
+</button>
+</div>
+</main>
+<!-- Sticky Footer Action -->
+<footer class="absolute bottom-0 w-full bg-surface border-t border-surface-variant p-md pb-6 shadow-[0px_-8px_24px_rgba(0,0,0,0.04)] z-20">
+<button class="w-full bg-primary-container text-on-primary-container font-headline-md text-headline-md font-bold py-4 rounded-xl shadow-[0px_4px_12px_rgba(43,177,79,0.25)] hover:opacity-90 active:scale-[0.98] transition-all duration-150">
+                บันทึกการซื้อ
+            </button>
+</footer>
+</div>
+</body></html>

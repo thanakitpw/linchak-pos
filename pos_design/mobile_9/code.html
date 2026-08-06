@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+
+<html lang="th"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ใบเสร็จ - ระบบขายหน้าร้าน</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary": "#366847",
+                        "inverse-on-surface": "#eaf1ff",
+                        "on-tertiary-container": "#2b3530",
+                        "on-secondary-fixed": "#00210e",
+                        "inverse-surface": "#27313e",
+                        "error-container": "#ffdad6",
+                        "on-error-container": "#93000a",
+                        "primary-fixed-dim": "#60df77",
+                        "surface-bright": "#f8f9ff",
+                        "on-primary-fixed": "#002107",
+                        "tertiary": "#57615b",
+                        "background": "#f8f9ff",
+                        "on-primary-fixed-variant": "#00531d",
+                        "surface-container-high": "#dfe9fa",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-container": "#3d6f4d",
+                        "outline": "#6e7b6b",
+                        "tertiary-fixed": "#dbe5de",
+                        "surface-container": "#e5eeff",
+                        "on-tertiary-fixed-variant": "#3f4944",
+                        "on-surface-variant": "#3e4a3d",
+                        "surface-variant": "#d9e3f4",
+                        "primary-fixed": "#7dfc90",
+                        "on-primary-container": "#003c13",
+                        "surface-container-low": "#eef4ff",
+                        "surface-container-highest": "#d9e3f4",
+                        "on-secondary": "#ffffff",
+                        "on-surface": "#121c28",
+                        "tertiary-fixed-dim": "#bfc9c2",
+                        "on-background": "#121c28",
+                        "secondary-fixed-dim": "#9dd3aa",
+                        "surface": "#f8f9ff",
+                        "on-tertiary-fixed": "#151d19",
+                        "tertiary-container": "#939d97",
+                        "surface-tint": "#006e29",
+                        "secondary-container": "#b8f0c5",
+                        "secondary-fixed": "#b8f0c5",
+                        "surface-container-lowest": "#ffffff",
+                        "primary": "#006e29",
+                        "outline-variant": "#bdcab9",
+                        "on-primary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "inverse-primary": "#60df77",
+                        "primary-container": "#2bb14f",
+                        "surface-dim": "#d1dbec",
+                        "error": "#ba1a1a",
+                        "on-secondary-fixed-variant": "#1d5031"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xs": "4px",
+                        "gutter": "12px",
+                        "md": "16px",
+                        "sm": "8px",
+                        "container-margin": "16px",
+                        "xl": "32px",
+                        "lg": "24px",
+                        "unit": "4px"
+                    },
+                    "fontFamily": {
+                        "title-lg": ["IBM Plex Sans"],
+                        "display-lg": ["IBM Plex Sans"],
+                        "body-md": ["IBM Plex Sans"],
+                        "headline-md": ["IBM Plex Sans"],
+                        "headline-lg-mobile": ["IBM Plex Sans"],
+                        "body-lg": ["IBM Plex Sans"],
+                        "headline-lg": ["IBM Plex Sans"],
+                        "label-lg": ["IBM Plex Sans"],
+                        "label-sm": ["IBM Plex Sans"]
+                    },
+                    "fontSize": {
+                        "title-lg": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "display-lg": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "600" }],
+                        "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .perforated-border {
+            border-bottom: 2px dashed #E5E7EB;
+            position: relative;
+        }
+        .perforated-border::before, .perforated-border::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            width: 16px;
+            height: 16px;
+            background-color: #F7F7F2;
+            border-radius: 50%;
+        }
+        .perforated-border::before {
+            left: -8px;
+        }
+        .perforated-border::after {
+            right: -8px;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-[#F7F7F2] font-body-md text-on-surface pb-32">
+<!-- TopAppBar (Supressed Bottom Nav context implies this is a focused view, but we are asked to include BottomNavBar in the prompt, so Top Nav acts as a sub-view header) -->
+<header class="bg-surface dark:bg-surface-dim w-full sticky top-0 flex items-center justify-between px-md w-full h-16 shadow-sm z-40">
+<button class="text-on-surface p-2 rounded-full hover:bg-surface-container-low active:opacity-80 transition-opacity">
+<span class="material-symbols-outlined">close</span>
+</button>
+<h1 class="font-headline-md text-headline-md-mobile text-on-surface">ใบเสร็จ</h1>
+<button class="font-label-lg text-label-lg text-primary hover:bg-surface-container-low px-3 py-2 rounded-lg active:opacity-80 transition-opacity">ขายต่อ</button>
+</header>
+<main class="px-container-margin py-lg flex flex-col gap-lg items-center">
+<!-- Receipt Card -->
+<div class="bg-surface-container-lowest rounded-2xl w-full max-w-sm shadow-md overflow-hidden flex flex-col">
+<!-- Store Header -->
+<div class="p-lg flex flex-col items-center text-center gap-xs">
+<div class="w-16 h-16 bg-surface-variant rounded-full flex items-center justify-center mb-sm">
+<span class="material-symbols-outlined text-primary text-3xl">storefront</span>
+</div>
+<h2 class="font-title-lg text-title-lg text-on-surface">ร้านค้าของฉัน</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Micro-Merchant POS</p>
+<p class="font-body-md text-body-md text-on-surface-variant">Tel: 081-234-5678</p>
+</div>
+<div class="h-px bg-outline-variant opacity-30 mx-lg"></div>
+<!-- Bill Meta -->
+<div class="p-md px-lg flex flex-col gap-xs">
+<div class="flex justify-between">
+<span class="font-body-md text-body-md text-on-surface-variant">เลขที่บิล:</span>
+<span class="font-body-md text-body-md text-on-surface">05082026-00000001</span>
+</div>
+<div class="flex justify-between">
+<span class="font-body-md text-body-md text-on-surface-variant">วันที่:</span>
+<span class="font-body-md text-body-md text-on-surface">05-Aug-2026 15:56</span>
+</div>
+</div>
+<div class="h-px bg-outline-variant opacity-30 mx-lg"></div>
+<!-- Line Items -->
+<div class="p-md px-lg flex flex-col gap-sm">
+<div class="flex justify-between items-start">
+<div class="flex flex-col">
+<span class="font-body-md text-body-md text-on-surface">ชาไทยเย็น</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">@60.00 x 2</span>
+</div>
+<span class="font-body-md text-body-md text-on-surface tabular-nums">120.00</span>
+</div>
+</div>
+<div class="h-px bg-outline-variant opacity-30 mx-lg"></div>
+<!-- Summary -->
+<div class="p-md px-lg flex flex-col gap-sm">
+<div class="flex justify-between">
+<span class="font-body-md text-body-md text-on-surface-variant">ยอดรวม</span>
+<span class="font-body-md text-body-md text-on-surface tabular-nums">฿120.00</span>
+</div>
+<div class="flex justify-between">
+<span class="font-body-md text-body-md text-on-surface-variant">ส่วนลด</span>
+<span class="font-body-md text-body-md text-on-surface tabular-nums">฿0.00</span>
+</div>
+<div class="flex justify-between mt-sm">
+<span class="font-title-lg text-title-lg text-on-surface">TOTAL</span>
+<span class="font-title-lg text-title-lg text-on-surface tabular-nums">฿120.00</span>
+</div>
+</div>
+<div class="perforated-border mx-4"></div>
+<!-- PromptPay Block -->
+<div class="p-lg bg-surface-container-low flex flex-col items-center gap-md rounded-b-2xl">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary text-xl">qr_code_scanner</span>
+<span class="font-label-lg text-label-lg text-primary">PromptPay</span>
+</div>
+<div class="w-48 h-48 bg-surface-container-lowest p-2 rounded-lg border border-outline-variant flex items-center justify-center" data-alt="A clean, highly detailed, high-contrast QR code for a digital payment system. The QR code is perfectly square, surrounded by a crisp white border, suitable for scanning. The aesthetic is purely functional and modern, with sharp black modules on a bright white background, ensuring maximum clarity in a retail point-of-sale context." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAiRu4e84kG0Uj0sW1nEJoCLT1Ltl5xZUmebuRqT5oQcElHpWEcwJUIs1FtyWcEX00OLqJxaUn80zzZHJyH1twOAtR_e0Xu8_PaIxZRy3_d_tK6PNbPrqnGb55cHv0Uptx5yh_5y0TTAaQIBVqKeT2kJ4dPeC4Qpe4Txuiek0fkxMR14atNCnVBDcwvBB4bRM3Uvn5M7zrNjkcEViv5VCfEPMdLsT_6WMtAeaOH8ARoIvJfs1YKp9Au')">
+</div>
+<div class="text-center">
+<span class="font-headline-md text-headline-md-mobile text-on-surface tabular-nums block">฿120.00</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">สแกนด้วยแอปธนาคารเพื่อชำระเงิน</span>
+</div>
+</div>
+</div>
+<!-- Action Bar -->
+<div class="w-full max-w-sm flex flex-col gap-md">
+<button class="w-full bg-primary-container text-on-primary flex items-center justify-center gap-sm py-3 px-6 rounded-xl font-title-lg text-title-lg shadow-md active:scale-95 transition-transform hover:bg-primary-container/90">
+<span class="material-symbols-outlined">share</span>
+                แชร์บิล
+            </button>
+<div class="grid grid-cols-2 gap-md">
+<button class="w-full bg-surface-container-lowest text-primary border border-primary flex items-center justify-center gap-sm py-2 px-4 rounded-xl font-label-lg text-label-lg active:scale-95 transition-transform hover:bg-surface-container-low">
+<span class="material-symbols-outlined">download</span>
+                    บันทึกรูป
+                </button>
+<button class="w-full bg-surface-container-lowest text-primary border border-primary flex items-center justify-center gap-sm py-2 px-4 rounded-xl font-label-lg text-label-lg active:scale-95 transition-transform hover:bg-surface-container-low">
+<span class="material-symbols-outlined">content_copy</span>
+                    คัดลอกลิงก์
+                </button>
+</div>
+<button class="w-full text-primary flex items-center justify-center py-2 px-4 rounded-xl font-label-lg text-label-lg active:opacity-80 transition-opacity hover:bg-surface-container-low">
+                ดูบิลออนไลน์
+            </button>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 rounded-t-xl shadow-lg bg-surface dark:bg-inverse-surface fixed bottom-0 w-full z-50 flex justify-around items-center px-container-margin py-sm md:hidden">
+<!-- Item: ขาย (Active) -->
+<a class="flex flex-col items-center justify-center bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary rounded-full px-4 py-1 hover:bg-surface-variant active:scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">point_of_sale</span>
+<span class="font-label-sm text-label-sm mt-1">ขาย</span>
+</a>
+<!-- Item: สินค้า -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant hover:bg-surface-variant active:scale-95 transition-transform px-4 py-1 rounded-full" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-label-sm text-label-sm mt-1">สินค้า</span>
+</a>
+<!-- Item: ต้นทุน -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant hover:bg-surface-variant active:scale-95 transition-transform px-4 py-1 rounded-full" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-label-sm text-label-sm mt-1">ต้นทุน</span>
+</a>
+<!-- Item: สรุป -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant hover:bg-surface-variant active:scale-95 transition-transform px-4 py-1 rounded-full" href="#">
+<span class="material-symbols-outlined">leaderboard</span>
+<span class="font-label-sm text-label-sm mt-1">สรุป</span>
+</a>
+</nav>
+</body></html>

@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+
+<html lang="th"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>เพิ่มสินค้า</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-variant": "#d9e3f4",
+                      "on-secondary-container": "#3d6f4d",
+                      "primary-fixed-dim": "#60df77",
+                      "inverse-primary": "#60df77",
+                      "secondary-container": "#b8f0c5",
+                      "on-tertiary-fixed-variant": "#3f4944",
+                      "surface-container-low": "#eef4ff",
+                      "secondary-fixed-dim": "#9dd3aa",
+                      "on-tertiary": "#ffffff",
+                      "on-secondary-fixed-variant": "#1d5031",
+                      "surface-container-highest": "#d9e3f4",
+                      "on-secondary": "#ffffff",
+                      "on-surface": "#121c28",
+                      "inverse-on-surface": "#eaf1ff",
+                      "on-error-container": "#93000a",
+                      "tertiary-fixed-dim": "#bfc9c2",
+                      "primary-fixed": "#7dfc90",
+                      "surface-dim": "#d1dbec",
+                      "on-primary": "#ffffff",
+                      "on-tertiary-fixed": "#151d19",
+                      "surface-bright": "#f8f9ff",
+                      "outline-variant": "#bdcab9",
+                      "primary": "#006e29",
+                      "error-container": "#ffdad6",
+                      "on-primary-fixed-variant": "#00531d",
+                      "surface-tint": "#006e29",
+                      "on-primary-fixed": "#002107",
+                      "surface-container-lowest": "#ffffff",
+                      "on-secondary-fixed": "#00210e",
+                      "error": "#ba1a1a",
+                      "surface-container": "#e5eeff",
+                      "outline": "#6e7b6b",
+                      "secondary": "#366847",
+                      "secondary-fixed": "#b8f0c5",
+                      "surface-container-high": "#dfe9fa",
+                      "surface": "#f8f9ff",
+                      "primary-container": "#2bb14f",
+                      "tertiary-fixed": "#dbe5de",
+                      "background": "#f8f9ff",
+                      "tertiary-container": "#939d97",
+                      "on-surface-variant": "#3e4a3d",
+                      "tertiary": "#57615b",
+                      "on-tertiary-container": "#2b3530",
+                      "inverse-surface": "#27313e",
+                      "on-primary-container": "#003c13",
+                      "on-background": "#121c28",
+                      "on-error": "#ffffff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "sm": "8px",
+                      "xs": "4px",
+                      "lg": "24px",
+                      "gutter": "12px",
+                      "container-margin": "16px",
+                      "unit": "4px",
+                      "md": "16px",
+                      "xl": "32px"
+              },
+              "fontFamily": {
+                      "headline-md": [
+                              "IBM Plex Sans"
+                      ],
+                      "label-lg": [
+                              "IBM Plex Sans"
+                      ],
+                      "body-lg": [
+                              "IBM Plex Sans"
+                      ],
+                      "display-lg": [
+                              "IBM Plex Sans"
+                      ],
+                      "title-lg": [
+                              "IBM Plex Sans"
+                      ],
+                      "headline-lg-mobile": [
+                              "IBM Plex Sans"
+                      ],
+                      "body-md": [
+                              "IBM Plex Sans"
+                      ],
+                      "label-sm": [
+                              "IBM Plex Sans"
+                      ],
+                      "headline-lg": [
+                              "IBM Plex Sans"
+                      ]
+              },
+              "fontSize": {
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "label-lg": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "letterSpacing": "0.01em",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "display-lg": [
+                              "40px",
+                              {
+                                      "lineHeight": "48px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "title-lg": [
+                              "20px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-lg-mobile": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "headline-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "fontWeight": "600"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col md:pb-0 pb-[80px]">
+<!-- Top App Bar -->
+<header class="w-full top-0 sticky bg-surface dark:bg-surface-dim flat no shadows flex items-center justify-between px-md h-16 w-full z-40" id="top-app-bar">
+<button aria-label="Close" class="p-2 text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors active:scale-95 duration-150 rounded-full">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">close</span>
+</button>
+<h1 class="font-headline-md text-headline-md-mobile md:text-headline-md font-bold text-primary dark:text-primary-fixed-dim">เพิ่มสินค้า</h1>
+<button aria-label="Save" class="p-2 text-primary dark:text-primary-fixed-dim hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors active:scale-95 duration-150 rounded-full">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">check</span>
+</button>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow flex justify-center p-md lg:p-lg w-full">
+<!-- Centered Form Container for Tablet -->
+<div class="w-full max-w-[560px] flex flex-col gap-lg bg-surface-container-lowest rounded-xl shadow-[0px_4px_12px_rgba(0,0,0,0.05)] p-md lg:p-lg border border-surface-variant">
+<!-- Image Uploader -->
+<div class="flex flex-col gap-sm">
+<span class="font-label-lg text-label-lg text-on-surface-variant">รูปสินค้า</span>
+<button class="w-full h-48 rounded-lg border-2 border-dashed border-outline-variant bg-surface hover:bg-surface-container-low transition-colors flex flex-col items-center justify-center gap-sm active:scale-[0.99] group focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+<span class="material-symbols-outlined text-4xl text-tertiary group-hover:text-primary transition-colors" style="font-variation-settings: 'FILL' 0;">add_a_photo</span>
+<span class="font-body-md text-body-md text-tertiary group-hover:text-primary transition-colors">เพิ่มรูปภาพ</span>
+</button>
+</div>
+<!-- Category -->
+<div class="flex flex-col gap-xs">
+<label class="font-label-lg text-label-lg text-on-surface" for="category">หมวดหมู่</label>
+<div class="relative">
+<select class="w-full appearance-none bg-surface border border-outline-variant rounded-lg px-md py-sm font-body-md text-body-md text-on-surface focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all h-[48px]" id="category">
+<option disabled="" selected="" value="">เลือกหมวดหมู่</option>
+<option value="beverage">เครื่องดื่ม</option>
+<option value="food">อาหาร</option>
+<option value="snack">ขนม</option>
+</select>
+<span class="material-symbols-outlined absolute right-md top-1/2 -translate-y-1/2 pointer-events-none text-on-surface-variant">arrow_drop_down</span>
+</div>
+</div>
+<!-- Name -->
+<div class="flex flex-col gap-xs">
+<label class="font-label-lg text-label-lg text-on-surface" for="product_name">ชื่อสินค้า</label>
+<input class="w-full bg-surface border border-outline-variant rounded-lg px-md py-sm font-body-md text-body-md text-on-surface focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all h-[48px] placeholder:text-outline-variant" id="product_name" placeholder="เช่น กาแฟเย็น" type="text"/>
+</div>
+<!-- Description -->
+<div class="flex flex-col gap-xs">
+<label class="font-label-lg text-label-lg text-on-surface" for="product_desc">รายละเอียด (ตัวเลือก)</label>
+<textarea class="w-full bg-surface border border-outline-variant rounded-lg px-md py-sm font-body-md text-body-md text-on-surface focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all resize-none placeholder:text-outline-variant" id="product_desc" placeholder="เพิ่มรายละเอียดเพิ่มเติม..." rows="3"></textarea>
+</div>
+<!-- Price -->
+<div class="flex flex-col gap-xs">
+<label class="font-label-lg text-label-lg text-on-surface" for="product_price">ราคา (บาท)</label>
+<div class="relative">
+<input class="w-full bg-surface border border-outline-variant rounded-lg px-md py-sm font-body-md text-body-md text-on-surface focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all h-[48px] pl-10 placeholder:text-outline-variant" id="product_price" placeholder="0.00" type="number"/>
+<span class="absolute left-md top-1/2 -translate-y-1/2 font-body-md text-body-md text-on-surface-variant pointer-events-none">฿</span>
+</div>
+</div>
+<!-- Submit Button Container -->
+<div class="mt-md">
+<button class="w-full bg-primary-container text-on-primary h-[48px] rounded-full font-title-lg text-title-lg flex items-center justify-center hover:opacity-90 active:scale-[0.98] transition-all shadow-[0px_4px_12px_rgba(0,0,0,0.05)]">
+                    บันทึกสินค้า
+                </button>
+</div>
+</div>
+</main>
+<!-- Bottom Nav Bar (Mobile only visibility managed by tailwind) -->
+<nav class="md:hidden fixed bottom-0 w-full z-50 flex justify-around items-center px-gutter py-sm shadow-sm bg-surface dark:bg-surface-container shadow-[0px_-4px_12px_rgba(0,0,0,0.05)] rounded-t-xl" id="bottom-nav">
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-4 py-1 hover:bg-surface-variant dark:hover:bg-surface-container-highest transition-colors active:scale-90 duration-200 rounded-lg">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">point_of_sale</span>
+<span class="font-label-sm text-label-sm mt-1">ขาย</span>
+</button>
+<button class="flex flex-col items-center justify-center bg-secondary-container dark:bg-on-secondary-container text-on-secondary-container dark:text-secondary-container rounded-full px-4 py-1 hover:bg-surface-variant dark:hover:bg-surface-container-highest transition-colors active:scale-90 duration-200">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">inventory_2</span>
+<span class="font-label-sm text-label-sm mt-1">สินค้า</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-4 py-1 hover:bg-surface-variant dark:hover:bg-surface-container-highest transition-colors active:scale-90 duration-200 rounded-lg">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">payments</span>
+<span class="font-label-sm text-label-sm mt-1">ต้นทุน</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-4 py-1 hover:bg-surface-variant dark:hover:bg-surface-container-highest transition-colors active:scale-90 duration-200 rounded-lg">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">leaderboard</span>
+<span class="font-label-sm text-label-sm mt-1">สรุป</span>
+</button>
+</nav>
+<!-- Script for structural layout adjustments based on screen size -->
+<script>
+        // Simple script to demonstrate active states or basic interactions if needed.
+        // The nav suppression rules are mostly handled by tailwind classes (md:hidden for bottom nav).
+        // Since this is an "Add Product" screen (Task-focused), according to the rules, 
+        // the bottom nav SHOULD be suppressed. However, the prompt specifically requested:
+        // "Bottom nav visible." So we keep it visible as requested by the prompt overriding the general rule.
+        // It's visible on mobile, hidden on tablet/desktop as per "Responsive Pivot" rule unless we force it.
+        // The prompt says "(Tablet)... Bottom nav visible", we will keep it visible on mobile, 
+        // but typically tablet uses top nav. We'll leave the md:hidden to respect the shell rule for tablet,
+        // wait, the prompt says "Tablet... Bottom nav visible". Let's remove md:hidden to strictly follow the prompt if needed, 
+        // but "Responsive Pivot" says PROHIBIT top row links on mobile, use bottom nav. On WEB hide bottom nav.
+        // Tablet (md) usually hides bottom nav. If user wants it visible, I will leave it visible by not hiding it completely on md, 
+        // or just let the default tailwind classes handle it as standard.
+        // I will use `flex` instead of `md:hidden flex` so it stays visible as requested.
+        
+        // Actually, to follow the Prompt: "Bottom nav visible.", I will remove `md:hidden` from the bottom nav.
+        document.getElementById('bottom-nav').classList.remove('md:hidden');
+        // And adjust body padding for desktop if nav is always visible
+        document.body.classList.replace('md:pb-0', 'md:pb-[80px]');
+    </script>
+</body></html>

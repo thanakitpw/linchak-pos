@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+
+<html class="light" lang="th"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>สมัครใช้งาน - PromptPay POS</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts: IBM Plex Sans (and IBM Plex Sans Thai for Thai support) -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&amp;family=IBM+Plex+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config injected from system prompt -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-fixed": "#7dfc90",
+                        "surface-dim": "#d1dbec",
+                        "inverse-on-surface": "#eaf1ff",
+                        "on-primary-fixed-variant": "#00531d",
+                        "on-secondary-container": "#3d6f4d",
+                        "on-tertiary-fixed": "#151d19",
+                        "primary": "#006e29",
+                        "surface-container": "#e5eeff",
+                        "on-surface": "#121c28",
+                        "tertiary-fixed-dim": "#bfc9c2",
+                        "surface-container-high": "#dfe9fa",
+                        "on-tertiary-fixed-variant": "#3f4944",
+                        "outline-variant": "#bdcab9",
+                        "on-primary-fixed": "#002107",
+                        "outline": "#6e7b6b",
+                        "inverse-surface": "#27313e",
+                        "on-background": "#121c28",
+                        "on-tertiary": "#ffffff",
+                        "secondary-container": "#b8f0c5",
+                        "on-secondary": "#ffffff",
+                        "secondary-fixed-dim": "#9dd3aa",
+                        "surface-variant": "#d9e3f4",
+                        "inverse-primary": "#60df77",
+                        "on-secondary-fixed-variant": "#1d5031",
+                        "surface-container-highest": "#d9e3f4",
+                        "on-tertiary-container": "#2b3530",
+                        "primary-fixed-dim": "#60df77",
+                        "on-secondary-fixed": "#00210e",
+                        "surface-tint": "#006e29",
+                        "tertiary-fixed": "#dbe5de",
+                        "primary-container": "#2bb14f",
+                        "tertiary-container": "#939d97",
+                        "surface-container-low": "#eef4ff",
+                        "error-container": "#ffdad6",
+                        "surface": "#f8f9ff",
+                        "on-primary-container": "#003c13",
+                        "surface-bright": "#f8f9ff",
+                        "background": "#f8f9ff",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary": "#57615b",
+                        "on-surface-variant": "#3e4a3d",
+                        "on-primary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "secondary-fixed": "#b8f0c5",
+                        "error": "#ba1a1a",
+                        "secondary": "#366847",
+                        "on-error-container": "#93000a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xl": "32px",
+                        "unit": "4px",
+                        "md": "16px",
+                        "container-margin": "16px",
+                        "lg": "24px",
+                        "gutter": "12px",
+                        "sm": "8px",
+                        "xs": "4px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["IBM Plex Sans Thai", "IBM Plex Sans", "sans-serif"],
+                        "label-lg": ["IBM Plex Sans Thai", "IBM Plex Sans", "sans-serif"],
+                        "body-md": ["IBM Plex Sans Thai", "IBM Plex Sans", "sans-serif"],
+                        "body-lg": ["IBM Plex Sans Thai", "IBM Plex Sans", "sans-serif"],
+                        "headline-md": ["IBM Plex Sans Thai", "IBM Plex Sans", "sans-serif"],
+                        "headline-lg-mobile": ["IBM Plex Sans Thai", "IBM Plex Sans", "sans-serif"],
+                        "display-lg": ["IBM Plex Sans Thai", "IBM Plex Sans", "sans-serif"],
+                        "label-sm": ["IBM Plex Sans Thai", "IBM Plex Sans", "sans-serif"],
+                        "title-lg": ["IBM Plex Sans Thai", "IBM Plex Sans", "sans-serif"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                        "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "display-lg": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "title-lg": ["20px", {"lineHeight": "28px", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        /* Base styles to enforce font family globally */
+        body {
+            font-family: 'IBM Plex Sans Thai', 'IBM Plex Sans', sans-serif;
+            background-color: theme('colors.background');
+            color: theme('colors.on-background');
+        }
+        
+        /* Material symbols setup */
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        /* Hide scrollbar for clean mobile look */
+        ::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background min-h-screen flex flex-col max-w-[480px] mx-auto md:shadow-2xl md:my-lg bg-surface">
+<!-- TopAppBar -->
+<header class="bg-surface dark:bg-surface-container w-full top-0 sticky z-50">
+<div class="flex items-center justify-between px-md py-sm w-full max-w-[1120px] mx-auto min-h-[64px]">
+<button class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-surface-variant/20 transition-colors duration-200 active:scale-95 text-on-surface-variant focus:outline-none focus:ring-2 focus:ring-primary-container">
+<span class="material-symbols-outlined text-[24px]">arrow_back</span>
+</button>
+<h1 class="font-title-lg text-title-lg text-on-surface flex-1 text-center font-bold">
+                สมัครใช้งาน
+            </h1>
+<!-- Empty div to balance flex spacing -->
+<div class="w-12 h-12"></div>
+</div>
+</header>
+<main class="flex-1 flex flex-col px-md py-md overflow-y-auto">
+<!-- Reassuring Banner -->
+<div class="bg-secondary-container/40 rounded-lg p-sm mb-lg flex items-center justify-center space-x-2 border border-secondary-container/50">
+<span class="material-symbols-outlined text-primary text-[18px]">verified_user</span>
+<p class="font-label-sm text-label-sm text-on-surface-variant text-center">
+                ทดลองฟรี 7 วัน · ยกเลิกได้ทุกเมื่อ · ไม่ต้องผูกบัตร
+            </p>
+</div>
+<!-- Form Section -->
+<form class="flex flex-col space-y-lg flex-1">
+<!-- Store Name -->
+<div class="flex flex-col space-y-unit">
+<label class="font-label-lg text-label-lg text-on-surface" for="store_name">ชื่อร้าน</label>
+<div class="relative">
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-xl px-md py-3 font-body-md text-body-md text-on-surface placeholder:text-on-surface-variant/50 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-200" id="store_name" name="store_name" placeholder="เช่น ร้านผลไม้แช่บ๊วย" type="text"/>
+</div>
+</div>
+<!-- Email -->
+<div class="flex flex-col space-y-unit">
+<label class="font-label-lg text-label-lg text-on-surface" for="email">อีเมล</label>
+<div class="relative">
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-xl px-md py-3 font-body-md text-body-md text-on-surface placeholder:text-on-surface-variant/50 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-200" id="email" name="email" placeholder="example@email.com" type="email"/>
+</div>
+</div>
+<!-- Password -->
+<div class="flex flex-col space-y-unit">
+<label class="font-label-lg text-label-lg text-on-surface" for="password">รหัสผ่าน</label>
+<div class="relative">
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-xl pl-md pr-12 py-3 font-body-md text-body-md text-on-surface placeholder:text-on-surface-variant/50 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-200" id="password" name="password" placeholder="••••••••" type="password"/>
+<button class="absolute inset-y-0 right-0 px-3 flex items-center text-on-surface-variant hover:text-primary transition-colors focus:outline-none rounded-xl" id="togglePassword" type="button">
+<span class="material-symbols-outlined" id="eyeIcon">visibility_off</span>
+</button>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant/70 mt-1">อย่างน้อย 8 ตัวอักษร</p>
+</div>
+<!-- Spacer to push actions down if needed, but in this linear flow we keep it tight -->
+<div class="pt-sm"></div>
+<!-- Primary Action -->
+<div class="flex flex-col space-y-sm">
+<button class="w-full bg-primary-container text-on-primary rounded-xl py-4 font-label-lg text-label-lg font-semibold shadow-[0px_4px_12px_rgba(0,0,0,0.05)] hover:bg-primary transition-colors duration-200 active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-container flex items-center justify-center" type="submit">
+                    สมัคร &amp; เริ่มทดลองฟรี
+                </button>
+<p class="font-label-sm text-[11px] text-center text-on-surface-variant/60 pt-2 px-md">
+                    การสมัครถือว่ายอมรับ <a class="text-primary hover:underline" href="#">ข้อกำหนด</a> และ <a class="text-primary hover:underline" href="#">นโยบายความเป็นส่วนตัว</a>
+</p>
+</div>
+</form>
+<!-- Divider -->
+<div class="flex items-center justify-center my-lg">
+<div class="flex-1 h-px bg-outline-variant/30"></div>
+<span class="px-3 font-label-sm text-label-sm text-on-surface-variant/50 bg-background">หรือ</span>
+<div class="flex-1 h-px bg-outline-variant/30"></div>
+</div>
+<!-- Social Login -->
+<button class="w-full bg-surface-container-lowest border border-outline-variant rounded-xl py-3.5 px-md font-label-lg text-label-lg text-on-surface hover:bg-surface-variant/30 transition-colors duration-200 active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-primary flex items-center justify-center mb-xl" type="button">
+<!-- Simple SVG for Google G to avoid external image deps if possible, but keeping minimal -->
+<svg class="w-5 h-5 mr-3" fill="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"></path>
+<path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"></path>
+<path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"></path>
+<path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"></path>
+</svg>
+            เข้าสู่ระบบด้วย Google
+        </button>
+<!-- Bottom Link -->
+<div class="mt-auto pb-lg pt-sm text-center">
+<a class="font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-colors" href="#">
+                มีบัญชีแล้ว? <span class="text-primary font-semibold">เข้าสู่ระบบ</span>
+</a>
+</div>
+</main>
+<script>
+        // Simple password toggle logic
+        document.addEventListener('DOMContentLoaded', () => {
+            const togglePasswordBtn = document.getElementById('togglePassword');
+            const passwordInput = document.getElementById('password');
+            const eyeIcon = document.getElementById('eyeIcon');
+
+            togglePasswordBtn.addEventListener('click', () => {
+                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordInput.setAttribute('type', type);
+                eyeIcon.textContent = type === 'password' ? 'visibility_off' : 'visibility';
+            });
+        });
+    </script>
+</body></html>

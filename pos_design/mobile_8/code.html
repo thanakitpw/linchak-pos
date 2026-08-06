@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+
+<html lang="th"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>สินค้า - Product List</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-variant": "#d9e3f4",
+                      "on-secondary-container": "#3d6f4d",
+                      "primary-fixed-dim": "#60df77",
+                      "inverse-primary": "#60df77",
+                      "secondary-container": "#b8f0c5",
+                      "on-tertiary-fixed-variant": "#3f4944",
+                      "surface-container-low": "#eef4ff",
+                      "secondary-fixed-dim": "#9dd3aa",
+                      "on-tertiary": "#ffffff",
+                      "on-secondary-fixed-variant": "#1d5031",
+                      "surface-container-highest": "#d9e3f4",
+                      "on-secondary": "#ffffff",
+                      "on-surface": "#121c28",
+                      "inverse-on-surface": "#eaf1ff",
+                      "on-error-container": "#93000a",
+                      "tertiary-fixed-dim": "#bfc9c2",
+                      "primary-fixed": "#7dfc90",
+                      "surface-dim": "#d1dbec",
+                      "on-primary": "#ffffff",
+                      "on-tertiary-fixed": "#151d19",
+                      "surface-bright": "#f8f9ff",
+                      "outline-variant": "#bdcab9",
+                      "primary": "#006e29",
+                      "error-container": "#ffdad6",
+                      "on-primary-fixed-variant": "#00531d",
+                      "surface-tint": "#006e29",
+                      "on-primary-fixed": "#002107",
+                      "surface-container-lowest": "#ffffff",
+                      "on-secondary-fixed": "#00210e",
+                      "error": "#ba1a1a",
+                      "surface-container": "#e5eeff",
+                      "outline": "#6e7b6b",
+                      "secondary": "#366847",
+                      "secondary-fixed": "#b8f0c5",
+                      "surface-container-high": "#dfe9fa",
+                      "surface": "#f8f9ff",
+                      "primary-container": "#2bb14f",
+                      "tertiary-fixed": "#dbe5de",
+                      "background": "#f8f9ff",
+                      "tertiary-container": "#939d97",
+                      "on-surface-variant": "#3e4a3d",
+                      "tertiary": "#57615b",
+                      "on-tertiary-container": "#2b3530",
+                      "inverse-surface": "#27313e",
+                      "on-primary-container": "#003c13",
+                      "on-background": "#121c28",
+                      "on-error": "#ffffff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "sm": "8px",
+                      "xs": "4px",
+                      "lg": "24px",
+                      "gutter": "12px",
+                      "container-margin": "16px",
+                      "unit": "4px",
+                      "md": "16px",
+                      "xl": "32px"
+              },
+              "fontFamily": {
+                      "headline-md": [
+                              "IBM Plex Sans"
+                      ],
+                      "label-lg": [
+                              "IBM Plex Sans"
+                      ],
+                      "body-lg": [
+                              "IBM Plex Sans"
+                      ],
+                      "display-lg": [
+                              "IBM Plex Sans"
+                      ],
+                      "title-lg": [
+                              "IBM Plex Sans"
+                      ],
+                      "headline-lg-mobile": [
+                              "IBM Plex Sans"
+                      ],
+                      "body-md": [
+                              "IBM Plex Sans"
+                      ],
+                      "label-sm": [
+                              "IBM Plex Sans"
+                      ],
+                      "headline-lg": [
+                              "IBM Plex Sans"
+                      ]
+              },
+              "fontSize": {
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "label-lg": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "letterSpacing": "0.01em",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "display-lg": [
+                              "40px",
+                              {
+                                      "lineHeight": "48px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "title-lg": [
+                              "20px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-lg-mobile": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "headline-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "fontWeight": "600"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+        body {
+            -webkit-tap-highlight-color: transparent;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-body-md min-h-screen flex flex-col pb-[80px]">
+<!-- TopAppBar -->
+<header class="w-full top-0 z-40 bg-surface dark:bg-surface-dim flex items-center justify-between px-md h-16 sticky shadow-sm">
+<button aria-label="Menu" class="w-12 h-12 flex items-center justify-center text-primary dark:text-primary-fixed-dim hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors active:scale-95 transition-transform duration-150 rounded-full">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h1 class="font-headline-md text-headline-md-mobile font-bold text-primary dark:text-primary-fixed-dim flex-1 text-center">สินค้า</h1>
+<button aria-label="Filter" class="w-12 h-12 flex items-center justify-center text-primary dark:text-primary-fixed-dim hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors active:scale-95 transition-transform duration-150 rounded-full">
+<span class="material-symbols-outlined">filter_list</span>
+</button>
+</header>
+<main class="flex-1 flex flex-col w-full max-w-[1120px] mx-auto">
+<!-- Search and Chips Section -->
+<div class="px-container-margin py-md bg-surface sticky top-16 z-30 shadow-[0_4px_12px_rgba(0,0,0,0.02)]">
+<!-- Search Bar -->
+<div class="relative w-full mb-md">
+<span class="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-on-surface-variant z-10 w-10 text-center pointer-events-none">search</span>
+<input class="w-full h-12 pl-12 pr-4 bg-surface-container-low border border-outline-variant rounded-xl focus:border-2 focus:border-primary focus:ring-0 font-body-md text-body-md text-on-surface placeholder-on-surface-variant transition-all" placeholder="ค้นหาสินค้า" type="text"/>
+</div>
+<!-- Category Chips -->
+<div class="flex overflow-x-auto hide-scrollbar gap-sm pb-xs">
+<button class="shrink-0 px-4 py-2 rounded-full bg-primary-container text-on-primary-container font-label-lg text-label-lg shadow-[0px_4px_12px_rgba(0,0,0,0.05)] active:scale-95 transition-transform">ทั้งหมด</button>
+<button class="shrink-0 px-4 py-2 rounded-full bg-surface-variant text-on-surface-variant font-label-lg text-label-lg border border-transparent hover:border-outline-variant transition-all">เครื่องดื่ม</button>
+<button class="shrink-0 px-4 py-2 rounded-full bg-surface-variant text-on-surface-variant font-label-lg text-label-lg border border-transparent hover:border-outline-variant transition-all">ของใช้</button>
+<button class="shrink-0 px-4 py-2 rounded-full bg-surface-variant text-on-surface-variant font-label-lg text-label-lg border border-transparent hover:border-outline-variant transition-all">ขนม</button>
+<button class="shrink-0 px-4 py-2 rounded-full bg-surface-variant text-on-surface-variant font-label-lg text-label-lg border border-transparent hover:border-outline-variant transition-all">อาหารสด</button>
+</div>
+</div>
+<!-- Product Grid -->
+<div class="px-container-margin py-sm grid grid-cols-2 gap-sm md:grid-cols-3 lg:grid-cols-4">
+<!-- Product Card 1 -->
+<div class="bg-surface-container-lowest border border-[#E5E7EB] rounded-xl overflow-hidden flex flex-col active:scale-[0.98] transition-transform">
+<div class="w-full aspect-square relative bg-surface-variant">
+<img class="w-full h-full object-cover" data-alt="A clean, bright close-up studio shot of a refreshing bottled beverage on a white background. The lighting is soft and evenly distributed, highlighting the product's details and casting a gentle shadow. The aesthetic is modern, commercial, and highly professional, fitting for a premium market app interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDD9XBLsO_qaxTaOw0BK8wxAkLqXl8IrgOzi8BBXUriS_dVyJJ7E7WZMwng73TdtSVdcKPpECI1mqKyV0vrCwrCyzPs_YVc-CDspQXZuyuU3N5kwiL521EU1BnVHUnwGmFO3l5yJQdDQ6UBoFdyx5r3fiPir5KW0RX40uI57-YmaMS89_KGo9WF6Bz_VV09tDhQxBJyWHgZpaSNOAxsKqEMPW0WOfiNm0Xur13Ql2sRNEpk-bPkzKvi"/>
+<div class="absolute top-sm right-sm w-3 h-3 rounded-full bg-[#3b82f6] border border-white shadow-sm"></div>
+</div>
+<div class="p-sm flex flex-col gap-xs flex-1 justify-between">
+<h3 class="font-body-md text-body-md text-on-surface line-clamp-2">น้ำดื่มสิงห์ 600มล.</h3>
+<div class="font-title-lg text-title-lg text-primary mt-auto">฿ 10</div>
+</div>
+</div>
+<!-- Product Card 2 -->
+<div class="bg-surface-container-lowest border border-[#E5E7EB] rounded-xl overflow-hidden flex flex-col active:scale-[0.98] transition-transform">
+<div class="w-full aspect-square relative bg-surface-variant">
+<img class="w-full h-full object-cover" data-alt="A high-quality, well-lit studio photo of a packet of popular snack chips. The packaging is vibrant against a stark white backdrop, emphasizing the product's colors. The lighting creates a slight sheen on the plastic material, indicating freshness. The style is clean, crisp, and suitable for a retail inventory display." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD7xXF1l7MSrkUCl-VLkI4CQHnlUS1cy0heQLBdQlECqdUElnwBSA8xvpPivzzan_EtDwHhWzaJwsE5GhSf4lk4cHvF4CxvxL9zqva4XeD98-kvjrEuRO3qJBptrwkj5xsMcBU1MNLrwwRAd-r4mWOLflnBvYitJcp6EQ2QG37LDMZldFSe003YM0cO2WVF0ogDRfeYyc1KW7kh1HQx8RaBMQx0DLLokBDfK8JJCuiKDo1jYKSk_HY6"/>
+<div class="absolute top-sm right-sm w-3 h-3 rounded-full bg-[#f59e0b] border border-white shadow-sm"></div>
+</div>
+<div class="p-sm flex flex-col gap-xs flex-1 justify-between">
+<h3 class="font-body-md text-body-md text-on-surface line-clamp-2">เลย์ รสมันฝรั่งแท้ 50ก.</h3>
+<div class="font-title-lg text-title-lg text-primary mt-auto">฿ 20</div>
+</div>
+</div>
+<!-- Product Card 3 -->
+<div class="bg-surface-container-lowest border border-[#E5E7EB] rounded-xl overflow-hidden flex flex-col active:scale-[0.98] transition-transform">
+<div class="w-full aspect-square relative bg-surface-variant">
+<img class="w-full h-full object-cover" data-alt="A professional product photography shot of a bar of soap in its wrapper. Shot against a pristine white background with soft, diffused studio lighting. The focus is sharp, highlighting the brand details on the packaging. The overall aesthetic is hygienic, bright, and modern, ideal for a clear e-commerce listing." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBWnz9pIvTLwoLCQTGLo_GjJzIPJ26m3q1IQicMs5O38Wdn69LDLFuYRRPym5iqWspOTARdwaZcawNVGa8JGNiRmlRxcyjZ5WJ7xhy-FTZUVtCn5CQeyZDs2E65feypRYYnwGMAVw83_qbl3HRBEK5SNF-TUgFgpGYbiQJm9g1OHcgLBI0biz95qwf3RydRj19tN_IxZWNPiGo1U2tF3J_q-7Yi3OnlYudaImUcCaQrkWiAa8tNWWS8"/>
+<div class="absolute top-sm right-sm w-3 h-3 rounded-full bg-[#10b981] border border-white shadow-sm"></div>
+</div>
+<div class="p-sm flex flex-col gap-xs flex-1 justify-between">
+<h3 class="font-body-md text-body-md text-on-surface line-clamp-2">สบู่พฤกษานกแก้ว สีเขียว</h3>
+<div class="font-title-lg text-title-lg text-primary mt-auto">฿ 15</div>
+</div>
+</div>
+<!-- Product Card 4 -->
+<div class="bg-surface-container-lowest border border-[#E5E7EB] rounded-xl overflow-hidden flex flex-col active:scale-[0.98] transition-transform">
+<div class="w-full aspect-square relative bg-surface-variant">
+<img class="w-full h-full object-cover" data-alt="A brightly lit, minimalist photograph of a bottle of cooking oil. The golden liquid catches the light softly against a pure white background. The composition is straightforward and commercial, designed for easy identification in a fast-paced retail environment. The image feels clean, essential, and high-quality." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBe9n7XHlVc0wqF4CWkOs5aeK-pNdrOG5v-COzXqUqVAtYkr9sSurWBTyLDfDIhuTLiepa3z2g_iOmj6N2lcbS-esW7ArJWhIP-MYMfrG3MgeMGa2NJfOWsyLtnEy-ZwXRewZE-3MujiM2GHPXAbYRgXfrX0tzN-_D74UhTC52FC1JAMV5kpuwgkREt-2iSeSThaEm6p-2OcuU_hfvIOL0OYTVwdu9834j2tOSg7tQ1aObgvVjt98wq"/>
+<div class="absolute top-sm right-sm w-3 h-3 rounded-full bg-[#ef4444] border border-white shadow-sm"></div>
+</div>
+<div class="p-sm flex flex-col gap-xs flex-1 justify-between">
+<h3 class="font-body-md text-body-md text-on-surface line-clamp-2">น้ำมันพืชองุ่น 1 ลิตร</h3>
+<div class="font-title-lg text-title-lg text-primary mt-auto">฿ 65</div>
+</div>
+</div>
+<!-- Product Card 5 -->
+<div class="bg-surface-container-lowest border border-[#E5E7EB] rounded-xl overflow-hidden flex flex-col active:scale-[0.98] transition-transform">
+<div class="w-full aspect-square relative bg-surface-variant">
+<img class="w-full h-full object-cover" data-alt="A studio-quality image of instant noodles in a cup, brightly illuminated against a seamless white background. The vibrant packaging pops, and the lighting is even, casting minimal shadows. The aesthetic is practical, clear, and perfectly suited for a functional merchant application interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBjA1h6LmCpweCUGAvhbtgVxdyrCUI2K_-5eSZ5xpaVIt-yFh558A23UZs1QmZyShifD2FALmDkcxp_M3K5b8ahNakp5EYO_zpPYY1zr_lXuIWuQq1mUi76Pqxw9DzOKq4BrrfsufpdckM08Udujp-khJNsU72fDCo1k6VYZ4J8xtqoNiGPKNnUmx8BaHK7WDGPJ_uSrSnFjK5yDnFbx2a_Ys2pay9kNKINhLHUAwP9kirRWkTB8VkN"/>
+<div class="absolute top-sm right-sm w-3 h-3 rounded-full bg-[#f59e0b] border border-white shadow-sm"></div>
+</div>
+<div class="p-sm flex flex-col gap-xs flex-1 justify-between">
+<h3 class="font-body-md text-body-md text-on-surface line-clamp-2">มาม่าคัพ รสต้มยำกุ้ง</h3>
+<div class="font-title-lg text-title-lg text-primary mt-auto">฿ 15</div>
+</div>
+</div>
+<!-- Product Card 6 -->
+<div class="bg-surface-container-lowest border border-[#E5E7EB] rounded-xl overflow-hidden flex flex-col active:scale-[0.98] transition-transform">
+<div class="w-full aspect-square relative bg-surface-variant">
+<img class="w-full h-full object-cover" data-alt="A clean, close-up shot of a can of sweet condensed milk. The lighting is commercial studio quality, providing high contrast and clarity against a pure white background. The metallic sheen of the can is subtle. The overall look is professional, straightforward, and highly legible for quick scanning." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDdlVL59apgJbSPhTcQn_7pmG1Y0ExzDMHZzHFqHxLszFsl4TIy0dOK-N3TZMqL4GS9Is6wOxnNZI4fpdniMMfNFvSyhp4pSwsQZWeoD5XVP_3VjtyVS3VYUxgxD2O6M03u-kgW0i-jlwMhBIvImAA4aGtUzREI36WGFRYhmGGA9mYoE7T21FPwUz_Gg2Gk1XTIAC7jkXe-ymRVoosLmlWbWb77KVgtZPLN3eK0P7S1GbtbZTAQy1zK"/>
+<div class="absolute top-sm right-sm w-3 h-3 rounded-full bg-[#3b82f6] border border-white shadow-sm"></div>
+</div>
+<div class="p-sm flex flex-col gap-xs flex-1 justify-between">
+<h3 class="font-body-md text-body-md text-on-surface line-clamp-2">นมข้นหวาน มะลิ 380ก.</h3>
+<div class="font-title-lg text-title-lg text-primary mt-auto">฿ 25</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Floating Action Button -->
+<button aria-label="Add Product" class="fixed bottom-[96px] right-md w-14 h-14 bg-primary-container text-white rounded-xl shadow-[0px_12px_32px_rgba(0,0,0,0.1)] flex items-center justify-center z-40 active:scale-95 transition-transform hover:bg-primary">
+<span class="material-symbols-outlined text-[32px]">add</span>
+</button>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 rounded-t-xl shadow-sm bg-surface dark:bg-surface-container shadow-[0px_-4px_12px_rgba(0,0,0,0.05)] flex justify-around items-center px-gutter py-sm pb-[env(safe-area-inset-bottom,8px)] md:hidden">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-4 py-1 hover:bg-surface-variant dark:hover:bg-surface-container-highest transition-colors active:scale-90 transition-transform duration-200 rounded-full" href="#">
+<span class="material-symbols-outlined">point_of_sale</span>
+<span class="font-label-sm text-label-sm mt-1">ขาย</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-secondary-container dark:bg-on-secondary-container text-on-secondary-container dark:text-secondary-container rounded-full px-4 py-1 hover:bg-surface-variant dark:hover:bg-surface-container-highest transition-colors active:scale-90 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">inventory_2</span>
+<span class="font-label-sm text-label-sm mt-1">สินค้า</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-4 py-1 hover:bg-surface-variant dark:hover:bg-surface-container-highest transition-colors active:scale-90 transition-transform duration-200 rounded-full" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-label-sm text-label-sm mt-1">ต้นทุน</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-4 py-1 hover:bg-surface-variant dark:hover:bg-surface-container-highest transition-colors active:scale-90 transition-transform duration-200 rounded-full" href="#">
+<span class="material-symbols-outlined">leaderboard</span>
+<span class="font-label-sm text-label-sm mt-1">สรุป</span>
+</a>
+</nav>
+</body></html>

@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+
+<html lang="th"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Micro-Merchant POS - ขาย (Mobile)</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface": "#f8f9ff",
+                        "on-tertiary-fixed-variant": "#3f4944",
+                        "tertiary-fixed-dim": "#bfc9c2",
+                        "primary-container": "#2bb14f",
+                        "inverse-on-surface": "#eaf1ff",
+                        "tertiary-container": "#939d97",
+                        "primary-fixed": "#7dfc90",
+                        "surface-container-highest": "#d9e3f4",
+                        "surface-dim": "#d1dbec",
+                        "surface-container-high": "#dfe9fa",
+                        "on-tertiary": "#ffffff",
+                        "tertiary": "#57615b",
+                        "on-error-container": "#93000a",
+                        "on-primary-container": "#003c13",
+                        "secondary": "#366847",
+                        "error": "#ba1a1a",
+                        "inverse-surface": "#27313e",
+                        "on-secondary": "#ffffff",
+                        "on-surface-variant": "#3e4a3d",
+                        "on-primary": "#ffffff",
+                        "background": "#f8f9ff",
+                        "surface-bright": "#f8f9ff",
+                        "secondary-fixed-dim": "#9dd3aa",
+                        "on-tertiary-fixed": "#151d19",
+                        "outline-variant": "#bdcab9",
+                        "inverse-primary": "#60df77",
+                        "on-secondary-container": "#3d6f4d",
+                        "on-error": "#ffffff",
+                        "surface-container": "#e5eeff",
+                        "primary-fixed-dim": "#60df77",
+                        "primary": "#006e29",
+                        "surface-tint": "#006e29",
+                        "on-secondary-fixed": "#00210e",
+                        "on-tertiary-container": "#2b3530",
+                        "on-background": "#121c28",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-container": "#b8f0c5",
+                        "on-secondary-fixed-variant": "#1d5031",
+                        "surface-container-low": "#eef4ff",
+                        "on-surface": "#121c28",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed": "#dbe5de",
+                        "outline": "#6e7b6b",
+                        "secondary-fixed": "#b8f0c5",
+                        "on-primary-fixed-variant": "#00531d",
+                        "on-primary-fixed": "#002107",
+                        "surface-variant": "#d9e3f4"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "lg": "24px",
+                        "gutter": "12px",
+                        "xl": "32px",
+                        "xs": "4px",
+                        "container-margin": "16px",
+                        "md": "16px",
+                        "unit": "4px",
+                        "sm": "8px"
+                    },
+                    "fontFamily": {
+                        "display-lg": ["IBM Plex Sans"],
+                        "body-lg": ["IBM Plex Sans"],
+                        "headline-lg": ["IBM Plex Sans"],
+                        "headline-lg-mobile": ["IBM Plex Sans"],
+                        "headline-md": ["IBM Plex Sans"],
+                        "label-lg": ["IBM Plex Sans"],
+                        "body-md": ["IBM Plex Sans"],
+                        "title-lg": ["IBM Plex Sans"],
+                        "label-sm": ["IBM Plex Sans"]
+                    },
+                    "fontSize": {
+                        "display-lg": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "600" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "title-lg": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .tabular-nums {
+            font-variant-numeric: tabular-nums;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        #bottom-sheet {
+            transform: translateY(100%);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        #bottom-sheet.open {
+            transform: translateY(0);
+        }
+        #overlay {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        #overlay.open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-body-md h-screen flex flex-col overflow-hidden select-none">
+<!-- TopAppBar (from JSON) -->
+<header class="bg-surface dark:bg-surface-dim docked full-width top-0 border-b border-outline-variant flat no shadows flex justify-between items-center px-container-margin h-16 w-full max-w-7xl mx-auto shrink-0 z-10 sticky">
+<div class="flex items-center gap-md">
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-primary dark:text-primary-fixed">ขาย</h1>
+</div>
+<div class="flex items-center gap-sm">
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-low transition-colors active:scale-95 duration-100 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">settings</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-low transition-colors active:scale-95 duration-100 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">help_outline</span>
+</button>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="flex-1 overflow-y-auto pb-48 hide-scrollbar">
+<!-- Search and Categories -->
+<div class="bg-surface sticky top-0 z-0 pt-md pb-sm px-container-margin shadow-[0_4px_12px_rgba(0,0,0,0.02)]">
+<!-- Search Bar -->
+<div class="relative mb-md">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant" style="font-variation-settings: 'FILL' 0;">search</span>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg py-2 pl-10 pr-4 text-body-md text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors h-12" placeholder="ค้นหาสินค้า" type="text"/>
+</div>
+<!-- Categories -->
+<div class="flex gap-sm overflow-x-auto hide-scrollbar snap-x">
+<button class="shrink-0 snap-start bg-primary-container text-on-primary-container font-label-lg text-label-lg px-4 py-2 rounded-full flex items-center gap-2 border border-primary-container active:scale-95 transition-transform">
+<div class="w-2 h-2 rounded-full bg-on-primary-container"></div>
+                    ทั้งหมด
+                </button>
+<button class="shrink-0 snap-start bg-surface-container-lowest text-on-surface-variant font-label-lg text-label-lg px-4 py-2 rounded-full border border-outline-variant hover:bg-surface-container-low active:scale-95 transition-all">
+                    อาหาร
+                </button>
+<button class="shrink-0 snap-start bg-surface-container-lowest text-on-surface-variant font-label-lg text-label-lg px-4 py-2 rounded-full border border-outline-variant hover:bg-surface-container-low active:scale-95 transition-all">
+                    เครื่องดื่ม
+                </button>
+<button class="shrink-0 snap-start bg-surface-container-lowest text-on-surface-variant font-label-lg text-label-lg px-4 py-2 rounded-full border border-outline-variant hover:bg-surface-container-low active:scale-95 transition-all">
+                    ผลไม้
+                </button>
+</div>
+</div>
+<!-- Product Grid -->
+<div class="p-container-margin grid grid-cols-2 gap-sm">
+<!-- Product Card 1 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden flex flex-col active:bg-surface-container-low transition-colors shadow-sm cursor-pointer" onclick="openBottomSheet()">
+<div class="aspect-square bg-surface-container-high w-full relative">
+<img class="w-full h-full object-cover" data-alt="A refreshing glass of Thai iced tea with milk, vibrant orange color, condensation on the glass, set against a clean bright white minimalist background, soft natural lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAIPc1eVyBLBi6XTCtND8nBIpF8tecbrm-qr1QInday2HsX5pjD3cFF76e9p3_iwn1EL6jDwX-2TsB3fKVrAyV6iSNuj_yk_E-xKxuQj8o6TzqiVtXNaBUXc_7pwuYEct5ziE4m0aDqr-Gfl3iOzkacIbYEVD4WLCejQ4exGIQLd3PZr44GoWmIzeLflzTdyTzvrw7j8UlB4JYQtjbGdewJlsLRODND0Dhe0XlItP_NSyO98DsJZi8U"/>
+</div>
+<div class="p-3 flex flex-col justify-between flex-1 gap-1">
+<h3 class="font-body-md text-body-md text-on-surface line-clamp-2">ชาไทยเย็น</h3>
+<p class="font-title-lg text-title-lg text-primary tabular-nums">฿45.00</p>
+</div>
+</div>
+<!-- Product Card 2 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden flex flex-col active:bg-surface-container-low transition-colors shadow-sm cursor-pointer">
+<div class="aspect-square bg-surface-container-high w-full relative">
+<img class="w-full h-full object-cover" data-alt="A beautifully sliced ripe Nam Dok Mai mango, bright yellow flesh, placed on a pristine white ceramic plate, clean modern minimalist lighting, top-down view." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDlNIs1XXw_uNzV7yWa-vNy8bRTWyepk3uDRM-L4ZmlTak0mJ0DMKgxuk6cGympOidjqS8BR7r13peXIY8-NRD-f45fdXj9hxf5MNd6xh2cMLpejxH8kfFKO8a04zFTr-90ERxLCInyQWMHej7fZOjyWlNuZpoG5IWjmhcu-K-1Au0Lmyq7Aw8-5Ku18uz6b_WXwu6LS3pUvnsHADrkYQ_n_QjxT8_5HWWGr_O9sIN-gJtuq4EvW32n"/>
+</div>
+<div class="p-3 flex flex-col justify-between flex-1 gap-1">
+<h3 class="font-body-md text-body-md text-on-surface line-clamp-2">มะม่วงน้ำดอกไม้</h3>
+<p class="font-title-lg text-title-lg text-primary tabular-nums">฿60.00</p>
+</div>
+</div>
+<!-- Product Card 3 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden flex flex-col active:bg-surface-container-low transition-colors shadow-sm cursor-pointer">
+<div class="aspect-square bg-surface-container-high w-full relative">
+<img class="w-full h-full object-cover" data-alt="A steaming bowl of clear broth noodle soup with fish balls and green onions, served in a simple white bowl on a bright minimalist surface, high-key lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDuWMktF-bBCb3Oh5yqsv1P1fkzRLmrN1qRi8LO0bgFzcljcfV-N-ejqR1S0PcwtB2zKldOT-gcCTfZBKeOzW1Ua3vvIim9LvL0ngcZ3Ckp5N3Rl2EQtycKYM2C3iUowqV0uCt_LBqnrkf39UsLSx2RBzaljqD3-X_mbNQr8R8dUrfOWNnYVRZrkLgH2fgK79mztx_gql6auFKRp_19qswqDvSxfFpMgXx79krs6xiugbZ0BBq8jfZh"/>
+</div>
+<div class="p-3 flex flex-col justify-between flex-1 gap-1">
+<h3 class="font-body-md text-body-md text-on-surface line-clamp-2">ก๋วยเตี๋ยวน้ำใส</h3>
+<p class="font-title-lg text-title-lg text-primary tabular-nums">฿50.00</p>
+</div>
+</div>
+<!-- Product Card 4 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden flex flex-col active:bg-surface-container-low transition-colors shadow-sm cursor-pointer">
+<div class="aspect-square bg-surface-container-high w-full relative flex items-center justify-center">
+<span class="material-symbols-outlined text-4xl text-tertiary-fixed-dim" style="font-variation-settings: 'FILL' 0;">fastfood</span>
+</div>
+<div class="p-3 flex flex-col justify-between flex-1 gap-1">
+<h3 class="font-body-md text-body-md text-on-surface line-clamp-2">ข้าวผัดหมู</h3>
+<p class="font-title-lg text-title-lg text-primary tabular-nums">฿55.00</p>
+</div>
+</div>
+</div>
+</main>
+<!-- Sticky Summary Bar (Appears above bottom nav) -->
+<div class="fixed bottom-[72px] w-full px-container-margin py-3 z-40 bg-gradient-to-t from-surface via-surface to-transparent">
+<div class="bg-surface-container-lowest border border-outline-variant shadow-[0_4px_12px_rgba(0,0,0,0.05)] rounded-xl p-3 flex items-center justify-between" onclick="openBottomSheet()">
+<div class="flex items-center gap-3">
+<div class="bg-surface-container-high text-on-surface rounded-full w-10 h-10 flex items-center justify-center relative">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">shopping_cart</span>
+<span class="absolute -top-1 -right-1 bg-error text-on-error text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full">1</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">ยอดรวม (1 รายการ)</span>
+<span class="font-headline-md text-headline-md text-primary tabular-nums tracking-tight">฿45.00</span>
+</div>
+</div>
+<button class="bg-primary-container text-on-primary-container hover:bg-[#259c45] active:scale-95 transition-all font-label-lg text-label-lg px-6 py-3 rounded-lg flex items-center gap-2 shadow-sm">
+                ชำระเงิน
+                <span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 0;">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- BottomNavBar (from JSON) md:hidden -->
+<nav class="md:hidden bg-surface-container-lowest dark:bg-surface-container docked full-width bottom-0 border-t border-outline-variant shadow-sm fixed bottom-0 w-full z-50 flex justify-around items-center px-4 py-2 pb-safe shrink-0">
+<!-- Tab 1: ขาย (Active) -->
+<button class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-4 py-1 active:scale-90 duration-150 w-[72px]">
+<span class="material-symbols-outlined text-xl mb-1" style="font-variation-settings: 'FILL' 1;">point_of_sale</span>
+<span class="font-label-sm text-label-sm">ขาย</span>
+</button>
+<!-- Tab 2: สินค้า (Inactive) -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high transition-all active:scale-90 duration-150 rounded-full px-2 py-1 w-[72px]">
+<span class="material-symbols-outlined text-xl mb-1" style="font-variation-settings: 'FILL' 0;">inventory_2</span>
+<span class="font-label-sm text-label-sm">สินค้า</span>
+</button>
+<!-- Tab 3: ต้นทุน (Inactive) -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high transition-all active:scale-90 duration-150 rounded-full px-2 py-1 w-[72px]">
+<span class="material-symbols-outlined text-xl mb-1" style="font-variation-settings: 'FILL' 0;">payments</span>
+<span class="font-label-sm text-label-sm">ต้นทุน</span>
+</button>
+<!-- Tab 4: สรุป (Inactive) -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high transition-all active:scale-90 duration-150 rounded-full px-2 py-1 w-[72px]">
+<span class="material-symbols-outlined text-xl mb-1" style="font-variation-settings: 'FILL' 0;">equalizer</span>
+<span class="font-label-sm text-label-sm">สรุป</span>
+</button>
+</nav>
+<!-- OVERLAY -->
+<div class="fixed inset-0 bg-[#000000] bg-opacity-40 z-[60]" id="overlay" onclick="closeBottomSheet()"></div>
+<!-- BOTTOM SHEET: Order Sheet State -->
+<div class="fixed bottom-0 left-0 w-full bg-surface-container-lowest rounded-t-xl z-[70] flex flex-col shadow-[0_-12px_32px_rgba(0,0,0,0.1)] max-h-[795px]" id="bottom-sheet">
+<!-- Drag Handle -->
+<div class="w-full flex justify-center pt-3 pb-1 cursor-grab" onclick="closeBottomSheet()">
+<div class="w-12 h-1.5 bg-outline-variant rounded-full"></div>
+</div>
+<!-- Header -->
+<div class="flex justify-between items-center px-container-margin pb-3 border-b border-surface-container-highest">
+<h2 class="font-title-lg text-title-lg text-on-surface">บิลปัจจุบัน</h2>
+<button class="p-2 text-on-surface-variant rounded-full active:bg-surface-container-high transition-colors" onclick="closeBottomSheet()">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">close</span>
+</button>
+</div>
+<!-- Scrollable Content -->
+<div class="flex-1 overflow-y-auto hide-scrollbar p-container-margin flex flex-col gap-lg">
+<!-- Line Items -->
+<div class="flex flex-col gap-md">
+<div class="flex items-center gap-3 py-2 border-b border-surface-container border-dashed pb-4">
+<div class="w-12 h-12 bg-surface-container-high rounded-md overflow-hidden shrink-0">
+<img class="w-full h-full object-cover" data-alt="A small square thumbnail of a vibrant orange Thai iced tea, condensation on glass, clean bright minimalist background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAdZPQmS9yv15ZMPLln-yVUm1BpgrCB_Cb2p6PhZodEOTw7qTQt_AlnnRgNGAaBxazcEALbv9K9iPDFJ_NgZJhxspYCZ4dS93_B0eOiyEgWeeVauMzBaQVsIGBXBI8INWCsFtzNmIDH0xOgm9pkbg7B92mX8_7cQW16lB_9OTIpITc0EF8_-ieJwt9p4pEjzajnT80ExXnEBZ71MkMQr01ASxziFzcAlCBY02k4Z92v2gHrKlTc7-mE"/>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start">
+<h3 class="font-label-lg text-label-lg text-on-surface">ชาไทยเย็น</h3>
+<p class="font-label-lg text-label-lg text-on-surface tabular-nums">฿45.00</p>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant mb-2">หวานน้อย</p>
+<div class="flex justify-between items-center">
+<!-- Stepper -->
+<div class="flex items-center border border-outline-variant rounded-md overflow-hidden bg-surface-container-lowest h-8">
+<button class="w-8 h-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container-low active:bg-surface-container-high transition-colors"><span class="material-symbols-outlined text-[16px]">remove</span></button>
+<div class="w-8 h-full flex items-center justify-center font-label-lg text-label-lg border-x border-outline-variant tabular-nums">1</div>
+<button class="w-8 h-full flex items-center justify-center text-primary hover:bg-surface-container-low active:bg-surface-container-high transition-colors"><span class="material-symbols-outlined text-[16px]">add</span></button>
+</div>
+<button class="text-error p-1 rounded-full active:bg-error-container/50 transition-colors">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 0;">delete</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Discount Row -->
+<div class="flex items-center justify-between py-2">
+<span class="font-body-md text-body-md text-on-surface">ส่วนลด</span>
+<div class="relative w-32">
+<input class="w-full bg-surface border border-outline-variant rounded-lg py-2 pl-3 pr-8 text-right text-body-md text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary h-10 tabular-nums" placeholder="0.00" type="text"/>
+<span class="absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant font-body-md">฿</span>
+</div>
+</div>
+<!-- Summary Block -->
+<div class="bg-surface-container-low rounded-xl p-4 flex flex-col gap-2 border border-surface-container-highest">
+<div class="flex justify-between items-center text-on-surface-variant">
+<span class="font-body-md text-body-md">ยอดรวม</span>
+<span class="font-body-md text-body-md tabular-nums">฿45.00</span>
+</div>
+<div class="flex justify-between items-center text-error">
+<span class="font-body-md text-body-md">ส่วนลด</span>
+<span class="font-body-md text-body-md tabular-nums">-฿0.00</span>
+</div>
+<div class="border-t border-surface-container-highest my-1"></div>
+<div class="flex justify-between items-center text-on-surface">
+<span class="font-title-lg text-title-lg">รวมทั้งสิ้น</span>
+<span class="font-headline-lg-mobile text-headline-lg-mobile text-primary tabular-nums">฿45.00</span>
+</div>
+</div>
+<!-- Payment Methods -->
+<div class="flex flex-col gap-3">
+<span class="font-label-lg text-label-lg text-on-surface-variant">วิธีชำระเงิน</span>
+<div class="grid grid-cols-3 gap-2">
+<button class="bg-primary-container text-on-primary-container border border-primary-container rounded-lg py-3 flex flex-col items-center justify-center gap-1 active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">payments</span>
+<span class="font-label-sm text-label-sm">เงินสด</span>
+</button>
+<button class="bg-surface-container-lowest text-on-surface-variant border border-outline-variant rounded-lg py-3 flex flex-col items-center justify-center gap-1 active:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 0;">qr_code_scanner</span>
+<span class="font-label-sm text-label-sm">PromptPay</span>
+</button>
+<button class="bg-surface-container-lowest text-on-surface-variant border border-outline-variant rounded-lg py-3 flex flex-col items-center justify-center gap-1 active:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 0;">account_balance</span>
+<span class="font-label-sm text-label-sm">โอนเงิน</span>
+</button>
+</div>
+</div>
+<!-- Cash Input Section -->
+<div class="flex gap-4">
+<div class="flex-1 flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-on-surface-variant">รับเงินมา (฿)</label>
+<input class="w-full bg-surface border border-outline-variant rounded-lg py-3 px-3 text-right text-title-lg text-on-surface focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary h-12 tabular-nums" type="number" value="50"/>
+</div>
+<div class="flex-1 flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-on-surface-variant">เงินทอน</label>
+<div class="w-full bg-surface-container-high border border-transparent rounded-lg py-3 px-3 flex items-center justify-end h-12">
+<span class="font-title-lg text-title-lg text-on-surface tabular-nums">฿5.00</span>
+</div>
+</div>
+</div>
+<!-- Quick Cash Buttons -->
+<div class="flex gap-2 pb-4">
+<button class="flex-1 bg-surface-container-lowest border border-outline-variant rounded-md py-1 font-label-lg text-on-surface-variant active:bg-surface-container-high">พอดี</button>
+<button class="flex-1 bg-surface-container-lowest border border-outline-variant rounded-md py-1 font-label-lg text-on-surface-variant active:bg-surface-container-high">50</button>
+<button class="flex-1 bg-surface-container-lowest border border-outline-variant rounded-md py-1 font-label-lg text-on-surface-variant active:bg-surface-container-high">100</button>
+<button class="flex-1 bg-surface-container-lowest border border-outline-variant rounded-md py-1 font-label-lg text-on-surface-variant active:bg-surface-container-high">500</button>
+</div>
+</div>
+<!-- Bottom Action -->
+<div class="p-container-margin border-t border-surface-container-highest pb-safe pt-3">
+<button class="w-full bg-primary-container text-on-primary-container hover:bg-[#259c45] active:scale-[0.98] transition-transform font-title-lg text-title-lg py-4 rounded-xl flex items-center justify-center gap-2 shadow-sm h-14" onclick="closeBottomSheet()">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                ชำระเงิน / CHECK OUT
+            </button>
+</div>
+</div>
+<script>
+        function openBottomSheet() {
+            document.getElementById('bottom-sheet').classList.add('open');
+            document.getElementById('overlay').classList.add('open');
+        }
+
+        function closeBottomSheet() {
+            document.getElementById('bottom-sheet').classList.remove('open');
+            document.getElementById('overlay').classList.remove('open');
+        }
+    </script>
+</body></html>

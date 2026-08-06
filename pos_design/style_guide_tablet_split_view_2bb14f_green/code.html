@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+
+<html lang="th"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>POS Design System Reference - Tablet/Desktop</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+                "surface-dim": "#d1dbec",
+                "on-secondary-fixed-variant": "#1d5031",
+                "on-tertiary": "#ffffff",
+                "surface-variant": "#d9e3f4",
+                "primary-fixed": "#7dfc90",
+                "on-tertiary-container": "#2b3530",
+                "on-tertiary-fixed-variant": "#3f4944",
+                "surface-container-low": "#eef4ff",
+                "error-container": "#ffdad6",
+                "on-tertiary-fixed": "#151d19",
+                "surface": "#f8f9ff",
+                "primary-fixed-dim": "#60df77",
+                "surface-container": "#e5eeff",
+                "surface-container-high": "#dfe9fa",
+                "surface-bright": "#f8f9ff",
+                "outline-variant": "#bdcab9",
+                "inverse-on-surface": "#eaf1ff",
+                "on-secondary": "#ffffff",
+                "on-primary": "#ffffff",
+                "on-primary-fixed": "#002107",
+                "on-secondary-fixed": "#00210e",
+                "outline": "#6e7b6b",
+                "secondary-fixed": "#b8f0c5",
+                "secondary": "#366847",
+                "on-background": "#121c28",
+                "surface-container-highest": "#d9e3f4",
+                "on-error": "#ffffff",
+                "inverse-primary": "#60df77",
+                "on-primary-container": "#003c13",
+                "on-primary-fixed-variant": "#00531d",
+                "secondary-container": "#b8f0c5",
+                "tertiary-container": "#939d97",
+                "secondary-fixed-dim": "#9dd3aa",
+                "tertiary-fixed": "#dbe5de",
+                "on-surface-variant": "#3e4a3d",
+                "inverse-surface": "#27313e",
+                "primary": "#006e29",
+                "surface-container-lowest": "#ffffff",
+                "surface-tint": "#006e29",
+                "on-secondary-container": "#3d6f4d",
+                "primary-container": "#2bb14f",
+                "background": "#f8f9ff",
+                "tertiary-fixed-dim": "#bfc9c2",
+                "on-surface": "#121c28",
+                "on-error-container": "#93000a",
+                "tertiary": "#57615b",
+                "error": "#ba1a1a"
+        },
+        "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+        },
+        "spacing": {
+                "xs": "4px",
+                "lg": "24px",
+                "gutter": "16px",
+                "md": "16px",
+                "margin-mobile": "16px",
+                "base": "8px",
+                "sm": "12px",
+                "xl": "40px",
+                "margin-desktop": "64px"
+        },
+        "fontFamily": {
+                "body-md": [
+                        "IBM Plex Sans Thai",
+                        "Be Vietnam Pro"
+                ],
+                "label-sm": [
+                        "IBM Plex Sans Thai",
+                        "Be Vietnam Pro"
+                ],
+                "headline-lg": [
+                        "IBM Plex Sans Thai",
+                        "Be Vietnam Pro"
+                ],
+                "label-md": [
+                        "IBM Plex Sans Thai",
+                        "Be Vietnam Pro"
+                ],
+                "headline-lg-mobile": [
+                        "IBM Plex Sans Thai",
+                        "Be Vietnam Pro"
+                ],
+                "body-lg": [
+                        "IBM Plex Sans Thai",
+                        "Be Vietnam Pro"
+                ],
+                "headline-md": [
+                        "IBM Plex Sans Thai",
+                        "Be Vietnam Pro"
+                ]
+        },
+        "fontSize": {
+                "body-md": [
+                        "16px",
+                        {
+                                "lineHeight": "24px",
+                                "fontWeight": "400"
+                        }
+                ],
+                "label-sm": [
+                        "12px",
+                        {
+                                "lineHeight": "16px",
+                                "fontWeight": "600"
+                        }
+                ],
+                "headline-lg": [
+                        "32px",
+                        {
+                                "lineHeight": "40px",
+                                "letterSpacing": "-0.02em",
+                                "fontWeight": "700"
+                        }
+                ],
+                "label-md": [
+                        "14px",
+                        {
+                                "lineHeight": "20px",
+                                "letterSpacing": "0.01em",
+                                "fontWeight": "500"
+                        }
+                ],
+                "headline-lg-mobile": [
+                        "26px",
+                        {
+                                "lineHeight": "32px",
+                                "letterSpacing": "-0.02em",
+                                "fontWeight": "700"
+                        }
+                ],
+                "body-lg": [
+                        "18px",
+                        {
+                                "lineHeight": "28px",
+                                "fontWeight": "400"
+                        }
+                ],
+                "headline-md": [
+                        "24px",
+                        {
+                                "lineHeight": "32px",
+                                "fontWeight": "600"
+                        }
+                ]
+        }
+},
+    },
+  }
+</script>
+<style>
+        .tactile-card {
+            border: 1px solid #E5E5E5;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.05);
+        }
+        .flat-card {
+            border: 1px solid #E5E5E5;
+        }
+    </style>
+</head>
+<body class="font-body-md text-on-background min-h-screen flex antialiased bg-background">
+<!-- Side Navigation (Adapted for Tablet/Desktop) -->
+<nav class="hidden md:flex flex-col h-full sticky left-0 top-0 py-6 bg-surface-container-low dark:bg-surface-container-lowest border-r border-outline-variant flat no shadows w-64 z-10 h-screen">
+<div class="px-6 mb-8">
+<h1 class="font-headline-lg text-headline-lg text-primary">ร้านค้าของฉัน</h1>
+<p class="font-label-md text-label-md text-on-surface-variant">Micro-Merchant POS</p>
+</div>
+<div class="flex-1 space-y-2">
+<!-- Active Tab: ขาย -->
+<a class="flex items-center gap-4 bg-secondary-container text-on-secondary-container rounded-lg p-4 mx-2" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">point_of_sale</span>
+<span class="font-headline-md text-headline-md">ขาย</span>
+</a>
+<!-- Inactive Tabs -->
+<a class="flex items-center gap-4 text-on-surface-variant p-4 mx-2 hover:bg-surface-container-highest rounded-lg transition-all active:opacity-80 duration-100" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-headline-md text-headline-md">สินค้า</span>
+</a>
+<a class="flex items-center gap-4 text-on-surface-variant p-4 mx-2 hover:bg-surface-container-highest rounded-lg transition-all active:opacity-80 duration-100" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-headline-md text-headline-md">ต้นทุน</span>
+</a>
+<a class="flex items-center gap-4 text-on-surface-variant p-4 mx-2 hover:bg-surface-container-highest rounded-lg transition-all active:opacity-80 duration-100" href="#">
+<span class="material-symbols-outlined">equalizer</span>
+<span class="font-headline-md text-headline-md">สรุป</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area (Tablet Split-View) -->
+<main class="flex-1 flex flex-col md:flex-row h-screen overflow-hidden bg-background">
+<!-- Top App Bar (Mobile only, hidden on md+) -->
+<header class="md:hidden bg-surface dark:bg-surface-dim border-b border-outline-variant flat no shadows docked full-width top-0 flex justify-between items-center px-margin-mobile h-12 w-full max-w-7xl mx-auto z-20 sticky">
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-primary dark:text-primary-fixed">บันทึกยอดขาย</h1>
+<div class="flex gap-4">
+<button class="text-primary dark:text-primary-fixed hover:bg-surface-container-low transition-colors active:scale-95 duration-100 p-2 rounded-full">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<button class="text-primary dark:text-primary-fixed hover:bg-surface-container-low transition-colors active:scale-95 duration-100 p-2 rounded-full">
+<span class="material-symbols-outlined">help_outline</span>
+</button>
+</div>
+</header>
+<!-- Left Column: Product Grid -->
+<section class="flex-1 flex flex-col overflow-hidden">
+<div class="p-lg flex-shrink-0">
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-lg">รายการสินค้า</h2>
+<!-- Category Chips -->
+<div class="flex gap-sm overflow-x-auto pb-sm scrollbar-hide">
+<button class="bg-primary text-on-primary px-md py-sm rounded-full font-label-md text-label-md whitespace-nowrap flex items-center gap-xs">
+<span class="w-2 h-2 rounded-full bg-white"></span> ทั้งหมด
+                    </button>
+<button class="bg-surface-container-lowest flat-card px-md py-sm rounded-full font-label-md text-label-md whitespace-nowrap flex items-center gap-xs text-on-surface-variant">
+<span class="w-2 h-2 rounded-full bg-secondary"></span> อาหาร
+                    </button>
+<button class="bg-surface-container-lowest flat-card px-md py-sm rounded-full font-label-md text-label-md whitespace-nowrap flex items-center gap-xs text-on-surface-variant">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span> เครื่องดื่ม
+                    </button>
+<button class="bg-surface-container-lowest flat-card px-md py-sm rounded-full font-label-md text-label-md whitespace-nowrap flex items-center gap-xs text-on-surface-variant">
+<span class="w-2 h-2 rounded-full bg-tertiary-container"></span> ผลไม้
+                    </button>
+</div>
+</div>
+<!-- Grid -->
+<div class="flex-1 overflow-y-auto p-lg pt-0 grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-md">
+<!-- Product Card 1 -->
+<div class="bg-surface-container-lowest rounded-2xl flat-card overflow-hidden cursor-pointer hover:shadow-sm transition-shadow active:scale-[0.98]">
+<div class="h-32 bg-surface-container-low relative">
+<img class="w-full h-full object-cover" data-alt="A clean, brightly lit top-down photo of a simple Thai iced tea in a clear plastic cup, set against a pristine white background. High key lighting, minimal shadows, modern retail aesthetic, vibrant orange color of the tea stands out." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDBw2PGkq0x0SDPVq0DAA_RiD7kB1GpNcxvBZ22-8ZrAxvTmc5P7zTaoKpvg6FmXruirFwWtT8hY0DcnnSREOi0VNewKZzmkBj6l1WbnEyvkV72t4Iwv4wAP3PcwCtsmt5bR5iYjCi_L2oV_7hQhUKD30z3joWPrwxSgKQiim0klO2g1Is5gE0qNyAASSMpDxRGj0X6PT8fnl0MCpsIoZ5q8cKHCQWqXlLX8p6ZVmZxs8NztfhX5wvd"/>
+</div>
+<div class="p-md">
+<h3 class="font-headline-md text-headline-md text-on-surface truncate">ชาไทยเย็น</h3>
+<p class="font-body-md text-body-md text-primary font-semibold mt-xs">฿45.00</p>
+</div>
+</div>
+<!-- Product Card 2 -->
+<div class="bg-surface-container-lowest rounded-2xl flat-card overflow-hidden cursor-pointer hover:shadow-sm transition-shadow active:scale-[0.98]">
+<div class="h-32 bg-surface-container-low relative">
+<img class="w-full h-full object-cover" data-alt="A clean, brightly lit close-up photo of fresh sliced mangoes on a small white ceramic plate, set against a pristine white background. High key lighting, minimal shadows, modern retail aesthetic, appetizing vibrant yellow." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAmjZOankA2jBNprrAJ_pKAIAsyVHU6e2mYdvA90n8cXovCTjHI5shQ8B_Ds-15R1_jxgGm1h1tr-SFmdrHAPfMpIClFlgTxKJipryyyLMy4iaUgsSll0YqC1di5k67aQhmruIMi4kKBnvWDS8QnYcSLPuNQZg7PnpFLH5LnFpGsxuQLOnVDW-WxwWd9b3GVCp_2trbc2k3hJhCCHCQKb9W2_vDjBfjjAVO2WxcsB8zeK4dOHJv7ojR"/>
+</div>
+<div class="p-md">
+<h3 class="font-headline-md text-headline-md text-on-surface truncate">มะม่วงน้ำปลาหวาน</h3>
+<p class="font-body-md text-body-md text-primary font-semibold mt-xs">฿60.00</p>
+</div>
+</div>
+<!-- Product Card 3 -->
+<div class="bg-surface-container-lowest rounded-2xl flat-card overflow-hidden cursor-pointer hover:shadow-sm transition-shadow active:scale-[0.98]">
+<div class="h-32 bg-surface-container-low relative flex items-center justify-center">
+<span class="material-symbols-outlined text-4xl text-outline-variant">fastfood</span>
+</div>
+<div class="p-md">
+<h3 class="font-headline-md text-headline-md text-on-surface truncate">ข้าวกะเพราไก่</h3>
+<p class="font-body-md text-body-md text-primary font-semibold mt-xs">฿50.00</p>
+</div>
+</div>
+<!-- Product Card 4 -->
+<div class="bg-surface-container-lowest rounded-2xl flat-card overflow-hidden cursor-pointer hover:shadow-sm transition-shadow active:scale-[0.98]">
+<div class="h-32 bg-surface-container-low relative flex items-center justify-center">
+<span class="material-symbols-outlined text-4xl text-outline-variant">local_drink</span>
+</div>
+<div class="p-md">
+<h3 class="font-headline-md text-headline-md text-on-surface truncate">น้ำเปล่า</h3>
+<p class="font-body-md text-body-md text-primary font-semibold mt-xs">฿10.00</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Right Column: Live Bill & Complex Components -->
+<aside class="w-full md:w-[400px] lg:w-[450px] bg-surface-container-lowest border-l border-outline-variant flex flex-col h-full z-10 shadow-[-4px_0_12px_rgba(0,0,0,0.02)]">
+<div class="p-md border-b border-outline-variant bg-surface-container-lowest flex justify-between items-center flex-shrink-0">
+<h2 class="font-headline-lg text-headline-lg text-on-surface">บิลปัจจุบัน</h2>
+<button class="text-error flex items-center gap-xs font-label-md text-label-md hover:bg-error-container p-sm rounded-lg transition-colors">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+                    ล้างบิล
+                </button>
+</div>
+<!-- Bill Items (Scrollable) -->
+<div class="flex-1 overflow-y-auto p-md space-y-sm bg-background">
+<!-- List Item -->
+<div class="bg-surface-container-lowest rounded-xl p-sm flex items-center justify-between flat-card min-h-[56px]">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 bg-surface-container-low rounded-lg overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="Small thumbnail photo of Thai iced tea, bright lighting, white background, clear detail of the orange beverage." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDMSMxvhUc1KoWQDneeXuk_4KSjNcWfdNPyMg9d2uUwTqw19_9NGwRgli8GiNi95ivQG0LPzGt_SWqnhWmwI73NXdPu9wGHU7pt0Nm_c4uUQffL60yM7Bfbug7naRU_hh5TBlGWniLk6NjTDDOyYRaJekz_5Y5PY-xdEnWWFe4ooaDQ6eiqtExd9i5vPagxs4haVvo3dfg-UwTb_Kr0cdygogf3aR710e8OpXfndOp4gGD9viIaQ1SS"/>
+</div>
+<div>
+<p class="font-headline-md text-headline-md text-on-surface">ชาไทยเย็น</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">หวานน้อย</p>
+</div>
+</div>
+<div class="flex flex-col items-end gap-xs">
+<p class="font-body-md text-body-md font-semibold">฿45.00</p>
+<!-- Quantity Stepper -->
+<div class="flex items-center bg-surface-container-low rounded-lg border border-outline-variant overflow-hidden">
+<button class="w-8 h-8 flex items-center justify-center text-on-surface hover:bg-surface-container-highest active:bg-surface-variant transition-colors"><span class="material-symbols-outlined text-[18px]">remove</span></button>
+<span class="w-8 text-center font-label-md text-label-md">1</span>
+<button class="w-8 h-8 flex items-center justify-center text-on-surface hover:bg-surface-container-highest active:bg-surface-variant transition-colors"><span class="material-symbols-outlined text-[18px]">add</span></button>
+</div>
+</div>
+</div>
+</div>
+<!-- Payment Section (Bottom Fixed) -->
+<div class="bg-surface-container-lowest border-t border-outline-variant p-md flex-shrink-0 tactile-card rounded-t-[24px]">
+<!-- Summary -->
+<div class="flex justify-between items-end mb-lg">
+<span class="font-headline-md text-headline-md text-on-surface-variant">ยอดรวม (1 รายการ)</span>
+<span class="font-headline-lg text-headline-lg text-primary">฿45.00</span>
+</div>
+<!-- Payment Method Selector -->
+<p class="font-label-md text-label-md text-on-surface-variant mb-sm">วิธีรับชำระเงิน</p>
+<div class="grid grid-cols-3 gap-sm mb-lg">
+<button class="border border-primary bg-primary-container/10 text-primary rounded-xl p-sm flex flex-col items-center justify-center h-[72px] transition-colors active:scale-95">
+<span class="material-symbols-outlined mb-xs" style="font-variation-settings: 'FILL' 1;">payments</span>
+<span class="font-label-md text-label-md text-sm">เงินสด</span>
+</button>
+<button class="border border-outline-variant bg-surface-container-lowest text-on-surface rounded-xl p-sm flex flex-col items-center justify-center h-[72px] hover:bg-surface-container-low transition-colors active:scale-95">
+<span class="material-symbols-outlined mb-xs">qr_code_scanner</span>
+<span class="font-label-md text-label-md text-sm">PromptPay</span>
+</button>
+<button class="border border-outline-variant bg-surface-container-lowest text-on-surface rounded-xl p-sm flex flex-col items-center justify-center h-[72px] hover:bg-surface-container-low transition-colors active:scale-95">
+<span class="material-symbols-outlined mb-xs">account_balance</span>
+<span class="font-label-md text-label-md text-sm">โอนเงิน</span>
+</button>
+</div>
+<!-- Checkout Action -->
+<button class="w-full bg-primary text-on-primary font-label-md text-label-md rounded-xl h-12 flex items-center justify-center gap-sm active:scale-[0.98] transition-transform shadow-sm">
+                    รับเงิน ฿45.00
+                    <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+</aside>
+</main>
+<!-- Bottom Nav Bar (Mobile only, hidden on md+) -->
+<nav class="md:hidden fixed bottom-0 w-full z-50 flex justify-around items-center px-4 py-2 pb-safe bg-surface-container-lowest dark:bg-surface-container border-t border-outline-variant shadow-sm rounded-t-xl">
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-4 py-1 hover:bg-surface-container-high transition-all active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">point_of_sale</span>
+<span class="font-label-md text-label-md">ขาย</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high transition-all active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-label-md text-label-md">สินค้า</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high transition-all active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-label-md text-label-md">ต้นทุน</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high transition-all active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined">equalizer</span>
+<span class="font-label-md text-label-md">สรุป</span>
+</a>
+</nav>
+</body></html>

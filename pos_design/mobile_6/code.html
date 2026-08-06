@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+
+<html lang="th"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>รีเซ็ตรหัสผ่าน - PromptPay POS</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-fixed": "#7dfc90",
+                        "surface-dim": "#d1dbec",
+                        "inverse-on-surface": "#eaf1ff",
+                        "on-primary-fixed-variant": "#00531d",
+                        "on-secondary-container": "#3d6f4d",
+                        "on-tertiary-fixed": "#151d19",
+                        "primary": "#006e29",
+                        "surface-container": "#e5eeff",
+                        "on-surface": "#121c28",
+                        "tertiary-fixed-dim": "#bfc9c2",
+                        "surface-container-high": "#dfe9fa",
+                        "on-tertiary-fixed-variant": "#3f4944",
+                        "outline-variant": "#bdcab9",
+                        "on-primary-fixed": "#002107",
+                        "outline": "#6e7b6b",
+                        "inverse-surface": "#27313e",
+                        "on-background": "#121c28",
+                        "on-tertiary": "#ffffff",
+                        "secondary-container": "#b8f0c5",
+                        "on-secondary": "#ffffff",
+                        "secondary-fixed-dim": "#9dd3aa",
+                        "surface-variant": "#d9e3f4",
+                        "inverse-primary": "#60df77",
+                        "on-secondary-fixed-variant": "#1d5031",
+                        "surface-container-highest": "#d9e3f4",
+                        "on-tertiary-container": "#2b3530",
+                        "primary-fixed-dim": "#60df77",
+                        "on-secondary-fixed": "#00210e",
+                        "surface-tint": "#006e29",
+                        "tertiary-fixed": "#dbe5de",
+                        "primary-container": "#2bb14f",
+                        "tertiary-container": "#939d97",
+                        "surface-container-low": "#eef4ff",
+                        "error-container": "#ffdad6",
+                        "surface": "#f8f9ff",
+                        "on-primary-container": "#003c13",
+                        "surface-bright": "#f8f9ff",
+                        "background": "#f8f9ff",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary": "#57615b",
+                        "on-surface-variant": "#3e4a3d",
+                        "on-primary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "secondary-fixed": "#b8f0c5",
+                        "error": "#ba1a1a",
+                        "secondary": "#366847",
+                        "on-error-container": "#93000a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xl": "32px",
+                        "unit": "4px",
+                        "md": "16px",
+                        "container-margin": "16px",
+                        "lg": "24px",
+                        "gutter": "12px",
+                        "sm": "8px",
+                        "xs": "4px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["IBM Plex Sans Thai", "sans-serif"],
+                        "label-lg": ["IBM Plex Sans Thai", "sans-serif"],
+                        "body-md": ["IBM Plex Sans Thai", "sans-serif"],
+                        "body-lg": ["IBM Plex Sans Thai", "sans-serif"],
+                        "headline-md": ["IBM Plex Sans Thai", "sans-serif"],
+                        "headline-lg-mobile": ["IBM Plex Sans Thai", "sans-serif"],
+                        "display-lg": ["IBM Plex Sans Thai", "sans-serif"],
+                        "label-sm": ["IBM Plex Sans Thai", "sans-serif"],
+                        "title-lg": ["IBM Plex Sans Thai", "sans-serif"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "600" }],
+                        "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "display-lg": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "title-lg": ["20px", { "lineHeight": "28px", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            font-family: 'IBM Plex Sans Thai', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        /* Simulated Success State Toggle */
+        .show-success #reset-form {
+            display: none;
+        }
+        .show-success #success-state {
+            display: flex;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface min-h-screen flex flex-col items-center justify-start w-full relative antialiased selection:bg-primary-container/30">
+<!-- Mobile Container Wrapper (~390px width limit for visualization, though fluid in reality) -->
+<div class="w-full max-w-[390px] mx-auto min-h-screen flex flex-col bg-surface shadow-sm relative overflow-hidden">
+<!-- TopAppBar (from JSON + requirements) -->
+<header class="w-full top-0 bg-surface z-50 flex items-center justify-between px-md py-sm h-14">
+<button aria-label="Go back" class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-variant/20 transition-colors duration-200 active:scale-95 text-on-surface-variant">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">arrow_back</span>
+</button>
+<h1 class="font-headline-md-mobile text-headline-md-mobile text-on-surface absolute left-1/2 -translate-x-1/2 font-bold pointer-events-none">รีเซ็ตรหัสผ่าน</h1>
+<div class="w-10 h-10"></div> <!-- Spacer for center alignment -->
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 px-container-margin pt-lg pb-xl flex flex-col gap-lg">
+<!-- Context Text -->
+<div class="text-center">
+<p class="font-body-md text-body-md text-on-surface-variant">
+                    กรอกอีเมลที่ใช้สมัคร เราจะส่งลิงก์รีเซ็ตให้
+                </p>
+</div>
+<!-- Interactive Area (Form vs Success) -->
+<div class="w-full flex-1 flex flex-col relative" id="interaction-zone">
+<!-- Reset Form -->
+<form class="w-full flex flex-col gap-lg flex-1" id="reset-form" onsubmit="event.preventDefault(); document.getElementById('interaction-zone').classList.add('show-success');">
+<div class="w-full flex flex-col gap-xs">
+<label class="font-label-lg text-label-lg text-on-surface" for="email-input">อีเมล</label>
+<div class="relative w-full">
+<input class="w-full h-14 px-md py-sm rounded-DEFAULT border border-outline-variant bg-surface-container-lowest text-on-surface font-body-md text-body-md focus:border-2 focus:border-primary focus:ring-0 focus:outline-none transition-all placeholder:text-outline-variant/60" id="email-input" placeholder="name@example.com" required="" type="email"/>
+</div>
+</div>
+<div class="mt-auto pt-lg">
+<button class="w-full h-12 bg-primary-container text-on-primary rounded-lg font-label-lg text-label-lg flex items-center justify-center transition-transform duration-200 active:scale-95 shadow-sm hover:shadow" type="submit">
+                            ส่งลิงก์รีเซ็ต
+                        </button>
+</div>
+</form>
+<!-- Success State (Hidden by default, shown via JS class toggle) -->
+<div class="hidden flex-col items-center justify-center gap-md w-full py-xl text-center flex-1" id="success-state">
+<div class="w-16 h-16 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center mb-sm shadow-sm ring-4 ring-secondary-container/30">
+<span class="material-symbols-outlined text-[32px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<div class="bg-surface-container-low p-md rounded-lg border border-outline-variant/30 w-full">
+<p class="font-body-md text-body-md text-on-surface">
+                            ส่งลิงก์ไปที่อีเมลแล้ว<br/>กรุณาตรวจสอบกล่องจดหมาย
+                        </p>
+</div>
+<!-- Decorative Graphic using subtle gradient block -->
+<div class="w-full h-32 mt-lg rounded-xl bg-gradient-to-br from-surface-container-high to-surface-container flex items-center justify-center overflow-hidden border border-surface-variant relative">
+<span class="material-symbols-outlined text-[64px] text-tertiary-fixed-dim absolute opacity-20 -right-4 -bottom-4 transform rotate-12">mark_email_read</span>
+<span class="material-symbols-outlined text-primary opacity-80" style="font-variation-settings: 'FILL' 1;">mail</span>
+</div>
+<div class="mt-auto pt-lg w-full">
+<button class="w-full h-12 bg-surface text-primary border border-primary rounded-lg font-label-lg text-label-lg flex items-center justify-center transition-transform duration-200 active:scale-95" onclick="window.location.reload();" type="button">
+                            กลับไปหน้าเข้าสู่ระบบ
+                        </button>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

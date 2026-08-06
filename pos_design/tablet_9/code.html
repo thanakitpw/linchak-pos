@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+
+<html lang="th"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>กำไรรายเดือน - POS Merchant</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-variant": "#d9e3f4",
+                        "on-secondary-container": "#3d6f4d",
+                        "on-secondary-fixed-variant": "#1d5031",
+                        "secondary": "#366847",
+                        "inverse-primary": "#60df77",
+                        "secondary-fixed": "#b8f0c5",
+                        "primary-container": "#2bb14f",
+                        "on-tertiary": "#ffffff",
+                        "on-background": "#121c28",
+                        "on-primary": "#ffffff",
+                        "surface-container-low": "#eef4ff",
+                        "inverse-on-surface": "#eaf1ff",
+                        "on-surface-variant": "#3e4a3d",
+                        "on-secondary-fixed": "#00210e",
+                        "tertiary-container": "#939d97",
+                        "secondary-fixed-dim": "#9dd3aa",
+                        "on-surface": "#121c28",
+                        "on-primary-container": "#003c13",
+                        "surface-container-high": "#dfe9fa",
+                        "primary-fixed": "#7dfc90",
+                        "surface-container-highest": "#d9e3f4",
+                        "surface-tint": "#006e29",
+                        "on-tertiary-fixed": "#151d19",
+                        "on-error": "#ffffff",
+                        "primary-fixed-dim": "#60df77",
+                        "tertiary": "#57615b",
+                        "on-secondary": "#ffffff",
+                        "inverse-surface": "#27313e",
+                        "surface-dim": "#d1dbec",
+                        "tertiary-fixed-dim": "#bfc9c2",
+                        "on-primary-fixed": "#002107",
+                        "primary": "#006e29",
+                        "outline": "#6e7b6b",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-bright": "#f8f9ff",
+                        "on-tertiary-fixed-variant": "#3f4944",
+                        "on-tertiary-container": "#2b3530",
+                        "surface-container": "#e5eeff",
+                        "outline-variant": "#bdcab9",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed": "#dbe5de",
+                        "surface": "#f8f9ff",
+                        "error": "#ba1a1a",
+                        "secondary-container": "#b8f0c5",
+                        "on-error-container": "#93000a",
+                        "background": "#f8f9ff",
+                        "on-primary-fixed-variant": "#00531d"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-margin": "16px",
+                        "xl": "32px",
+                        "gutter": "12px",
+                        "lg": "24px",
+                        "xs": "4px",
+                        "unit": "4px",
+                        "sm": "8px",
+                        "md": "16px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["IBM Plex Sans"],
+                        "title-lg": ["IBM Plex Sans"],
+                        "headline-md": ["IBM Plex Sans"],
+                        "body-md": ["IBM Plex Sans"],
+                        "label-sm": ["IBM Plex Sans"],
+                        "headline-lg-mobile": ["IBM Plex Sans"],
+                        "label-lg": ["IBM Plex Sans"],
+                        "display-lg": ["IBM Plex Sans"],
+                        "headline-lg": ["IBM Plex Sans"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "title-lg": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500" }],
+                        "display-lg": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'IBM Plex Sans', sans-serif; }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col items-center">
+<div class="w-full max-w-[560px] bg-surface flex flex-col min-h-screen relative pb-24 shadow-sm md:shadow-md md:my-lg md:rounded-xl">
+<!-- TopAppBar (from JSON but modified for this screen's specific intent as requested by prompt) -->
+<header class="w-full sticky top-0 z-40 bg-surface dark:bg-surface-dim flat no shadows flex items-center justify-between px-container-margin py-md">
+<button class="text-on-surface-variant hover:bg-surface-container-low transition-colors active:scale-95 duration-150 p-2 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+</button>
+<div class="text-center">
+<h1 class="font-title-lg text-title-lg-mobile text-primary dark:text-primary-fixed">กำไรรายเดือน</h1>
+<p class="font-label-sm text-label-sm text-on-surface-variant flex items-center justify-center gap-1 cursor-pointer hover:text-primary">
+                    ส.ค. 2026 <span class="material-symbols-outlined text-[14px]">expand_more</span>
+</p>
+</div>
+<!-- Empty div to balance flex layout since trailing icon isn't needed here -->
+<div class="w-10"></div>
+</header>
+<main class="flex-1 px-container-margin py-md flex flex-col gap-lg overflow-y-auto">
+<!-- Hero Card: Profit -->
+<section class="bg-surface-container rounded-xl p-lg flex flex-col items-center text-center shadow-sm relative overflow-hidden">
+<!-- Decorative background elements -->
+<div class="absolute top-0 right-0 -mr-8 -mt-8 w-32 h-32 bg-primary-container/10 rounded-full blur-2xl"></div>
+<div class="absolute bottom-0 left-0 -ml-8 -mb-8 w-24 h-24 bg-tertiary-container/10 rounded-full blur-xl"></div>
+<h2 class="font-label-lg text-label-lg text-on-surface-variant mb-sm relative z-10">กำไรสุทธิเดือนนี้</h2>
+<div class="font-display-lg text-display-lg text-primary mb-sm relative z-10 flex items-baseline gap-1">
+<span class="font-headline-md text-headline-md">฿</span>12,050.00
+                </div>
+<div class="inline-flex items-center gap-1 bg-surface-container-highest px-3 py-1 rounded-full font-label-sm text-label-sm text-primary relative z-10">
+<span class="material-symbols-outlined text-[16px]">arrow_drop_up</span>
+                    18% จากเดือนก่อน
+                </div>
+</section>
+<!-- Detailed P&L Breakdown (Bento Grid Style) -->
+<section class="grid grid-cols-2 gap-gutter">
+<div class="col-span-2 bg-surface-container-lowest border border-outline-variant rounded-xl p-md shadow-sm">
+<div class="flex justify-between items-center mb-md border-b border-surface-variant pb-sm">
+<span class="font-body-md text-body-md text-on-surface">ยอดขายรวม (รายรับ)</span>
+<span class="font-title-lg text-title-lg-mobile text-on-surface">฿35,000.00</span>
+</div>
+<div class="flex justify-between items-center mb-sm">
+<span class="font-body-md text-body-md text-on-surface-variant">ต้นทุนสินค้า (COGS)</span>
+<span class="font-body-md text-body-md text-error">-฿18,500.00</span>
+</div>
+<div class="flex justify-between items-center mb-sm">
+<span class="font-body-md text-body-md text-on-surface-variant">ค่าใช้จ่ายอื่นๆ (Fixed/Variable)</span>
+<span class="font-body-md text-body-md text-error">-฿4,450.00</span>
+</div>
+</div>
+<!-- Secondary Stats Row -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-md flex flex-col justify-between shadow-sm">
+<span class="font-label-sm text-label-sm text-on-surface-variant mb-xs">อัตรากำไร (Margin)</span>
+<span class="font-title-lg text-title-lg-mobile text-primary">34.4%</span>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-md flex flex-col justify-between shadow-sm">
+<span class="font-label-sm text-label-sm text-on-surface-variant mb-xs">ยอดขายเฉลี่ยต่อวัน</span>
+<span class="font-title-lg text-title-lg-mobile text-on-surface">฿1,129.03</span>
+</div>
+</section>
+<!-- Chart Section (Static representation) -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded-xl p-md shadow-sm">
+<h3 class="font-title-lg text-title-lg-mobile text-on-surface mb-md">แนวโน้มกำไร 6 เดือน</h3>
+<div class="h-48 flex items-end justify-between gap-2 px-sm mt-lg relative">
+<!-- Grid lines -->
+<div class="absolute inset-0 flex flex-col justify-between pointer-events-none">
+<div class="w-full border-t border-surface-variant border-dashed"></div>
+<div class="w-full border-t border-surface-variant border-dashed"></div>
+<div class="w-full border-t border-surface-variant border-dashed"></div>
+<div class="w-full border-t border-surface-variant"></div>
+</div>
+<!-- Bars -->
+<div class="w-full flex flex-col items-center gap-sm relative z-10 group">
+<div class="w-full bg-surface-container-high rounded-t-sm h-[40%] transition-all group-hover:bg-primary/20"></div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">มี.ค.</span>
+</div>
+<div class="w-full flex flex-col items-center gap-sm relative z-10 group">
+<div class="w-full bg-surface-container-high rounded-t-sm h-[45%] transition-all group-hover:bg-primary/20"></div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">เม.ย.</span>
+</div>
+<div class="w-full flex flex-col items-center gap-sm relative z-10 group">
+<div class="w-full bg-surface-container-high rounded-t-sm h-[30%] transition-all group-hover:bg-primary/20"></div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">พ.ค.</span>
+</div>
+<div class="w-full flex flex-col items-center gap-sm relative z-10 group">
+<div class="w-full bg-surface-container-high rounded-t-sm h-[60%] transition-all group-hover:bg-primary/20"></div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">มิ.ย.</span>
+</div>
+<div class="w-full flex flex-col items-center gap-sm relative z-10 group">
+<div class="w-full bg-surface-container-high rounded-t-sm h-[75%] transition-all group-hover:bg-primary/20"></div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">ก.ค.</span>
+</div>
+<div class="w-full flex flex-col items-center gap-sm relative z-10 group">
+<div class="w-full bg-primary rounded-t-sm h-[100%] transition-all shadow-[0_0_8px_rgba(43,177,79,0.4)]"></div>
+<span class="font-label-sm text-label-sm text-primary font-bold">ส.ค.</span>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar (from JSON) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-2 bg-surface-container-lowest dark:bg-inverse-surface shadow-[0px_-4px_12px_rgba(0,0,0,0.05)] rounded-t-xl">
+<!-- Active: สรุป (Summary/Overview) maps to 'กำไรรายเดือน' intent -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high transition-all active:scale-90 duration-200 w-full py-1">
+<div class="flex flex-col items-center justify-center bg-secondary-container dark:bg-on-secondary-fixed-variant text-on-secondary-container dark:text-secondary-fixed rounded-full px-4 py-1 mb-1">
+<span class="material-symbols-outlined" data-icon="assessment" data-weight="fill" style="font-variation-settings: 'FILL' 1;">assessment</span>
+</div>
+<span class="font-label-sm text-label-sm">สรุป</span>
+</button>
+<!-- Inactive -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high transition-all active:scale-90 duration-200 w-full py-1">
+<div class="flex flex-col items-center justify-center px-4 py-1 mb-1">
+<span class="material-symbols-outlined" data-icon="trending_up">trending_up</span>
+</div>
+<span class="font-label-sm text-label-sm">กำไร</span>
+</button>
+<!-- Inactive -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high transition-all active:scale-90 duration-200 w-full py-1">
+<div class="flex flex-col items-center justify-center px-4 py-1 mb-1">
+<span class="material-symbols-outlined" data-icon="receipt_long">receipt_long</span>
+</div>
+<span class="font-label-sm text-label-sm">รายการ</span>
+</button>
+</nav>
+<!-- Desktop Nav Placeholder (Hidden on mobile) -->
+<div class="hidden md:block">
+<!-- If this were a full desktop layout, nav would go in top app bar or side nav. For this tablet-constrained-center layout, we rely on the top app bar for navigation if needed, keeping it clean. -->
+</div>
+</div>
+</body></html>

@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+
+<html lang="th"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Purchase List - ต้นทุน</title>
+<!-- Google Fonts: IBM Plex Sans Thai -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-background": "#121c28",
+                        "tertiary": "#57615b",
+                        "on-primary-fixed-variant": "#00531d",
+                        "secondary-fixed-dim": "#9dd3aa",
+                        "on-tertiary-fixed-variant": "#3f4944",
+                        "on-surface-variant": "#3e4a3d",
+                        "surface-container-low": "#eef4ff",
+                        "inverse-surface": "#27313e",
+                        "on-secondary-fixed-variant": "#1d5031",
+                        "secondary": "#366847",
+                        "on-secondary-container": "#3d6f4d",
+                        "background": "#f8f9ff",
+                        "surface": "#f8f9ff",
+                        "primary": "#006e29",
+                        "tertiary-fixed-dim": "#bfc9c2",
+                        "error": "#ba1a1a",
+                        "on-error-container": "#93000a",
+                        "secondary-fixed": "#b8f0c5",
+                        "error-container": "#ffdad6",
+                        "on-secondary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "surface-variant": "#d9e3f4",
+                        "on-primary-fixed": "#002107",
+                        "on-secondary-fixed": "#00210e",
+                        "surface-container-high": "#dfe9fa",
+                        "on-tertiary-container": "#2b3530",
+                        "surface-dim": "#d1dbec",
+                        "tertiary-container": "#939d97",
+                        "inverse-primary": "#60df77",
+                        "inverse-on-surface": "#eaf1ff",
+                        "on-primary": "#ffffff",
+                        "surface-container-highest": "#d9e3f4",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed": "#7dfc90",
+                        "tertiary-fixed": "#dbe5de",
+                        "outline-variant": "#bdcab9",
+                        "on-surface": "#121c28",
+                        "surface-bright": "#f8f9ff",
+                        "surface-tint": "#006e29",
+                        "outline": "#6e7b6b",
+                        "surface-container": "#e5eeff",
+                        "on-tertiary-fixed": "#151d19",
+                        "primary-container": "#2bb14f",
+                        "on-primary-container": "#003c13",
+                        "secondary-container": "#b8f0c5",
+                        "primary-fixed-dim": "#60df77"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px",
+                        "2xl": "1rem"
+                    },
+                    "spacing": {
+                        "xs": "4px",
+                        "lg": "24px",
+                        "container-margin": "16px",
+                        "md": "16px",
+                        "sm": "8px",
+                        "xl": "32px",
+                        "unit": "4px",
+                        "gutter": "12px"
+                    },
+                    "fontFamily": {
+                        "sans": ['IBM Plex Sans Thai', 'sans-serif'],
+                        "label-lg": ["IBM Plex Sans Thai", "sans-serif"],
+                        "display-lg": ["IBM Plex Sans Thai", "sans-serif"],
+                        "title-lg": ["IBM Plex Sans Thai", "sans-serif"],
+                        "headline-lg": ["IBM Plex Sans Thai", "sans-serif"],
+                        "headline-md": ["IBM Plex Sans Thai", "sans-serif"],
+                        "body-md": ["IBM Plex Sans Thai", "sans-serif"],
+                        "label-sm": ["IBM Plex Sans Thai", "sans-serif"],
+                        "headline-lg-mobile": ["IBM Plex Sans Thai", "sans-serif"],
+                        "body-lg": ["IBM Plex Sans Thai", "sans-serif"]
+                    },
+                    "fontSize": {
+                        "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                        "display-lg": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "title-lg": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        /* Hide scrollbar for cleaner look on mobile */
+        ::-webkit-scrollbar {
+            display: none;
+        }
+        * {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-sans antialiased pb-24 h-screen flex flex-col md:hidden overflow-hidden">
+<!-- TopAppBar -->
+<!-- {"name": "TopAppBar", "type": "small", "headline": "\u0e15\u0e49\u0e19\u0e17\u0e38\u0e19", "leading_type": "icon", "leading_icon": "menu", "trailing_type": "icon", "trailing_icon": "filter_list", "style_bg_color": "bg-surface dark:bg-on-background", "style_primary_color": "text-primary dark:text-primary-fixed", "style_typography": "font-title-lg text-title-lg", "style_brand_logo": "font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed", "style_component_shape": "docked full-width top-0", "style_separation_logic": "bg-surface dark:bg-on-background", "style_shadows_and_elevation": "flat no shadows", "style_active_navigation": "text-primary dark:text-primary-fixed font-semibold", "style_inactive_navigation": "text-on-surface-variant dark:text-outline-variant", "style_universal_hover": "hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors", "style_interactions": "active:scale-95 duration-150", "style_shell_layout": "flex items-center justify-between px-md w-full h-16"} -->
+<header class="bg-surface flex items-center justify-between px-md w-full h-16 sticky top-0 z-40 transition-colors">
+<button class="text-primary p-2 hover:bg-surface-container-high rounded-full transition-colors active:scale-95 duration-150 flex items-center justify-center">
+<span class="material-symbols-outlined text-[24px]">menu</span>
+</button>
+<h1 class="font-headline-md text-headline-md font-bold text-primary flex-1 text-center">ต้นทุน</h1>
+<button class="text-primary p-2 hover:bg-surface-container-high rounded-full transition-colors active:scale-95 duration-150 flex items-center justify-center gap-1">
+<span class="font-label-lg text-label-lg text-on-surface-variant">ส.ค. 2026</span>
+<span class="material-symbols-outlined text-[24px]">filter_list</span>
+</button>
+</header>
+<!-- Main Content Area -->
+<main class="flex-1 overflow-y-auto w-full max-w-[480px] mx-auto px-container-margin pt-sm">
+<!-- Summary Strip -->
+<section class="bg-primary-container text-on-primary-container rounded-2xl p-lg mb-lg shadow-[0px_4px_12px_rgba(0,0,0,0.05)] flex items-center justify-between relative overflow-hidden">
+<!-- Decorative circle -->
+<div class="absolute -right-8 -top-8 w-32 h-32 bg-white/20 rounded-full blur-2xl"></div>
+<div>
+<p class="font-body-md text-body-md text-on-primary-container/80 mb-1">ต้นทุนเดือนนี้</p>
+<h2 class="font-display-lg text-display-lg font-bold tabular-nums">฿4,250.00</h2>
+</div>
+<div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
+<span class="material-symbols-outlined text-[28px] text-on-primary-container">trending_down</span>
+</div>
+</section>
+<!-- Purchase List -->
+<div class="space-y-md pb-24">
+<!-- Date Header -->
+<div class="flex items-center gap-sm mb-sm mt-lg">
+<div class="h-[1px] flex-1 bg-outline-variant/30"></div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">สัปดาห์นี้</span>
+<div class="h-[1px] flex-1 bg-outline-variant/30"></div>
+</div>
+<!-- Row 1: ตลาดไท -->
+<article class="bg-surface-container-lowest border border-surface-variant rounded-2xl p-md flex items-center gap-md hover:border-primary/30 transition-colors shadow-sm relative overflow-hidden group">
+<!-- Stacked Date -->
+<div class="flex flex-col items-center justify-center min-w-[48px] bg-surface-container-low rounded-xl py-sm">
+<span class="font-body-md text-body-md font-medium text-tertiary">05</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">ส.ค.</span>
+</div>
+<!-- Content -->
+<div class="flex-1 flex flex-col justify-center">
+<h3 class="font-title-lg text-title-lg text-on-surface">ตลาดไท</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">3 รายการ</p>
+</div>
+<!-- Total -->
+<div class="text-right flex flex-col justify-center items-end">
+<span class="font-title-lg text-title-lg font-bold text-on-surface tabular-nums">฿1,200.00</span>
+<span class="inline-flex items-center justify-center px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm mt-1">ชำระแล้ว</span>
+</div>
+<!-- Ripple Effect Area (for mobile tap) -->
+<div class="absolute inset-0 bg-primary/0 group-active:bg-primary/5 transition-colors pointer-events-none"></div>
+</article>
+<!-- Row 2: แม็คโคร -->
+<article class="bg-surface-container-lowest border border-surface-variant rounded-2xl p-md flex items-center gap-md hover:border-primary/30 transition-colors shadow-sm relative overflow-hidden group">
+<!-- Stacked Date -->
+<div class="flex flex-col items-center justify-center min-w-[48px] bg-surface-container-low rounded-xl py-sm">
+<span class="font-body-md text-body-md font-medium text-tertiary">04</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">ส.ค.</span>
+</div>
+<!-- Content -->
+<div class="flex-1 flex flex-col justify-center">
+<h3 class="font-title-lg text-title-lg text-on-surface">แม็คโคร</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">12 รายการ</p>
+</div>
+<!-- Total -->
+<div class="text-right flex flex-col justify-center items-end">
+<span class="font-title-lg text-title-lg font-bold text-on-surface tabular-nums">฿2,450.00</span>
+<span class="inline-flex items-center justify-center px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm mt-1">ชำระแล้ว</span>
+</div>
+<!-- Ripple Effect Area -->
+<div class="absolute inset-0 bg-primary/0 group-active:bg-primary/5 transition-colors pointer-events-none"></div>
+</article>
+<!-- Row 3: ร้านเจ๊หน่อย (Example additional item) -->
+<article class="bg-surface-container-lowest border border-surface-variant rounded-2xl p-md flex items-center gap-md hover:border-primary/30 transition-colors shadow-sm relative overflow-hidden group">
+<!-- Stacked Date -->
+<div class="flex flex-col items-center justify-center min-w-[48px] bg-surface-container-low rounded-xl py-sm">
+<span class="font-body-md text-body-md font-medium text-tertiary">02</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">ส.ค.</span>
+</div>
+<!-- Content -->
+<div class="flex-1 flex flex-col justify-center">
+<h3 class="font-title-lg text-title-lg text-on-surface">ร้านเจ๊หน่อย บรรจุภัณฑ์</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">1 รายการ</p>
+</div>
+<!-- Total -->
+<div class="text-right flex flex-col justify-center items-end">
+<span class="font-title-lg text-title-lg font-bold text-on-surface tabular-nums">฿600.00</span>
+<span class="inline-flex items-center justify-center px-2 py-0.5 rounded-full bg-surface-variant text-on-surface-variant font-label-sm text-label-sm mt-1">เงินสด</span>
+</div>
+<!-- Ripple Effect Area -->
+<div class="absolute inset-0 bg-primary/0 group-active:bg-primary/5 transition-colors pointer-events-none"></div>
+</article>
+</div>
+</main>
+<!-- Floating Action Button (FAB) -->
+<button class="fixed bottom-[88px] right-md w-14 h-14 bg-primary-container text-on-primary-container rounded-2xl shadow-[0px_12px_32px_rgba(0,0,0,0.1)] flex items-center justify-center hover:opacity-90 active:scale-95 transition-all z-40">
+<span class="material-symbols-outlined text-[32px]">add</span>
+</button>
+<!-- BottomNavBar -->
+<!-- {"name": "BottomNavBar", "type": "label_icon", "destination_count": "4", "label_texts": ["\u0e2b\u0e19\u0e49\u0e32\u0e2b\u0e25\u0e31\u0e01", "\u0e01\u0e32\u0e23\u0e02\u0e32\u0e22", "\u0e15\u0e49\u0e19\u0e17\u0e38\u0e19", "\u0e23\u0e32\u0e22\u0e07\u0e32\u0e19"], "icons": ["home", "receipt_long", "inventory_2", "analytics"], "style_bg_color": "bg-surface-container-lowest dark:bg-on-background", "style_primary_color": "text-primary dark:text-primary-fixed", "style_typography": "font-label-sm text-label-sm", "style_brand_logo": "font-headline-md text-headline-md text-primary", "style_component_shape": "docked full-width bottom-0 rounded-t-xl", "style_separation_logic": "shadow-lg dark:shadow-none bg-surface-container-lowest dark:bg-on-background", "style_shadows_and_elevation": "shadow-[0px_-4px_12px_rgba(0,0,0,0.05)]", "style_active_navigation": "flex flex-col items-center justify-center bg-secondary-container dark:bg-on-secondary-fixed-variant text-on-secondary-container dark:text-secondary-fixed rounded-full px-4 py-1", "style_inactive_navigation": "flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant", "style_universal_hover": "hover:opacity-80", "style_interactions": "active:scale-90 transition-transform", "style_shell_layout": "fixed bottom-0 w-full z-50 flex justify-around items-center px-container-margin py-2"} -->
+<nav class="bg-surface-container-lowest shadow-[0px_-4px_12px_rgba(0,0,0,0.05)] fixed bottom-0 w-full z-50 flex justify-around items-center px-container-margin py-2 rounded-t-xl h-20 md:hidden">
+<!-- Tab 1: หน้าหลัก -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:opacity-80 active:scale-90 transition-transform w-16 gap-1 group">
+<div class="flex items-center justify-center rounded-full px-4 py-1 group-hover:bg-surface-variant/50 transition-colors">
+<span class="material-symbols-outlined text-[24px]">home</span>
+</div>
+<span class="font-label-sm text-label-sm">หน้าหลัก</span>
+</button>
+<!-- Tab 2: การขาย -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:opacity-80 active:scale-90 transition-transform w-16 gap-1 group">
+<div class="flex items-center justify-center rounded-full px-4 py-1 group-hover:bg-surface-variant/50 transition-colors">
+<span class="material-symbols-outlined text-[24px]">receipt_long</span>
+</div>
+<span class="font-label-sm text-label-sm">การขาย</span>
+</button>
+<!-- Tab 3: ต้นทุน (ACTIVE) -->
+<button class="flex flex-col items-center justify-center hover:opacity-80 active:scale-90 transition-transform w-16 gap-1">
+<div class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-4 py-1">
+<span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1;">inventory_2</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface font-semibold">ต้นทุน</span>
+</button>
+<!-- Tab 4: รายงาน -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:opacity-80 active:scale-90 transition-transform w-16 gap-1 group">
+<div class="flex items-center justify-center rounded-full px-4 py-1 group-hover:bg-surface-variant/50 transition-colors">
+<span class="material-symbols-outlined text-[24px]">analytics</span>
+</div>
+<span class="font-label-sm text-label-sm">รายงาน</span>
+</button>
+</nav>
+<script>
+        // Simple touch feedback for cards
+        document.querySelectorAll('article').forEach(card => {
+            card.addEventListener('touchstart', () => {
+                card.style.transform = 'scale(0.98)';
+                card.style.transition = 'transform 0.1s ease';
+            });
+            card.addEventListener('touchend', () => {
+                card.style.transform = 'scale(1)';
+            });
+            card.addEventListener('touchcancel', () => {
+                card.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body></html>

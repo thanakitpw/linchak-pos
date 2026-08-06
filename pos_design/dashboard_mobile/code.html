@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+
+<html lang="th"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Dashboard - POS Merchant</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-variant": "#d9e3f4",
+                      "on-secondary-container": "#3d6f4d",
+                      "on-secondary-fixed-variant": "#1d5031",
+                      "secondary": "#366847",
+                      "inverse-primary": "#60df77",
+                      "secondary-fixed": "#b8f0c5",
+                      "primary-container": "#2bb14f",
+                      "on-tertiary": "#ffffff",
+                      "on-background": "#121c28",
+                      "on-primary": "#ffffff",
+                      "surface-container-low": "#eef4ff",
+                      "inverse-on-surface": "#eaf1ff",
+                      "on-surface-variant": "#3e4a3d",
+                      "on-secondary-fixed": "#00210e",
+                      "tertiary-container": "#939d97",
+                      "secondary-fixed-dim": "#9dd3aa",
+                      "on-surface": "#121c28",
+                      "on-primary-container": "#003c13",
+                      "surface-container-high": "#dfe9fa",
+                      "primary-fixed": "#7dfc90",
+                      "surface-container-highest": "#d9e3f4",
+                      "surface-tint": "#006e29",
+                      "on-tertiary-fixed": "#151d19",
+                      "on-error": "#ffffff",
+                      "primary-fixed-dim": "#60df77",
+                      "tertiary": "#57615b",
+                      "on-secondary": "#ffffff",
+                      "inverse-surface": "#27313e",
+                      "surface-dim": "#d1dbec",
+                      "tertiary-fixed-dim": "#bfc9c2",
+                      "on-primary-fixed": "#002107",
+                      "primary": "#006e29",
+                      "outline": "#6e7b6b",
+                      "surface-container-lowest": "#ffffff",
+                      "surface-bright": "#f8f9ff",
+                      "on-tertiary-fixed-variant": "#3f4944",
+                      "on-tertiary-container": "#2b3530",
+                      "surface-container": "#e5eeff",
+                      "outline-variant": "#bdcab9",
+                      "error-container": "#ffdad6",
+                      "tertiary-fixed": "#dbe5de",
+                      "surface": "#f8f9ff",
+                      "error": "#ba1a1a",
+                      "secondary-container": "#b8f0c5",
+                      "on-error-container": "#93000a",
+                      "background": "#f8f9ff",
+                      "on-primary-fixed-variant": "#00531d"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "container-margin": "16px",
+                      "xl": "32px",
+                      "gutter": "12px",
+                      "lg": "24px",
+                      "xs": "4px",
+                      "unit": "4px",
+                      "sm": "8px",
+                      "md": "16px"
+              },
+              "fontFamily": {
+                      "body-lg": [
+                              "IBM Plex Sans"
+                      ],
+                      "title-lg": [
+                              "IBM Plex Sans"
+                      ],
+                      "headline-md": [
+                              "IBM Plex Sans"
+                      ],
+                      "body-md": [
+                              "IBM Plex Sans"
+                      ],
+                      "label-sm": [
+                              "IBM Plex Sans"
+                      ],
+                      "headline-lg-mobile": [
+                              "IBM Plex Sans"
+                      ],
+                      "label-lg": [
+                              "IBM Plex Sans"
+                      ],
+                      "display-lg": [
+                              "IBM Plex Sans"
+                      ],
+                      "headline-lg": [
+                              "IBM Plex Sans"
+                      ]
+              },
+              "fontSize": {
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "title-lg": [
+                              "20px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "headline-lg-mobile": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "label-lg": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "letterSpacing": "0.01em",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "display-lg": [
+                              "40px",
+                              {
+                                      "lineHeight": "48px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "headline-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "fontWeight": "600"
+                              }
+                      ]
+              }
+            }
+          }
+        }
+      </script>
+<style>
+        body {
+            -webkit-tap-highlight-color: transparent;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-body-md min-h-screen pb-24 selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopAppBar -->
+<header class="w-full sticky top-0 z-40 bg-surface dark:bg-surface-dim flat no shadows flex items-center justify-between px-container-margin py-md">
+<div class="flex items-center gap-md">
+<button aria-label="Menu" class="active:scale-95 duration-150 p-sm -ml-sm rounded-full hover:bg-surface-container-low transition-colors text-primary dark:text-primary-fixed">
+<span class="material-symbols-outlined" data-icon="storefront">storefront</span>
+</button>
+<h1 class="font-title-lg text-title-lg text-on-surface">สรุป</h1>
+</div>
+<button aria-label="Profile" class="active:scale-95 duration-150 p-sm -mr-sm rounded-full hover:bg-surface-container-low transition-colors text-primary dark:text-primary-fixed">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</button>
+</header>
+<main class="px-container-margin py-md space-y-lg">
+<!-- Summary Cards Stack -->
+<section class="flex flex-col gap-sm">
+<!-- Card 1 -->
+<div class="bg-surface-container-lowest border border-surface-variant rounded-xl p-md flex items-center justify-between shadow-[0px_4px_12px_rgba(0,0,0,0.02)]">
+<div>
+<p class="font-label-lg text-label-lg text-on-surface-variant">ยอดขายวันนี้</p>
+<p class="font-headline-md text-headline-md text-on-surface tabular-nums">฿1,850.00</p>
+</div>
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">payments</span>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-container-lowest border border-surface-variant rounded-xl p-md flex items-center justify-between shadow-[0px_4px_12px_rgba(0,0,0,0.02)]">
+<div>
+<p class="font-label-lg text-label-lg text-on-surface-variant">ยอดขายเดือนนี้</p>
+<p class="font-headline-md text-headline-md text-on-surface tabular-nums">฿42,300.00</p>
+</div>
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">monitoring</span>
+</div>
+</div>
+<!-- Card 3: Hero Metric -->
+<div class="bg-primary text-on-primary rounded-xl p-lg flex items-center justify-between shadow-[0px_12px_32px_rgba(0,0,0,0.1)] relative overflow-hidden">
+<div class="absolute -right-8 -top-8 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+<div class="absolute -left-4 -bottom-4 w-24 h-24 bg-black/10 rounded-full blur-xl"></div>
+<div class="relative z-10">
+<p class="font-label-lg text-label-lg text-primary-fixed-dim">กำไรเดือนนี้</p>
+<p class="font-display-lg text-display-lg tabular-nums">฿12,050.00</p>
+</div>
+<div class="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center text-on-primary relative z-10">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">trending_up</span>
+</div>
+</div>
+</section>
+<!-- Chart Section -->
+<section class="bg-surface-container-lowest border border-surface-variant rounded-xl p-md shadow-[0px_4px_12px_rgba(0,0,0,0.02)]">
+<div class="flex justify-between items-center mb-md">
+<h2 class="font-title-lg text-title-lg text-on-surface">ยอดขาย 7 วันล่าสุด</h2>
+<button class="text-primary font-label-lg text-label-lg hover:underline p-1">ดูรายละเอียด</button>
+</div>
+<!-- CSS Bar Chart -->
+<div class="h-48 flex items-end justify-between gap-1 mt-4 px-2">
+<div class="w-full flex flex-col items-center gap-2 group">
+<div class="w-full bg-primary/20 rounded-t-sm h-[40%] group-hover:bg-primary/40 transition-colors relative">
+<div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-1 bg-inverse-surface text-inverse-on-surface text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">฿800</div>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">จ.</span>
+</div>
+<div class="w-full flex flex-col items-center gap-2 group">
+<div class="w-full bg-primary/20 rounded-t-sm h-[60%] group-hover:bg-primary/40 transition-colors relative">
+<div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-1 bg-inverse-surface text-inverse-on-surface text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">฿1,200</div>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">อ.</span>
+</div>
+<div class="w-full flex flex-col items-center gap-2 group">
+<div class="w-full bg-primary/20 rounded-t-sm h-[30%] group-hover:bg-primary/40 transition-colors relative">
+<div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-1 bg-inverse-surface text-inverse-on-surface text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">฿600</div>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">พ.</span>
+</div>
+<div class="w-full flex flex-col items-center gap-2 group">
+<div class="w-full bg-primary/20 rounded-t-sm h-[75%] group-hover:bg-primary/40 transition-colors relative">
+<div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-1 bg-inverse-surface text-inverse-on-surface text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">฿1,500</div>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">พฤ.</span>
+</div>
+<div class="w-full flex flex-col items-center gap-2 group">
+<div class="w-full bg-primary/20 rounded-t-sm h-[50%] group-hover:bg-primary/40 transition-colors relative">
+<div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-1 bg-inverse-surface text-inverse-on-surface text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">฿1,000</div>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">ศ.</span>
+</div>
+<div class="w-full flex flex-col items-center gap-2 group">
+<div class="w-full bg-primary/20 rounded-t-sm h-[90%] group-hover:bg-primary/40 transition-colors relative">
+<div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-1 bg-inverse-surface text-inverse-on-surface text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">฿1,800</div>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">ส.</span>
+</div>
+<div class="w-full flex flex-col items-center gap-2 group">
+<div class="w-full bg-primary rounded-t-sm h-[100%] hover:bg-primary/90 transition-colors relative">
+<div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-1 bg-inverse-surface text-inverse-on-surface text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">฿1,850</div>
+</div>
+<span class="font-label-sm text-label-sm text-primary font-bold">อา.</span>
+</div>
+</div>
+</section>
+<!-- Menu List -->
+<section class="bg-surface-container-lowest border border-surface-variant rounded-xl overflow-hidden shadow-[0px_4px_12px_rgba(0,0,0,0.02)]">
+<a class="flex items-center justify-between p-md hover:bg-surface-container-low transition-colors border-b border-surface-variant active:scale-[0.98] duration-150" href="#">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center">
+<span class="material-symbols-outlined" style="font-size: 18px; font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<span class="font-body-md text-body-md text-on-surface">กำไรรายเดือน</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant">chevron_right</span>
+</a>
+<a class="flex items-center justify-between p-md hover:bg-surface-container-low transition-colors border-b border-surface-variant active:scale-[0.98] duration-150" href="#">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-container text-primary flex items-center justify-center">
+<span class="material-symbols-outlined" style="font-size: 18px;">calendar_today</span>
+</div>
+<span class="font-body-md text-body-md text-on-surface">รายงานรายวัน (Daily)</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant">chevron_right</span>
+</a>
+<a class="flex items-center justify-between p-md hover:bg-surface-container-low transition-colors border-b border-surface-variant active:scale-[0.98] duration-150" href="#">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-container text-primary flex items-center justify-center">
+<span class="material-symbols-outlined" style="font-size: 18px;">calendar_month</span>
+</div>
+<span class="font-body-md text-body-md text-on-surface">รายงานรายเดือน (Monthly)</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant">chevron_right</span>
+</a>
+<a class="flex items-center justify-between p-md hover:bg-surface-container-low transition-colors border-b border-surface-variant active:scale-[0.98] duration-150" href="#">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-container text-primary flex items-center justify-center">
+<span class="material-symbols-outlined" style="font-size: 18px;">date_range</span>
+</div>
+<span class="font-body-md text-body-md text-on-surface">ช่วงที่กำหนดเอง (Custom range)</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant">chevron_right</span>
+</a>
+<a class="flex items-center justify-between p-md hover:bg-surface-container-low transition-colors active:scale-[0.98] duration-150" href="#">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-container text-primary flex items-center justify-center">
+<span class="material-symbols-outlined" style="font-size: 18px;">receipt_long</span>
+</div>
+<span class="font-body-md text-body-md text-on-surface">รายการบิลทั้งหมด (Orders)</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant">chevron_right</span>
+</a>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-2 bg-surface-container-lowest dark:bg-inverse-surface shadow-[0px_-4px_12px_rgba(0,0,0,0.05)] shadow-md rounded-t-xl pb-safe">
+<button class="group active:scale-90 duration-200 hover:bg-surface-container-high transition-all rounded-lg p-1 min-w-[64px] flex flex-col items-center justify-center">
+<div class="flex flex-col items-center justify-center bg-secondary-container dark:bg-on-secondary-fixed-variant text-on-secondary-container dark:text-secondary-fixed rounded-full px-4 py-1 mb-1">
+<span class="material-symbols-outlined" data-icon="assessment" style="font-variation-settings: 'FILL' 1;">assessment</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface font-bold">สรุป</span>
+</button>
+<button class="group active:scale-90 duration-200 hover:bg-surface-container-high transition-all rounded-lg p-1 min-w-[64px] flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant">
+<div class="flex flex-col items-center justify-center rounded-full px-4 py-1 mb-1 group-hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined" data-icon="trending_up">trending_up</span>
+</div>
+<span class="font-label-sm text-label-sm">กำไร</span>
+</button>
+<button class="group active:scale-90 duration-200 hover:bg-surface-container-high transition-all rounded-lg p-1 min-w-[64px] flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant">
+<div class="flex flex-col items-center justify-center rounded-full px-4 py-1 mb-1 group-hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined" data-icon="receipt_long">receipt_long</span>
+</div>
+<span class="font-label-sm text-label-sm">รายการ</span>
+</button>
+</nav>
+<style>
+        @supports (padding-bottom: env(safe-area-inset-bottom)) {
+            .pb-safe {
+                padding-bottom: calc(0.5rem + env(safe-area-inset-bottom));
+            }
+        }
+    </style>
+</body></html>
