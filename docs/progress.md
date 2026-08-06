@@ -11,9 +11,9 @@
 
 | ส่วน | สถานะ |
 |---|---|
-| **หน้าตา** (design system + หน้าจอ) | ✅ ระบบพร้อม · พอร์ตแล้ว **1 จาก 28 หน้า** (login) |
+| **หน้าตา** (design system + หน้าจอ) | ✅ ระบบพร้อม · พอร์ตแล้ว **3 จาก 28 หน้า** (login, signup, reset password) |
 | **ฐานข้อมูล** (Supabase) | ✅ ขึ้นจริงแล้ว 12 ตาราง RLS ครบ ทดสอบผ่าน |
-| **ระบบทำงาน** (แอปคุยกับ DB) | ❌ **ยังไม่ได้ต่อ** — หน้า login กดแล้วยังไม่มีอะไรเกิดขึ้น |
+| **ระบบทำงาน** (แอปคุยกับ DB) | ✅ **auth ต่อแล้ว** — สมัคร/เข้าสู่ระบบ/ออกจากระบบ ใช้ได้จริง · ฟีเจอร์อื่นยังไม่ได้ต่อ |
 
 เปิด `pnpm dev` แล้วดูได้ที่ `/login`, `/dev/tokens`, `/dev/receipt`
 
@@ -23,23 +23,21 @@ repo: **https://github.com/thanakitpw/linchak-pos** · CI เขียว · loc
 
 ## ขั้นถัดไป (เรียงตามที่ควรทำ)
 
-### 1. ต่อ Supabase เข้ากับแอป ← **งานหลักถัดไป**
-- ติดตั้ง `@supabase/ssr` + สร้าง client ฝั่ง browser/server
-- `middleware.ts` refresh session (ระวัง: **ห้ามใส่ next-intl middleware** จะชนกัน — ดู CLAUDE.md ข้อ 20)
-- ต่อหน้า `/login` ให้สมัคร/เข้าสู่ระบบได้จริง
-- พอร์ตหน้า signup (`mobile_4`) + reset password (`mobile_6`) ที่ตอนนี้เป็น stub
-- seed cookie `NEXT_LOCALE` จาก `workspaces.language` ตอนล็อกอิน (FR-1.4)
-
-### 2. หน้าตั้งค่าร้าน (FR-1) — **ไม่มี mockup ต้องออกแบบใหม่**
+### 1. หน้าตั้งค่าร้าน (FR-1) ← **งานหลักถัดไป** — **ไม่มี mockup ต้องออกแบบใหม่**
 ช่องว่างใหญ่สุดของโปรเจค: เป็นที่ที่ลูกค้าใส่เลข PromptPay
 ถ้าไม่มีหน้านี้ ฟีเจอร์หลักของแอป (แนบ QR ในบิล) ใช้ไม่ได้เลย
 
-### 3. หลังบ้าน `/admin`
+### 2. หลังบ้าน `/admin`
 ตาม `docs/admin-backoffice.md` — **ต้องมาก่อนหน้าจอฟีเจอร์ส่วนใหญ่**
 เพราะแผนธุรกิจขายผ่าน LINE แบบรับโอนเอง ถ้าไม่มีหน้ากดเปิดบัญชี ก็รับเงินลูกค้าคนแรกไม่ได้
 
-### 4. หน้าจอที่เหลืออีก 26 หน้า
+### 3. หน้าจอที่เหลืออีก 25 หน้า
 ตาราง burn-down อยู่ใน `docs/design-system.md` §12
+
+### 4. งานเล็กที่ค้างจากรอบ auth
+- ตั้งค่า Site URL + Redirect URLs ใน Dashboard ให้ลิงก์ในอีเมลกลับมาที่ `/auth/confirm`
+- หน้าตั้งรหัสผ่านใหม่หลังกดลิงก์จากอีเมล (ตอนนี้มีแค่หน้า "ขอลิงก์")
+- ยืนยันอีเมลตอนสมัคร: ตอนนี้ Supabase ตั้งให้ต้องยืนยัน — ตัดสินใจว่าจะเปิดหรือปิด
 
 ---
 
@@ -84,6 +82,17 @@ migration 7 ไฟล์อยู่ใน `supabase/migrations/` ตรงก�
 | ลิงก์บิล public (FR-4.6) | `get_public_receipt(token)` แทนการเปิด RLS ให้ anon | anon อ่าน 4 ตารางได้ 0 แถว แต่ token เปิดบิลได้ 1 ใบ |
 
 ทดสอบเพิ่ม: สมัคร → สร้างร้าน+owner อัตโนมัติ ✓ · RLS แยกร้าน (A เห็น 1 จาก 2) ✓ · staff ไม่เห็นเงิน ✓
+### เฟส 5 · Auth ต่อกับแอป
+
+- `@supabase/ssr` — client ฝั่ง browser / server / proxy แยกกัน 3 ไฟล์ใน `src/lib/supabase/`
+- `src/proxy.ts` รีเฟรช session ทุก request + กันหน้าที่ต้องล็อกอิน (**Next 16 เรียก Proxy ไม่ใช่ Middleware**)
+- server action `signIn` / `signUp` / `requestPasswordReset` / `signOut`
+- พอร์ตหน้า signup + reset password (เดิมเป็น stub) · แยก `<AuthShell>` `<AuthForm>` ใช้ร่วมกัน 3 หน้า
+- seed cookie `NEXT_LOCALE` จาก `workspaces.language` หลังล็อกอิน (FR-1.4)
+- ถอดปุ่ม Google ออกจากหน้า login — FR-0.1 บอกว่า social login เป็นเฟสหลัง ดีกว่าโชว์ปุ่มที่กดไม่ได้
+
+**ทดสอบครบวงจรแล้ว:** ยังไม่ล็อกอิน → `/` เด้ง `/login` (307) · ล็อกอินได้ token · token อ่าน workspaces ผ่าน RLS เห็นแค่ร้านตัวเอง · ใส่ session cookie แล้วเปิด `/` เห็นชื่อร้าน สถานะ trial และอีเมลตัวเอง
+
 
 ---
 
@@ -98,6 +107,9 @@ migration 7 ไฟล์อยู่ใน `supabase/migrations/` ตรงก�
 | **`typedRoutes`** | `<Link>` ชี้ไปหน้าที่ยังไม่พอร์ต = build error | ใช้ `<NotPortedYet mockup="…"/>` เป็น stub |
 | **`LayoutProps` / `RouteContext`** | Next generate type พวกนี้ตอน build เก็บใน `.next/` ซึ่ง gitignore ไว้ → CI เช็คเอาต์ใหม่แล้ว `tsc` พัง ทั้งที่เครื่องเราผ่าน (เพราะเคย build) | `typecheck` รัน `next typegen` ก่อนเสมอ · ทดสอบด้วยการ `rm -rf .next` แล้วรัน verify ทั้งชุด |
 | **push ไฟล์ workflow** | token GitHub ต้องมี scope `workflow` ไม่ใช่แค่ `repo` ไม่งั้น push `.github/workflows/*` ไม่ได้ | `gh auth refresh -h github.com -s workflow` |
+| **สร้าง user ด้วย SQL** | ล็อกอินไม่ได้ ขึ้น `Database error querying schema` — เพราะ GoTrue อ่านคอลัมน์ token ที่เป็น `NULL` เข้า Go string ไม่ได้ | ต้อง set `confirmation_token`, `recovery_token`, `email_change`, `email_change_token_new` ฯลฯ เป็น `''` ไม่ใช่ NULL · ปกติควรสมัครผ่าน Auth API ไม่ใช่ SQL |
+| **อีเมลทดสอบ** | Supabase ปฏิเสธโดเมน `.local` และ `example.com` (`email_address_invalid`) | ใช้โดเมนที่ดูจริง หรือสร้าง user ผ่าน SQL ถ้าไม่อยากให้ส่งอีเมลออก |
+| **`redirect()` กับ typedRoutes** | รับ string ที่คำนวณตอน runtime ไม่ได้ | cast `as Route` **แต่ต้องกรอง open redirect เองก่อน** (ขึ้นต้น `/` และไม่ใช่ `//`) — type ไม่ได้ให้ความปลอดภัย |
 | **Supabase CLI** | login แยกจาก MCP · `pnpm db:types` ต้อง `supabase login` ก่อน | |
 | **ลบ user** | membership cascade ไป แต่ **workspace ค้างเป็น orphan** (ไม่ได้ผูกกับ user โดยตรง) | ตั้งใจให้เป็นแบบนี้ (ประวัติการขายไม่ควรหายเพราะลบ login) แต่ยังไม่มีทางโอนความเป็นเจ้าของ — ต้องทำในหน้า `/admin` |
 

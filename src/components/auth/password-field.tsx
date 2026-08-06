@@ -9,7 +9,15 @@ import { Icon } from "@/components/ui/icon";
  * ช่องรหัสผ่านพร้อมปุ่มสลับแสดง/ซ่อน
  * ปุ่มมีแต่ไอคอน จึงต้องส่ง label ให้ <Icon> (มาจาก next-intl ไม่ใช่ literal)
  */
-export function PasswordField({ action }: { action?: React.ReactNode }) {
+export function PasswordField({
+  action,
+  autoComplete = "current-password",
+  minLength,
+}: {
+  action?: React.ReactNode;
+  autoComplete?: "current-password" | "new-password";
+  minLength?: number;
+}) {
   const t = useTranslations("auth");
   const [visible, setVisible] = useState(false);
   const id = useId();
@@ -20,7 +28,9 @@ export function PasswordField({ action }: { action?: React.ReactNode }) {
         id={id}
         name="password"
         type={visible ? "text" : "password"}
-        autoComplete="current-password"
+        autoComplete={autoComplete}
+        required
+        minLength={minLength}
         placeholder={t("passwordPlaceholder")}
         leading={<Icon name="lock" size={20} />}
         trailing={

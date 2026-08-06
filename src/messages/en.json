@@ -30,7 +30,21 @@
     "signInSubtitle": "Sign in to manage your store",
     "or": "or",
     "signInWithGoogle": "Sign in with Google",
-    "signUpFree": "Start 7 days free"
+    "signUpFree": "Start 7 days free",
+    "signInFailed": "Email or password is incorrect",
+    "signUpFailed": "Sign up failed, please try again",
+    "emailTaken": "That email is already registered",
+    "weakPassword": "Password is too short or too easy to guess",
+    "invalidEmail": "That email address isn't valid",
+    "requiredField": "This field is required",
+    "resetSent": "We've sent a reset link to your email",
+    "resetIntro": "Enter the email you signed up with and we'll send a link to set a new password",
+    "checkEmail": "Check your email",
+    "signUpSubtitle": "Open a new store, free for 7 days",
+    "storeNamePlaceholder": "e.g. Jae Nueng Thai Tea",
+    "sending": "Sending…",
+    "signingIn": "Signing in…",
+    "signingUp": "Signing up…"
   },
   "common": {
     "save": "Save",
@@ -60,6 +74,10 @@
     "foundationTitle": "POS — foundation",
     "foundationIntro": "No product screens yet. Design-system proof pages:",
     "tokensLinkHint": "colours, type, radius, elevation, icons",
-    "receiptLinkHint": "receipt → image proof"
+    "receiptLinkHint": "receipt → image proof",
+    "signedInAs": "Signed in as",
+    "yourStore": "Your store",
+    "trialEnds": "Trial ends",
+    "status": "Status"
   }
 }

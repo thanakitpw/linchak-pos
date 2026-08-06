@@ -30,7 +30,21 @@
     "signInSubtitle": "เข้าสู่ระบบเพื่อจัดการร้านค้าของคุณ",
     "or": "หรือ",
     "signInWithGoogle": "เข้าสู่ระบบด้วย Google",
-    "signUpFree": "สมัครฟรี 7 วัน"
+    "signUpFree": "สมัครฟรี 7 วัน",
+    "signInFailed": "อีเมลหรือรหัสผ่านไม่ถูกต้อง",
+    "signUpFailed": "สมัครไม่สำเร็จ ลองใหม่อีกครั้ง",
+    "emailTaken": "อีเมลนี้ถูกใช้แล้ว",
+    "weakPassword": "รหัสผ่านสั้นหรือเดาง่ายเกินไป",
+    "invalidEmail": "รูปแบบอีเมลไม่ถูกต้อง",
+    "requiredField": "กรอกช่องนี้ด้วย",
+    "resetSent": "ส่งลิงก์รีเซ็ตรหัสผ่านไปที่อีเมลแล้ว",
+    "resetIntro": "กรอกอีเมลที่ใช้สมัคร เราจะส่งลิงก์ตั้งรหัสผ่านใหม่ไปให้",
+    "checkEmail": "ตรวจสอบอีเมลของคุณ",
+    "signUpSubtitle": "เปิดร้านใหม่ ใช้ฟรี 7 วัน",
+    "storeNamePlaceholder": "เช่น ร้านชาไทยเจ๊หนึ่ง",
+    "sending": "กำลังส่ง…",
+    "signingIn": "กำลังเข้าสู่ระบบ…",
+    "signingUp": "กำลังสมัคร…"
   },
   "common": {
     "save": "บันทึก",
@@ -60,6 +74,10 @@
     "foundationTitle": "POS — foundation",
     "foundationIntro": "ยังไม่มีหน้าแอปจริง ดูหน้าพิสูจน์ design system ได้ที่:",
     "tokensLinkHint": "สี ตัวอักษร มุมโค้ง เงา ไอคอน",
-    "receiptLinkHint": "พิสูจน์ใบเสร็จ → รูป"
+    "receiptLinkHint": "พิสูจน์ใบเสร็จ → รูป",
+    "signedInAs": "เข้าสู่ระบบด้วย",
+    "yourStore": "ร้านของคุณ",
+    "trialEnds": "ทดลองใช้ถึง",
+    "status": "สถานะ"
   }
 }
