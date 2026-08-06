@@ -569,6 +569,41 @@ export type Database = {
     };
     Views: Record<never, never>;
     Functions: {
+      admin_dashboard_stats: { Args: never; Returns: Json };
+      admin_record_payment: {
+        Args: {
+          p_amount_satang: number;
+          p_method?: string;
+          p_note?: string;
+          p_plan_code: string;
+          p_reference?: string;
+          p_workspace_id: string;
+        };
+        Returns: Database["public"]["Tables"]["payments"]["Row"];
+      };
+      admin_set_suspended: {
+        Args: { p_reason: string; p_suspended: boolean; p_workspace_id: string };
+        Returns: undefined;
+      };
+      admin_workspace_detail: { Args: { p_workspace_id: string }; Returns: Json };
+      admin_workspace_list: {
+        Args: { p_search?: string; p_status?: string };
+        Returns: {
+          created_at: string;
+          current_period_end: string;
+          id: string;
+          last_order_at: string;
+          member_count: number;
+          name: string;
+          orders_this_month: number;
+          owner_email: string;
+          sales_this_month: number;
+          subscription_status: string;
+          suspended_at: string;
+          suspended_reason: string;
+          trial_ends_at: string;
+        }[];
+      };
       create_order: {
         Args: {
           p_discount?: number;

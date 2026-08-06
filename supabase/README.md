@@ -28,7 +28,21 @@ pnpm db:types                  # generate src/lib/database.types.ts ใหม่
 
 - **ทุกตารางเปิด RLS และ scope ด้วย `workspace_id`** — ตอนนี้ 12/12 ตารางเปิดครบ
 - **`app` schema ไม่ถูก expose ทาง PostgREST** — ใช้เก็บ helper ที่ RLS policy เรียก
-- **`get_public_receipt` เป็น SECURITY DEFINER ตัวเดียวที่ `anon` เรียกได้** — เป็นข้อยกเว้นที่ตั้งใจ (FR-4.6)
-  security advisor จะเตือนเรื่องนี้เสมอ **นี่คือ warning ที่ยอมรับแล้ว** ไม่ใช่บั๊ก
-  ทางเลือกอีกทางคือเปิด RLS ให้ `anon` อ่านตาราง orders ซึ่งอันตรายกว่ามาก
+- **SECURITY DEFINER ที่ยอมรับแล้ว — 6 ตัว ไม่ใช่บั๊ก**
+  security advisor จะเตือนทุกครั้ง อย่าเพิ่งตกใจ นี่คือรายการที่ผ่านการพิจารณาแล้ว:
+
+  | ฟังก์ชัน                 | ใครเรียกได้              | ทำไมต้อง definer                                      | ด่านกันในตัวฟังก์ชัน                                                           |
+  | ------------------------ | ------------------------ | ----------------------------------------------------- | ------------------------------------------------------------------------------ |
+  | `get_public_receipt`     | `anon` + `authenticated` | FR-4.6 ต้องเปิดบิลโดยไม่ล็อกอิน                       | รับ uuid token (122 บิต เดาไม่ได้) คืนบิลเดียว ไม่มี workspace_id/promptpay_id |
+  | `admin_workspace_list`   | `authenticated`          | อ่าน `auth.users` + นับบิลข้าม RLS                    | `is_platform_admin()` บรรทัดแรก                                                |
+  | `admin_dashboard_stats`  | `authenticated`          | นับข้ามทุกร้าน                                        | `is_platform_admin()` บรรทัดแรก                                                |
+  | `admin_workspace_detail` | `authenticated`          | อ่าน `auth.users` + payments + audit                  | `is_platform_admin()` บรรทัดแรก                                                |
+  | `admin_record_payment`   | `authenticated`          | เขียน payments + workspaces + audit ในทรานแซกชันเดียว | `is_platform_admin()` บรรทัดแรก                                                |
+  | `admin_set_suspended`    | `authenticated`          | เขียน workspaces + audit ในทรานแซกชันเดียว            | `is_platform_admin()` + บังคับเหตุผล                                           |
+
+  **ถ้าเพิ่มฟังก์ชัน definer ใหม่ ต้องเติมลงตารางนี้พร้อมเหตุผล**
+  ไม่งั้น session ถัดไปจะแยกไม่ออกว่าอันไหนตั้งใจ อันไหนพลาด
+
+- **ทางเลือกที่ปฏิเสธ:** เปิด RLS ให้ `anon` อ่านตาราง orders (สำหรับบิล public)
+  policy เดียวที่เขียนผิดในอนาคตจะเปิดข้อมูลทั้งระบบ — อันตรายกว่าฟังก์ชันเดียวที่ตรวจสอบได้
 - **รัน advisor ทุกครั้งหลังแก้ schema** — `get_advisors` ผ่าน MCP หรือ `supabase db advisors`
