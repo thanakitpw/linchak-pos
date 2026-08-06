@@ -7,25 +7,50 @@ import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { LOCALE_COOKIE, isLocale } from "@/i18n/locales";
 
-export type AuthState = { error?: string; ok?: string };
+/** ค่าที่กรอกไว้ ส่งกลับไปเติมในฟอร์มเมื่อ submit ไม่ผ่าน — ไม่รวมรหัสผ่าน */
+export type AuthState = {
+  error?: string;
+  ok?: string;
+  values?: { email?: string; store_name?: string };
+};
 
 /**
  * ข้อความ error จาก Supabase เป็นภาษาอังกฤษและเปลี่ยนได้ตามเวอร์ชัน
  * แปลงเป็น key ของเราแล้วให้ next-intl แปล — ไม่โยนข้อความดิบให้ผู้ใช้เห็น
+ *
+ * เช็ค `code` ก่อนข้อความเสมอ เพราะข้อความเปลี่ยนบ่อยกว่ารหัส
  */
-async function translateAuthError(message: string, fallbackKey: string) {
+async function translateAuthError(
+  err: { message: string; code?: string },
+  fallbackKey: "signInFailed" | "signUpFailed"
+) {
   const t = await getTranslations("auth");
-  const m = message.toLowerCase();
-  if (m.includes("already registered") || m.includes("already been registered")) {
+  const code = err.code ?? "";
+  const m = err.message.toLowerCase();
+
+  // SMTP กลางของ Supabase จำกัด 2-3 ฉบับ/ชม. — เจอบ่อยตอนพัฒนา
+  if (code === "over_email_send_rate_limit" || m.includes("email rate limit")) {
+    return t("emailRateLimit");
+  }
+  if (code === "email_not_confirmed" || m.includes("email not confirmed")) {
+    return t("emailNotConfirmed");
+  }
+  if (
+    code === "user_already_exists" ||
+    m.includes("already registered") ||
+    m.includes("already been registered")
+  ) {
     return t("emailTaken");
   }
   if (
-    m.includes("password") &&
-    (m.includes("weak") || m.includes("short") || m.includes("pwned"))
+    code === "weak_password" ||
+    (m.includes("password") && (m.includes("weak") || m.includes("short") || m.includes("pwned")))
   ) {
     return t("weakPassword");
   }
-  if (m.includes("invalid") && m.includes("email")) return t("invalidEmail");
+  if (code === "email_address_invalid" || (m.includes("invalid") && m.includes("email"))) {
+    return t("invalidEmail");
+  }
   return t(fallbackKey);
 }
 
@@ -53,11 +78,13 @@ export async function signIn(_prev: AuthState, formData: FormData): Promise<Auth
   const password = String(formData.get("password") ?? "");
   const next = String(formData.get("next") ?? "") || "/";
 
-  if (!email || !password) return { error: t("requiredField") };
+  if (!email || !password) return { error: t("requiredField"), values: { email } };
 
   const supabase = await createClient();
   const { error } = await supabase.auth.signInWithPassword({ email, password });
-  if (error) return { error: await translateAuthError(error.message, "signInFailed") };
+  if (error) {
+    return { error: await translateAuthError(error, "signInFailed"), values: { email } };
+  }
 
   await seedLocaleFromWorkspace();
   // redirect() โยน exception เพื่อหยุด action — ต้องอยู่นอก try/catch เสมอ
@@ -73,10 +100,11 @@ export async function signUp(_prev: AuthState, formData: FormData): Promise<Auth
   const password = String(formData.get("password") ?? "");
   const storeName = String(formData.get("store_name") ?? "").trim();
 
-  if (!email || !password || !storeName) return { error: t("requiredField") };
+  const values = { email, store_name: storeName };
+  if (!email || !password || !storeName) return { error: t("requiredField"), values };
 
   const supabase = await createClient();
-  const { error } = await supabase.auth.signUp({
+  const { data, error } = await supabase.auth.signUp({
     email,
     password,
     options: {
@@ -86,7 +114,11 @@ export async function signUp(_prev: AuthState, formData: FormData): Promise<Auth
       data: { store_name: storeName },
     },
   });
-  if (error) return { error: await translateAuthError(error.message, "signUpFailed") };
+  if (error) return { error: await translateAuthError(error, "signUpFailed"), values };
+
+  // ถ้าโปรเจคตั้งให้ต้องยืนยันอีเมล signUp จะไม่คืน session มา
+  // เข้าแอปเลยไม่ได้ ต้องบอกให้ไปเปิดอีเมลก่อน ไม่ใช่ปล่อยให้ redirect แล้วเด้งกลับมาเงียบๆ
+  if (!data.session) return { ok: t("needsEmailConfirm") };
 
   redirect("/");
 }

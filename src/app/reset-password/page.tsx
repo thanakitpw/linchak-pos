@@ -2,7 +2,7 @@ import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import { AuthForm } from "@/components/auth/auth-form";
 import { AuthShell } from "@/components/auth/auth-shell";
-import { Field, Input } from "@/components/ui/input";
+import { TextField } from "@/components/auth/text-field";
 import { Icon } from "@/components/ui/icon";
 import { requestPasswordReset } from "@/app/login/actions";
 
@@ -25,17 +25,15 @@ export default async function ResetPasswordPage() {
         submitLabel={t("resetPassword")}
         pendingLabel={t("sending")}
       >
-        <Field label={t("email")} htmlFor="email">
-          <Input
-            id="email"
-            name="email"
-            type="email"
-            autoComplete="email"
-            required
-            placeholder={t("emailPlaceholder")}
-            leading={<Icon name="mail" size={20} />}
-          />
-        </Field>
+        <TextField
+          name="email"
+          label={t("email")}
+          type="email"
+          autoComplete="email"
+          required
+          placeholder={t("emailPlaceholder")}
+          leading={<Icon name="mail" size={20} />}
+        />
       </AuthForm>
 
       <p className="mt-8 text-center text-body-md text-on-surface-variant md:mt-6">

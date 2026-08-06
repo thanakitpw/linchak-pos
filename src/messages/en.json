@@ -44,7 +44,10 @@
     "storeNamePlaceholder": "e.g. Jae Nueng Thai Tea",
     "sending": "Sending…",
     "signingIn": "Signing in…",
-    "signingUp": "Signing up…"
+    "signingUp": "Signing up…",
+    "emailRateLimit": "Too many emails sent, please wait a moment and try again",
+    "needsEmailConfirm": "Account created — check your email to confirm before signing in",
+    "emailNotConfirmed": "Email not confirmed yet — open the link we sent you first"
   },
   "common": {
     "save": "Save",
@@ -79,5 +82,15 @@
     "yourStore": "Your store",
     "trialEnds": "Trial ends",
     "status": "Status"
+  },
+  "workspace": {
+    "trialing": "Trial",
+    "active": "Active",
+    "past_due": "Past due",
+    "expired": "Expired",
+    "suspended": "Suspended",
+    "on": "On",
+    "off": "Off",
+    "daysLeft": "{days} days left"
   }
 }

@@ -1,12 +1,20 @@
 "use client";
 
-import { useActionState } from "react";
+import { createContext, use, useActionState } from "react";
 import { useFormStatus } from "react-dom";
 import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon";
 import type { AuthState } from "@/app/login/actions";
 
 type Action = (prev: AuthState, formData: FormData) => Promise<AuthState>;
+
+/**
+ * ค่าที่กรอกไว้ตอน submit ไม่ผ่าน
+ * server action คืนกลับมา ฟิลด์อ่านผ่าน context นี้ไปเติมใน defaultValue
+ * ไม่งั้นผู้ใช้ต้องพิมพ์ชื่อร้านกับอีเมลใหม่ทุกครั้งที่พลาด
+ */
+const SubmittedValues = createContext<AuthState["values"]>(undefined);
+export const useSubmittedValues = () => use(SubmittedValues);
 
 /**
  * เปลือกฟอร์ม auth ที่ใช้ร่วมกันทั้ง login / signup / reset
@@ -27,7 +35,7 @@ export function AuthForm({
 
   return (
     <form action={formAction} className="space-y-4">
-      {children}
+      <SubmittedValues value={state.values}>{children}</SubmittedValues>
 
       {state.error && (
         <p

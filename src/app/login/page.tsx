@@ -3,7 +3,7 @@ import { getTranslations } from "next-intl/server";
 import { AuthForm } from "@/components/auth/auth-form";
 import { AuthShell } from "@/components/auth/auth-shell";
 import { PasswordField } from "@/components/auth/password-field";
-import { Field, Input } from "@/components/ui/input";
+import { TextField } from "@/components/auth/text-field";
 import { Icon } from "@/components/ui/icon";
 import { signIn } from "./actions";
 
@@ -23,17 +23,15 @@ export default async function LoginPage({ searchParams }: PageProps<"/login">) {
       <AuthForm action={signIn} submitLabel={t("signIn")} pendingLabel={t("signingIn")}>
         <input type="hidden" name="next" value={typeof next === "string" ? next : ""} />
 
-        <Field label={t("email")} htmlFor="email">
-          <Input
-            id="email"
-            name="email"
-            type="email"
-            autoComplete="email"
-            required
-            placeholder={t("emailPlaceholder")}
-            leading={<Icon name="mail" size={20} />}
-          />
-        </Field>
+        <TextField
+          name="email"
+          label={t("email")}
+          type="email"
+          autoComplete="email"
+          required
+          placeholder={t("emailPlaceholder")}
+          leading={<Icon name="mail" size={20} />}
+        />
 
         <PasswordField
           autoComplete="current-password"

@@ -3,7 +3,7 @@ import { getTranslations } from "next-intl/server";
 import { AuthForm } from "@/components/auth/auth-form";
 import { AuthShell } from "@/components/auth/auth-shell";
 import { PasswordField } from "@/components/auth/password-field";
-import { Field, Input } from "@/components/ui/input";
+import { TextField } from "@/components/auth/text-field";
 import { Icon } from "@/components/ui/icon";
 import { signUp } from "@/app/login/actions";
 
@@ -20,29 +20,25 @@ export default async function SignupPage() {
   return (
     <AuthShell title={t("signUp")} subtitle={t("signUpSubtitle")} backHref="/login">
       <AuthForm action={signUp} submitLabel={t("startFreeTrial")} pendingLabel={t("signingUp")}>
-        <Field label={t("storeName")} htmlFor="store_name">
-          <Input
-            id="store_name"
-            name="store_name"
-            type="text"
-            required
-            maxLength={120}
-            placeholder={t("storeNamePlaceholder")}
-            leading={<Icon name="storefront" size={20} />}
-          />
-        </Field>
+        <TextField
+          name="store_name"
+          label={t("storeName")}
+          type="text"
+          required
+          maxLength={120}
+          placeholder={t("storeNamePlaceholder")}
+          leading={<Icon name="storefront" size={20} />}
+        />
 
-        <Field label={t("email")} htmlFor="email">
-          <Input
-            id="email"
-            name="email"
-            type="email"
-            autoComplete="email"
-            required
-            placeholder={t("emailPlaceholder")}
-            leading={<Icon name="mail" size={20} />}
-          />
-        </Field>
+        <TextField
+          name="email"
+          label={t("email")}
+          type="email"
+          autoComplete="email"
+          required
+          placeholder={t("emailPlaceholder")}
+          leading={<Icon name="mail" size={20} />}
+        />
 
         <PasswordField autoComplete="new-password" minLength={8} />
 

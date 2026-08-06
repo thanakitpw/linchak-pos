@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { signOut } from "@/app/login/actions";
 import { formatDate } from "@/lib/format";
 import type { Locale } from "@/i18n/locales";
+import type { SubscriptionStatus } from "@/lib/database.types";
 import { getLocale } from "next-intl/server";
 
 /**
@@ -16,6 +17,7 @@ import { getLocale } from "next-intl/server";
 export default async function Home() {
   const t = await getTranslations("dev");
   const tAuth = await getTranslations("auth");
+  const tWs = await getTranslations("workspace");
   const locale = (await getLocale()) as Locale;
 
   const supabase = await createClient();
@@ -54,7 +56,10 @@ export default async function Home() {
           </div>
           <div>
             <dt className="text-label-sm text-on-surface-variant">{t("status")}</dt>
-            <dd className="text-on-surface">{workspace.subscription_status}</dd>
+            {/* แปลค่าจาก DB ก่อนแสดง — ห้ามโชว์ค่าดิบอย่าง "trialing" ให้แม่ค้าเห็น */}
+            <dd className="text-on-surface">
+              {tWs(workspace.subscription_status as SubscriptionStatus)}
+            </dd>
           </div>
           <div>
             <dt className="text-label-sm text-on-surface-variant">{t("trialEnds")}</dt>
@@ -64,7 +69,7 @@ export default async function Home() {
           </div>
           <div>
             <dt className="text-label-sm text-on-surface-variant">VAT</dt>
-            <dd className="text-on-surface">{String(workspace.tax_enabled)}</dd>
+            <dd className="text-on-surface">{tWs(workspace.tax_enabled ? "on" : "off")}</dd>
           </div>
         </dl>
       )}
