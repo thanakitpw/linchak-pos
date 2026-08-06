@@ -2,7 +2,7 @@ import Link from "next/link";
 import { getLocale, getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { Icon } from "@/components/ui/icon";
-import { BarChart, type Bar } from "@/components/reports/bar-chart";
+import { LineChart, type Point } from "@/components/reports/line-chart";
 import { formatTHB } from "@/lib/format";
 import { toSatang } from "@/lib/money";
 import { bangkokToday, weekdayLabel } from "@/lib/report-dates";
@@ -29,10 +29,9 @@ export default async function ReportsPage() {
   const profit = (profitRow as ProfitRow | null) ?? { sales: 0, costs: 0, profit: 0, bills: 0 };
   const daily = (dailyRow as { day: string; total: number }[] | null) ?? [];
 
-  const bars: Bar[] = daily.map((d, i) => ({
+  const points: Point[] = daily.map((d) => ({
     label: weekdayLabel(d.day, locale),
     value: Number(d.total),
-    highlight: i === daily.length - 1,
   }));
 
   return (
@@ -79,7 +78,7 @@ export default async function ReportsPage() {
 
         <section className="rounded-md border border-outline-variant bg-surface-container-lowest p-4 shadow-card">
           <h2 className="mb-3 text-title-lg text-on-surface">{t("last7Days")}</h2>
-          <BarChart bars={bars} locale={locale} emptyLabel={t("noOrders")} />
+          <LineChart points={points} locale={locale} emptyLabel={t("noOrders")} />
         </section>
 
         <nav className="overflow-hidden rounded-md border border-outline-variant bg-surface-container-lowest">

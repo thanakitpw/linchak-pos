@@ -146,7 +146,10 @@
     "saveFailed": "Couldn't save, please try again",
     "notOwner": "Only the store owner can change settings",
     "fileTooLarge": "File is larger than 2 MB",
-    "fileWrongType": "Only PNG, JPG or WebP files are allowed"
+    "fileWrongType": "Only PNG, JPG or WebP files are allowed",
+    "accountSection": "Account",
+    "accountSectionHint": "The email you sign in with",
+    "signingOut": "Signing out…"
   },
   "admin": {
     "title": "Back-office",

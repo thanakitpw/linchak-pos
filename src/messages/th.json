@@ -146,7 +146,10 @@
     "saveFailed": "บันทึกไม่สำเร็จ ลองใหม่อีกครั้ง",
     "notOwner": "เฉพาะเจ้าของร้านเท่านั้นที่แก้ตั้งค่าได้",
     "fileTooLarge": "ไฟล์ใหญ่เกิน 2 MB",
-    "fileWrongType": "ใช้ได้เฉพาะไฟล์ PNG, JPG หรือ WebP"
+    "fileWrongType": "ใช้ได้เฉพาะไฟล์ PNG, JPG หรือ WebP",
+    "accountSection": "บัญชีผู้ใช้",
+    "accountSectionHint": "อีเมลที่ใช้เข้าระบบ",
+    "signingOut": "กำลังออกจากระบบ…"
   },
   "admin": {
     "title": "หลังบ้าน",

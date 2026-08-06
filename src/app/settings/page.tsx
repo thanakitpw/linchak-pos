@@ -7,6 +7,7 @@ import { StoreSection } from "@/components/settings/store-section";
 import { PromptPaySection } from "@/components/settings/promptpay-section";
 import { TaxSection } from "@/components/settings/tax-section";
 import { LanguageSection } from "@/components/settings/language-section";
+import { AccountSection } from "@/components/settings/account-section";
 import type { PromptPayType } from "@/lib/promptpay";
 
 /**
@@ -33,6 +34,10 @@ export default async function SettingsPage() {
 
   if (!ws) notFound();
 
+  // อีเมลมาจาก claims ของ session ไม่ใช่จากตาราง — เป็นข้อมูลของ auth ไม่ใช่ของร้าน
+  const { data: claims } = await supabase.auth.getClaims();
+  const email = (claims?.claims?.email as string | undefined) ?? "";
+
   // bucket `logos` เป็น public เพราะโลโก้ต้องขึ้นบนหน้าบิลที่ลูกค้าเปิดโดยไม่ล็อกอิน
   const logoUrl = ws.logo_path
     ? supabase.storage.from("logos").getPublicUrl(ws.logo_path).data.publicUrl
@@ -58,6 +63,7 @@ export default async function SettingsPage() {
         />
         <TaxSection initialEnabled={ws.tax_enabled} initialRate={Number(ws.tax_rate)} />
         <LanguageSection current={ws.language} />
+        <AccountSection email={email} />
       </div>
     </main>
   );

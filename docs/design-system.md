@@ -334,6 +334,7 @@ mockup มี **4 ชุดแท็บที่ต่างกัน** อี�
 | Top app bar | 5 string (สูง 5 ค่า, z 4 ค่า) | `<AppBar/>` | `mobile_8` | `h-app-bar` · `z-appbar` · ⚙️ ชิดขวา |
 | Side nav (tablet) | 3 string | `<SideNav/>` | `tablet_split_view` | ⚙️ อยู่ท้าย |
 | ใบเสร็จ | 2 string | `<Receipt/>` | `mobile_9` | **สีทึบล้วน** (กฎ 31) · ตรวจที่ `/dev/receipt` |
+| กราฟ | — (mockup เว้นที่ว่างไว้) | `<LineChart/>` | `dashboard_mobile`, `mobile_7` | **SVG เขียนเอง ไม่มี chart library** · แตะดูยอดรายจุด · `vector-effect="non-scaling-stroke"` กันเส้นหนาไม่เท่ากันตอนถูกยืด · จุดเป็น element ธรรมดาวางด้วย % ไม่ใช่ `<circle>` ไม่งั้นกลายเป็นวงรี |
 | กราฟแท่ง | 1 string | `<BarChart/>` | `dashboard_mobile` | `rounded-t-xs` · `bg-cat-*` |
 
 ทุก component ต้องมี: พิสูจน์ touch target ≥44px · พิสูจน์ contrast · หมายเหตุการตัดคำไทยที่ 360px

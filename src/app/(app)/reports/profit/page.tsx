@@ -2,7 +2,7 @@ import Link from "next/link";
 import { getLocale, getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { Icon } from "@/components/ui/icon";
-import { BarChart, type Bar } from "@/components/reports/bar-chart";
+import { LineChart, type Point } from "@/components/reports/line-chart";
 import { MonthPicker } from "@/components/reports/month-picker";
 import { formatPercent, formatTHB } from "@/lib/format";
 import { toSatang } from "@/lib/money";
@@ -56,10 +56,9 @@ export default async function ProfitPage({ searchParams }: PageProps<"/reports/p
   const prev = Number(p.prev_profit);
   const change = prev !== 0 ? (Number(p.profit) - prev) / Math.abs(prev) : null;
 
-  const bars: Bar[] = trend.map((m) => ({
+  const points: Point[] = trend.map((m) => ({
     label: monthLabel(m.month, locale),
     value: Number(m.profit),
-    highlight: m.month === selected,
   }));
 
   return (
@@ -114,7 +113,7 @@ export default async function ProfitPage({ searchParams }: PageProps<"/reports/p
 
       <section className="rounded-md border border-outline-variant bg-surface-container-lowest p-4 shadow-card">
         <h2 className="mb-3 text-title-lg text-on-surface">{t("profitTrend")}</h2>
-        <BarChart bars={bars} locale={locale} emptyLabel={t("noOrders")} />
+        <LineChart points={points} locale={locale} emptyLabel={t("noOrders")} />
       </section>
 
       <p className="text-center text-label-sm text-on-surface-variant">{t("profitFormula")}</p>
