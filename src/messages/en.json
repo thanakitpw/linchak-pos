@@ -26,7 +26,11 @@
     "hasAccount": "Already have an account?",
     "storeName": "Store name",
     "startFreeTrial": "Start 7-day free trial",
-    "trialNote": "7-day free trial, no card required"
+    "trialNote": "7-day free trial, no card required",
+    "signInSubtitle": "Sign in to manage your store",
+    "or": "or",
+    "signInWithGoogle": "Sign in with Google",
+    "signUpFree": "Start 7 days free"
   },
   "common": {
     "save": "Save",

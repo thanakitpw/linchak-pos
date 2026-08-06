@@ -199,6 +199,7 @@
   --spacing-touch: 44px; /* NFR-1 touch target ขั้นต่ำ           */
   --container-content: 1120px; /* max content width (DESIGN.md)         */
   --container-bill-pane: 420px; /* คอลัมน์บิลขวาใน split view (FR-3.8)  */
+  --container-form: 420px; /* การ์ด auth / คอลัมน์ฟอร์มหน้าเดียว     */
 
   /* ── 9. Motion ─────────────────────────────────────────────────────────── */
   --ease-standard: cubic-bezier(0.2, 0, 0, 1);
