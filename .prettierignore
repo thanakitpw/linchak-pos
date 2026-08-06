@@ -1,0 +1,11 @@
+.next
+node_modules
+pnpm-lock.yaml
+
+# reference material — Stitch export ที่ไม่ใช่ซอร์สของแอป ห้ามจัดรูปแบบใหม่
+pos_design
+
+# เอกสารเขียนมือ ให้คงการจัดบรรทัดไว้ตามที่เขียน
+docs
+CLAUDE.md
+AGENTS.md

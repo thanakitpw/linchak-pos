@@ -1,13 +1,14 @@
 import type { Metadata, Viewport } from "next";
 import { NextIntlClientProvider } from "next-intl";
-import { getLocale } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import { fontVariables } from "@/lib/fonts";
 import "./globals.css";
 
-export const metadata: Metadata = {
-  title: "POS",
-  description: "ออกบิล ดูกำไร ง่ายในแอปเดียว",
-};
+/** metadata ก็อยู่ใต้ NFR-2 เหมือนกัน — title/description ต้องเปลี่ยนตามภาษาของร้าน */
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("app");
+  return { title: t("name"), description: t("tagline") };
+}
 
 export const viewport: Viewport = {
   width: "device-width",

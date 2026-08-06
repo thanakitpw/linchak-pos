@@ -52,6 +52,10 @@
   "dev": {
     "tokensTitle": "Design tokens",
     "sampleProductName": "Mango sticky rice with fresh coconut cream and toasted mung beans",
-    "sampleSentence": "Today's sales 1,250.00 THB from 8 bills"
+    "sampleSentence": "Today's sales 1,250.00 THB from 8 bills",
+    "foundationTitle": "POS — foundation",
+    "foundationIntro": "No product screens yet. Design-system proof pages:",
+    "tokensLinkHint": "colours, type, radius, elevation, icons",
+    "receiptLinkHint": "receipt → image proof"
   }
 }

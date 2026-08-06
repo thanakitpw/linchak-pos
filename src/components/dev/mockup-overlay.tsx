@@ -13,9 +13,9 @@ export function MockupOverlay() {
 
   return (
     <>
-      <div className="border-outline-variant bg-surface-container-lowest z-toast fixed right-4 bottom-4 flex items-center gap-3 rounded-md border p-3 shadow-overlay">
+      <div className="fixed right-4 bottom-4 z-toast flex items-center gap-3 rounded-md border border-outline-variant bg-surface-container-lowest p-3 shadow-overlay">
         <select
-          className="border-outline-variant text-label-lg rounded-sm border px-2 py-1"
+          className="rounded-sm border border-outline-variant px-2 py-1 text-label-lg"
           value={id}
           onChange={(e) => setId(e.target.value)}
         >
@@ -37,7 +37,7 @@ export function MockupOverlay() {
           aria-label="ความทึบของภาพซ้อน"
           disabled={!id}
         />
-        <span className="text-label-sm text-on-surface-variant tnum w-10">
+        <span className="w-10 text-label-sm text-on-surface-variant tnum">
           {Math.round(opacity * 100)}%
         </span>
       </div>
@@ -47,7 +47,7 @@ export function MockupOverlay() {
         <img
           src={`/dev/mockup/${id}`}
           alt=""
-          className="z-scrim pointer-events-none fixed top-0 left-0 w-full"
+          className="pointer-events-none fixed top-0 left-0 z-scrim w-full"
           style={{ opacity }}
         />
       )}

@@ -23,7 +23,9 @@
 
 /* เนื้อหาที่ scroll ต้องเว้นที่ให้ bottom nav ไม่ให้แถวสุดท้ายโดนบัง */
 @utility pb-nav {
-  padding-bottom: calc(var(--spacing-bottom-nav) + var(--spacing) * 4 + env(safe-area-inset-bottom, 0px));
+  padding-bottom: calc(
+    var(--spacing-bottom-nav) + var(--spacing) * 4 + env(safe-area-inset-bottom, 0px)
+  );
 }
 
 /* ── scrollbar ─────────────────────────────────────────────────────────────

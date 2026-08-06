@@ -90,7 +90,5 @@ if (isCheck) {
 } else {
   await mkdir(dirname(OUT), { recursive: true });
   await writeFile(OUT, buf);
-  console.log(
-    `✓ เขียน ${OUT}\n  ${sorted.length} ไอคอน · ${buf.length} B · sha ${sha(buf)}`
-  );
+  console.log(`✓ เขียน ${OUT}\n  ${sorted.length} ไอคอน · ${buf.length} B · sha ${sha(buf)}`);
 }

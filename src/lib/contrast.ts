@@ -30,7 +30,10 @@ export function parseColor(input: string): Rgb | null {
 
   const nums = s.match(/^rgba?\(([^)]+)\)$/i)?.[1];
   if (nums) {
-    const parts = nums.split(/[\s,/]+/).filter(Boolean).map(Number);
+    const parts = nums
+      .split(/[\s,/]+/)
+      .filter(Boolean)
+      .map(Number);
     if (parts.length >= 3 && parts.slice(0, 3).every(Number.isFinite)) {
       return [parts[0], parts[1], parts[2]];
     }
@@ -45,9 +48,7 @@ function channelLuminance(c8: number): number {
 }
 
 export function relativeLuminance([r, g, b]: Rgb): number {
-  return (
-    0.2126 * channelLuminance(r) + 0.7152 * channelLuminance(g) + 0.0722 * channelLuminance(b)
-  );
+  return 0.2126 * channelLuminance(r) + 0.7152 * channelLuminance(g) + 0.0722 * channelLuminance(b);
 }
 
 export function contrastRatio(fg: string, bg: string): number | null {

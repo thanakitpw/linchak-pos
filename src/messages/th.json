@@ -52,6 +52,10 @@
   "dev": {
     "tokensTitle": "Design tokens",
     "sampleProductName": "ข้าวเหนียวมะม่วงน้ำดอกไม้ราดกะทิสดโรยถั่วทอง",
-    "sampleSentence": "ยอดขายวันนี้ 1,250.00 บาท จาก 8 บิล"
+    "sampleSentence": "ยอดขายวันนี้ 1,250.00 บาท จาก 8 บิล",
+    "foundationTitle": "POS — foundation",
+    "foundationIntro": "ยังไม่มีหน้าแอปจริง ดูหน้าพิสูจน์ design system ได้ที่:",
+    "tokensLinkHint": "สี ตัวอักษร มุมโค้ง เงา ไอคอน",
+    "receiptLinkHint": "พิสูจน์ใบเสร็จ → รูป"
   }
 }

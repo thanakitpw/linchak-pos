@@ -22,8 +22,8 @@ function roundHalfUp(n: number): number {
 
 /** สร้าง Satang จากจำนวนเต็ม — โยนทิ้งถ้าไม่ใช่ integer */
 export function satang(n: number): Satang {
-  if (!Number.isInteger(n)) throw new RangeError(`satang ต้องเป็นจำนวนเต็ม ได้ ${n}`);
-  if (!Number.isSafeInteger(n)) throw new RangeError(`satang เกินช่วงที่ปลอดภัย: ${n}`);
+  if (!Number.isInteger(n)) throw new RangeError(`satang must be an integer, got ${n}`);
+  if (!Number.isSafeInteger(n)) throw new RangeError(`satang out of safe integer range: ${n}`);
   return n as Satang;
 }
 
@@ -31,7 +31,7 @@ export const ZERO = satang(0);
 
 /** บาท (ทศนิยม) → สตางค์ ใช้ที่ขอบ input เท่านั้น */
 export function toSatang(baht: number): Satang {
-  if (!Number.isFinite(baht)) throw new RangeError(`จำนวนเงินไม่ถูกต้อง: ${baht}`);
+  if (!Number.isFinite(baht)) throw new RangeError(`invalid baht amount: ${baht}`);
   return satang(roundHalfUp(baht * SATANG_PER_BAHT));
 }
 
@@ -52,7 +52,7 @@ export function toDbNumeric(s: Satang): string {
 
 /** parse ค่าที่ผู้ใช้พิมพ์ในช่องกรอกเงิน — คืน null ถ้าว่าง/ไม่ใช่ตัวเลข */
 export function parseMoneyInput(raw: string): Satang | null {
-  const cleaned = raw.replace(/[,\s฿]/g, "").trim();
+  const cleaned = raw.replace(/[,\s฿]/g, "").trim(); // lint-tokens-ok: ฿ คือ input ที่ต้อง strip ไม่ใช่ข้อความ UI
   if (cleaned === "") return null;
   const n = Number.parseFloat(cleaned);
   if (!Number.isFinite(n)) return null;
@@ -71,7 +71,8 @@ export function sub(a: Satang, b: Satang): Satang {
 
 /** ราคา/หน่วย × จำนวน — qty ต้องเป็นจำนวนเต็มบวก */
 export function multiplyQty(unitPrice: Satang, qty: number): Satang {
-  if (!Number.isInteger(qty) || qty < 0) throw new RangeError(`qty ต้องเป็นจำนวนเต็ม ≥ 0 ได้ ${qty}`);
+  if (!Number.isInteger(qty) || qty < 0)
+    throw new RangeError(`qty must be an integer >= 0, got ${qty}`);
   return satang(unitPrice * qty);
 }
 

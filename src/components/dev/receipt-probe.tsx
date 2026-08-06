@@ -35,13 +35,13 @@ export function ReceiptProbe() {
     <div className="space-y-4">
       <button
         onClick={render}
-        className="bg-primary text-on-primary text-label-lg shadow-raised min-h-touch rounded-full px-6 transition-opacity hover:opacity-90 active:scale-[0.98]"
+        className="min-h-touch rounded-full bg-primary px-6 text-label-lg text-on-primary shadow-raised transition-opacity hover:opacity-90 active:scale-[0.98]"
       >
         render เป็น PNG
       </button>
 
       {error && (
-        <p className="bg-error-container text-on-error-container text-body-md rounded-sm p-3">
+        <p className="rounded-sm bg-error-container p-3 text-body-md text-on-error-container">
           {error}
         </p>
       )}
@@ -52,28 +52,28 @@ export function ReceiptProbe() {
           <h3 className="text-title-lg text-primary">ปลอดภัย — สีทึบล้วน</h3>
           <div
             ref={safeRef}
-            className="bg-receipt-paper text-on-surface space-y-2 rounded-md p-4"
+            className="space-y-2 rounded-md bg-receipt-paper p-4 text-on-surface"
             style={{ width: 320 }}
           >
             <p className="text-title-lg">ร้านค้าของฉัน</p>
             <p className="text-label-sm text-on-surface-variant tnum">05082026-00000001</p>
-            <div className="border-receipt-rule border-t border-dashed pt-2">
-              <div className="text-body-md flex justify-between">
+            <div className="border-t border-dashed border-receipt-rule pt-2">
+              <div className="flex justify-between text-body-md">
                 <span>ชาไทยเย็น ×2</span>
                 <span className="tnum">120.00</span>
               </div>
             </div>
-            <div className="border-receipt-rule flex items-baseline justify-between border-t pt-2">
+            <div className="flex items-baseline justify-between border-t border-receipt-rule pt-2">
               <span className="text-title-lg">ยอดสุทธิ</span>
               <span className="text-headline-md text-primary tnum">฿120.00</span>
             </div>
-            <div className="bg-secondary-container text-on-secondary-fixed-variant text-label-sm rounded-sm px-2 py-1">
+            <div className="rounded-sm bg-secondary-container px-2 py-1 text-label-sm text-on-secondary-fixed-variant">
               จ่ายแล้ว · PromptPay
             </div>
           </div>
           {safePng && (
             // eslint-disable-next-line @next/next/no-img-element
-            <img src={safePng} alt="" className="border-outline-variant w-[320px] border" />
+            <img src={safePng} alt="" className="w-[320px] border border-outline-variant" />
           )}
         </div>
 
@@ -82,28 +82,28 @@ export function ReceiptProbe() {
           <h3 className="text-title-lg text-error">เสี่ยง — opacity modifier</h3>
           <div
             ref={unsafeRef}
-            className="bg-receipt-paper text-on-surface space-y-2 rounded-md p-4"
+            className="space-y-2 rounded-md bg-receipt-paper p-4 text-on-surface"
             style={{ width: 320 }}
           >
             <p className="text-title-lg">ร้านค้าของฉัน</p>
             <p className="text-label-sm text-on-surface-variant/70 tnum">05082026-00000001</p>
-            <div className="border-outline-variant/30 border-t border-dashed pt-2">
-              <div className="text-body-md flex justify-between">
+            <div className="border-t border-dashed border-outline-variant/30 pt-2">
+              <div className="flex justify-between text-body-md">
                 <span>ชาไทยเย็น ×2</span>
                 <span className="tnum">120.00</span>
               </div>
             </div>
-            <div className="border-outline-variant/30 flex items-baseline justify-between border-t pt-2">
+            <div className="flex items-baseline justify-between border-t border-outline-variant/30 pt-2">
               <span className="text-title-lg">ยอดสุทธิ</span>
               <span className="text-headline-md text-primary tnum">฿120.00</span>
             </div>
-            <div className="bg-primary-container/20 text-on-primary-container text-label-sm rounded-sm px-2 py-1">
+            <div className="rounded-sm bg-primary-container/20 px-2 py-1 text-label-sm text-on-primary-container">
               จ่ายแล้ว · PromptPay
             </div>
           </div>
           {unsafePng && (
             // eslint-disable-next-line @next/next/no-img-element
-            <img src={unsafePng} alt="" className="border-outline-variant w-[320px] border" />
+            <img src={unsafePng} alt="" className="w-[320px] border border-outline-variant" />
           )}
         </div>
       </div>

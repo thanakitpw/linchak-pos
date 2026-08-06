@@ -1,0 +1,41 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      # ESLint — จับ class ที่ไม่มีอยู่จริง (better-tailwindcss/no-unknown-classes)
+      # และ import lucide ที่หลุดออกนอก components/ui/
+      - run: pnpm lint
+
+      # guard นโยบาย: arbitrary value, ghost token, named spacing, dark:, ข้อความไทย hardcode
+      - run: pnpm lint:tokens
+
+      # icon font ที่ commit ไว้ต้องตรงกับ ICON_NAMES ปัจจุบัน
+      # (เรียก Google Fonts — ถ้าล่มให้ข้ามได้ ไม่ควรบล็อกทั้ง pipeline)
+      - run: pnpm icons:check
+        continue-on-error: true
+
+      - run: pnpm typecheck
+
+      - run: pnpm test
+
+      - run: pnpm format:check
+
+      - run: pnpm build
