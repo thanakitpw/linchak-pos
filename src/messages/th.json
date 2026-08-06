@@ -1,0 +1,57 @@
+{
+  "app": {
+    "name": "POS",
+    "tagline": "ออกบิล ดูกำไร ง่ายในแอปเดียว"
+  },
+  "nav": {
+    "sell": "ขาย",
+    "products": "สินค้า",
+    "costs": "ต้นทุน",
+    "reports": "สรุป",
+    "settings": "ตั้งค่า"
+  },
+  "auth": {
+    "signIn": "เข้าสู่ระบบ",
+    "signUp": "สมัครใช้งาน",
+    "signOut": "ออกจากระบบ",
+    "email": "อีเมล",
+    "emailPlaceholder": "you@example.com",
+    "password": "รหัสผ่าน",
+    "passwordPlaceholder": "อย่างน้อย 8 ตัวอักษร",
+    "showPassword": "แสดงรหัสผ่าน",
+    "hidePassword": "ซ่อนรหัสผ่าน",
+    "forgotPassword": "ลืมรหัสผ่าน?",
+    "resetPassword": "รีเซ็ตรหัสผ่าน",
+    "noAccount": "ยังไม่มีบัญชี?",
+    "hasAccount": "มีบัญชีอยู่แล้ว?",
+    "storeName": "ชื่อร้าน",
+    "startFreeTrial": "เริ่มใช้ฟรี 7 วัน",
+    "trialNote": "ทดลองฟรี 7 วัน ไม่ต้องใช้บัตร"
+  },
+  "common": {
+    "save": "บันทึก",
+    "cancel": "ยกเลิก",
+    "delete": "ลบ",
+    "edit": "แก้ไข",
+    "close": "ปิด",
+    "back": "ย้อนกลับ",
+    "search": "ค้นหา",
+    "filter": "กรอง",
+    "all": "ทั้งหมด",
+    "loading": "กำลังโหลด…",
+    "retry": "ลองใหม่"
+  },
+  "money": {
+    "subtotal": "ยอดรวม",
+    "discount": "ส่วนลด",
+    "tax": "ภาษีมูลค่าเพิ่ม",
+    "total": "ยอดสุทธิ",
+    "received": "รับเงิน",
+    "change": "เงินทอน"
+  },
+  "dev": {
+    "tokensTitle": "Design tokens",
+    "sampleProductName": "ข้าวเหนียวมะม่วงน้ำดอกไม้ราดกะทิสดโรยถั่วทอง",
+    "sampleSentence": "ยอดขายวันนี้ 1,250.00 บาท จาก 8 บิล"
+  }
+}

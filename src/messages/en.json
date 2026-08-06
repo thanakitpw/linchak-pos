@@ -1,0 +1,57 @@
+{
+  "app": {
+    "name": "POS",
+    "tagline": "Bill customers and see your profit — in one app"
+  },
+  "nav": {
+    "sell": "Sell",
+    "products": "Products",
+    "costs": "Costs",
+    "reports": "Reports",
+    "settings": "Settings"
+  },
+  "auth": {
+    "signIn": "Sign in",
+    "signUp": "Sign up",
+    "signOut": "Sign out",
+    "email": "Email",
+    "emailPlaceholder": "you@example.com",
+    "password": "Password",
+    "passwordPlaceholder": "At least 8 characters",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password",
+    "forgotPassword": "Forgot password?",
+    "resetPassword": "Reset password",
+    "noAccount": "Don't have an account?",
+    "hasAccount": "Already have an account?",
+    "storeName": "Store name",
+    "startFreeTrial": "Start 7-day free trial",
+    "trialNote": "7-day free trial, no card required"
+  },
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "close": "Close",
+    "back": "Back",
+    "search": "Search",
+    "filter": "Filter",
+    "all": "All",
+    "loading": "Loading…",
+    "retry": "Retry"
+  },
+  "money": {
+    "subtotal": "Subtotal",
+    "discount": "Discount",
+    "tax": "VAT",
+    "total": "Total",
+    "received": "Received",
+    "change": "Change"
+  },
+  "dev": {
+    "tokensTitle": "Design tokens",
+    "sampleProductName": "Mango sticky rice with fresh coconut cream and toasted mung beans",
+    "sampleSentence": "Today's sales 1,250.00 THB from 8 bills"
+  }
+}
