@@ -53,3 +53,6 @@ next-env.d.ts
 # NOTE: src/assets/fonts/*.woff2 is deliberately NOT ignored.
 # The subsetted Material Symbols font is a build input; CI verifies its hash
 # (`pnpm icons:check`). Regenerate with `pnpm icons:build`.
+
+# supabase CLI cache
+supabase/.temp/

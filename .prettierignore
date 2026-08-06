@@ -9,3 +9,6 @@ pos_design
 docs
 CLAUDE.md
 AGENTS.md
+
+# generate จาก schema — ไม่จัดรูปแบบ
+src/lib/database.types.ts
