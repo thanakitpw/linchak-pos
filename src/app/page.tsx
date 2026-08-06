@@ -2,6 +2,7 @@ import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { Button } from "@/components/ui/button";
+import { Icon } from "@/components/ui/icon";
 import { signOut } from "@/app/login/actions";
 import { formatDate } from "@/lib/format";
 import type { Locale } from "@/i18n/locales";
@@ -18,6 +19,7 @@ export default async function Home() {
   const t = await getTranslations("dev");
   const tAuth = await getTranslations("auth");
   const tWs = await getTranslations("workspace");
+  const tSettings = await getTranslations("settings");
   const locale = (await getLocale()) as Locale;
 
   const supabase = await createClient();
@@ -41,11 +43,19 @@ export default async function Home() {
             {t("signedInAs")} {user?.email}
           </p>
         </div>
-        <form action={signOut}>
-          <Button type="submit" variant="outline">
-            {tAuth("signOut")}
-          </Button>
-        </form>
+        <div className="flex items-center gap-2">
+          <Link
+            href="/settings"
+            className="flex size-11 items-center justify-center rounded-full text-on-surface transition-colors hover:bg-surface-container-low"
+          >
+            <Icon name="settings" label={tSettings("title")} />
+          </Link>
+          <form action={signOut}>
+            <Button type="submit" variant="outline">
+              {tAuth("signOut")}
+            </Button>
+          </form>
+        </div>
       </div>
 
       {workspace && (

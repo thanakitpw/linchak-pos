@@ -1,0 +1,64 @@
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { getTranslations } from "next-intl/server";
+import { createClient } from "@/lib/supabase/server";
+import { Icon } from "@/components/ui/icon";
+import { StoreSection } from "@/components/settings/store-section";
+import { PromptPaySection } from "@/components/settings/promptpay-section";
+import { TaxSection } from "@/components/settings/tax-section";
+import { LanguageSection } from "@/components/settings/language-section";
+import type { PromptPayType } from "@/lib/promptpay";
+
+/**
+ * ตั้งค่าร้าน — FR-1
+ *
+ * ⚠️ หน้านี้ไม่มี mockup ใน pos_design/ — ออกแบบใหม่จาก token ของ design system
+ * (ดู docs/design-system.md §12 "หน้าที่ PRD ต้องการแต่ไม่มี mockup")
+ *
+ * เป็นหน้าที่สำคัญที่สุดของ FR-1 เพราะเป็นที่เดียวที่ตั้งเลข PromptPay ได้
+ * ถ้าไม่ตั้ง ใบเสร็จจะไม่มี QR รับเงิน ซึ่งเป็นฟีเจอร์ขายของทั้งแอป
+ */
+export default async function SettingsPage() {
+  const t = await getTranslations("settings");
+  const supabase = await createClient();
+
+  // RLS คืนเฉพาะร้านที่ผู้ใช้เป็นสมาชิก — ไม่ต้องกรอง workspace_id เอง
+  const { data: ws } = await supabase
+    .from("workspaces")
+    .select(
+      "name, branch, phone, logo_path, promptpay_id, promptpay_type, tax_enabled, tax_rate, language"
+    )
+    .limit(1)
+    .maybeSingle();
+
+  if (!ws) notFound();
+
+  // bucket `logos` เป็น public เพราะโลโก้ต้องขึ้นบนหน้าบิลที่ลูกค้าเปิดโดยไม่ล็อกอิน
+  const logoUrl = ws.logo_path
+    ? supabase.storage.from("logos").getPublicUrl(ws.logo_path).data.publicUrl
+    : null;
+
+  return (
+    <main className="mx-auto max-w-form pb-12">
+      <header className="sticky top-0 z-appbar flex h-app-bar items-center gap-2 border-b border-outline-variant bg-surface px-4">
+        <Link
+          href="/"
+          className="flex size-11 items-center justify-center rounded-full text-on-surface transition-colors hover:bg-surface-container-low"
+        >
+          <Icon name="arrow_back" label={t("title")} />
+        </Link>
+        <h1 className="text-title-lg text-on-surface">{t("title")}</h1>
+      </header>
+
+      <div className="space-y-4 p-4">
+        <StoreSection name={ws.name} branch={ws.branch} phone={ws.phone} logoUrl={logoUrl} />
+        <PromptPaySection
+          initialId={ws.promptpay_id}
+          initialType={ws.promptpay_type as PromptPayType | null}
+        />
+        <TaxSection initialEnabled={ws.tax_enabled} initialRate={Number(ws.tax_rate)} />
+        <LanguageSection current={ws.language} />
+      </div>
+    </main>
+  );
+}

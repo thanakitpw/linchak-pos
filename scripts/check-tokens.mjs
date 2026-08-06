@@ -75,8 +75,10 @@ const RULES = [
     only: TSX_ONLY,
   },
   {
+    // `(?=\S)` สำคัญ: variant ของ Tailwind ไม่มีช่องว่างหลัง colon เสมอ (dark:bg-black)
+    // ส่วน object key ใน JS มี ({ dark: "#121c28" }) — ไม่งั้นจะฟ้อง option ของ lib อื่น
     id: "dark-variant",
-    re: /(?<![\w-])dark:/g,
+    re: /(?<![\w-])dark:(?=\S)/g,
     msg: "MVP เป็น light-only — dark: คือโค้ดตายที่โกหกว่าถูกทดสอบแล้ว",
     only: TSX_ONLY,
     skip: /^src\/components\/ui\//,
