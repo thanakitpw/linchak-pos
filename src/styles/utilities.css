@@ -1,0 +1,71 @@
+/* =============================================================================
+   utilities.css
+   แก้ class ที่ mockup ใช้แต่ define ไม่ครบ (ตายเงียบ) + z-index ladder แบบมีชื่อ
+   ============================================================================= */
+
+/* ── safe area ─────────────────────────────────────────────────────────────
+   `pb-safe` ถูกใช้ใน 6 ไฟล์ของ mockup แต่ define แค่ไฟล์เดียว (dashboard_mobile)
+   อีก 5 ไฟล์คือเนื้อหาโดน home indicator ของ iPhone ทับ
+   ⚠️ ทดสอบบน iPhone Safari เครื่องจริงเท่านั้น — simulator รายงาน safe-area ผิด
+   -------------------------------------------------------------------------- */
+@utility pb-safe {
+  padding-bottom: calc(var(--spacing) * 2 + env(safe-area-inset-bottom, 0px));
+}
+
+@utility h-bottom-nav-safe {
+  height: calc(var(--spacing-bottom-nav) + env(safe-area-inset-bottom, 0px));
+}
+
+/* FAB ลอยเหนือ bottom nav — mockup ใช้ bottom-[72px]/[88px]/[96px] มั่วกัน 5 ค่า */
+@utility bottom-fab {
+  bottom: calc(var(--spacing-fab-inset) + env(safe-area-inset-bottom, 0px));
+}
+
+/* เนื้อหาที่ scroll ต้องเว้นที่ให้ bottom nav ไม่ให้แถวสุดท้ายโดนบัง */
+@utility pb-nav {
+  padding-bottom: calc(var(--spacing-bottom-nav) + var(--spacing) * 4 + env(safe-area-inset-bottom, 0px));
+}
+
+/* ── scrollbar ─────────────────────────────────────────────────────────────
+   mockup มี 3 ชื่อสำหรับสิ่งเดียวกัน: no-scrollbar / hide-scrollbar / scrollbar-hide
+   (อันหลังไม่เคย define เลย) เหลือชื่อเดียว
+   -------------------------------------------------------------------------- */
+@utility no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* ── ตัวเลขเงิน ────────────────────────────────────────────────────────────
+   ทุกคอลัมน์เงิน ยอดรวม และตัวนับใน stepper ต้องใส่ — ไม่งั้นตัวเลขเต้นตอนอัปเดต
+   -------------------------------------------------------------------------- */
+@utility tnum {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── z-index ladder ───────────────────────────────────────────────────────
+   แทน z-10/20/30/40/50/[60]/[70] ที่กระจาย 78 จุดใน 28 ไฟล์แบบไม่มีระบบ
+   -------------------------------------------------------------------------- */
+@utility z-sticky {
+  z-index: 10; /* sticky sub-header, รางแถบ chip หมวดหมู่ */
+}
+@utility z-appbar {
+  z-index: 30; /* top app bar                            */
+}
+@utility z-nav {
+  z-index: 40; /* bottom nav / side nav                  */
+}
+@utility z-fab {
+  z-index: 45;
+}
+@utility z-scrim {
+  z-index: 50; /* ฉากหลังทึบของ modal/sheet              */
+}
+@utility z-sheet {
+  z-index: 60; /* ตัว modal / bottom sheet               */
+}
+@utility z-toast {
+  z-index: 70;
+}

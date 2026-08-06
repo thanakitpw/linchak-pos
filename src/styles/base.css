@@ -1,0 +1,62 @@
+/* =============================================================================
+   base.css — element default
+   ============================================================================= */
+
+@layer base {
+  html {
+    /* form control / scrollbar / PWA status bar ของระบบต้องเป็นโหมดสว่าง
+       MVP ยังไม่มี dark mode (ดู @custom-variant ใน globals.css) */
+    color-scheme: light;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    background-color: var(--color-surface);
+    color: var(--color-on-surface);
+    font-family: var(--font-sans);
+    font-size: var(--text-body-md);
+    line-height: var(--text-body-md--line-height);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* ตัวเลขเงินต้องเรียงคอลัมน์ตรงกันเสมอ — ดู utility `.tnum` สำหรับใช้เฉพาะจุด */
+
+  /* Material Symbols
+     ฟอนต์ subset 42 ไอคอน (~7.5 KB) โหลดผ่าน next/font/local ใน src/lib/fonts.ts
+     ตัวอักษรใน element คือชื่อไอคอน (ligature) ไม่ใช่ข้อความสำหรับอ่าน
+     → <Icon> ใส่ translate="no" เสมอ กัน Chrome auto-translate แปลชื่อไอคอนบนหน้าไทย */
+  .material-symbols {
+    font-family: var(--font-icon);
+    font-weight: 400;
+    font-style: normal;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    font-feature-settings: "liga";
+    -webkit-font-smoothing: antialiased;
+    user-select: none;
+    flex-shrink: 0;
+  }
+
+  /* ฟิลด์กรอกเงิน/จำนวน: ซ่อนลูกศร spinner ที่ทำให้ปุ่ม +/- แน่นเกินบนมือถือ */
+  input[type="number"] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+  }
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* focus ring ให้มองเห็นเสมอด้วย keyboard แต่ไม่ขึ้นตอนแตะบนมือถือ */
+  :focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+}

@@ -1,0 +1,199 @@
+/* =============================================================================
+   theme.css — CANONICAL DESIGN TOKENS
+   สิ่งเดียวที่เป็น source of truth ของ design system ทั้งโปรเจค
+
+   ที่มา: mockup 28 ไฟล์ใน pos_design/ — สี 47 ตัวตรงกันเป๊ะทุกไฟล์
+   เอกสารเหตุผล + migration table: docs/design-system.md
+   ⚠️ pos_design/verdant_growth/DESIGN.md STALE (radius เพี้ยน 1 ขั้น) — ไฟล์นี้แทนที่
+   ============================================================================= */
+
+@theme {
+  /* ── 0. เคลียร์ default ของ Tailwind ────────────────────────────────────────
+     เพื่อให้ class ที่พอร์ตผิดพัง "เสียงดัง" ไม่ใช่เงียบ
+     เช่น `bg-slate-500`, `text-lg`, `shadow-sm`, `rounded-2xl` ต้องไม่ resolve
+
+     ไม่เคลียร์:
+     - --font-*     : --font-weight-* อยู่ใต้ prefix เดียวกัน จะพา font-bold ตายไปด้วย
+     - --breakpoint-*: md = 48rem = 768px ตรงกับ tablet breakpoint ของ FR-3.8 พอดี
+     - --spacing     : 0.25rem = 4px = base unit ของดีไซน์อยู่แล้ว
+     -------------------------------------------------------------------------- */
+  --color-*: initial;
+  --text-*: initial;
+  --radius-*: initial;
+  --shadow-*: initial;
+  --inset-shadow-*: initial;
+  --drop-shadow-*: initial;
+
+  /* ── 1. Absolutes ───────────────────────────────────────────────────────── */
+  --color-transparent: transparent;
+  --color-current: currentColor;
+  --color-inherit: inherit;
+  --color-white: #ffffff;
+  --color-black: #000000;
+
+  /* ── 2. M3 surfaces (light) ─────────────────────────────────────────────────
+     ไม่มี `background` / `on-background`: ค่าเท่ากับ surface/on-surface เป๊ะ และ
+     ชื่อสองตัวนี้สงวนไว้ให้ shadcn alias layer (src/styles/shadcn.css)
+     -------------------------------------------------------------------------- */
+  --color-surface: #f8f9ff;
+  --color-surface-dim: #d1dbec;
+  --color-surface-bright: #f8f9ff;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #eef4ff;
+  --color-surface-container: #e5eeff;
+  --color-surface-container-high: #dfe9fa;
+  --color-surface-container-highest: #d9e3f4;
+  --color-surface-variant: #d9e3f4;
+  --color-on-surface: #121c28; /* 16.30:1 บน surface                        */
+  --color-on-surface-variant: #3e4a3d; /*  8.71:1 บน surface — text รองใช้ได้     */
+  --color-inverse-surface: #27313e;
+  --color-inverse-on-surface: #eaf1ff;
+  --color-outline: #6e7b6b; /*  4.24:1 — เส้น/ไอคอนตกแต่งเท่านั้น ไม่ใช่ text */
+  --color-outline-variant: #bdcab9; /*  1.71:1 — hairline เท่านั้น ห้ามใช้กับ text  */
+
+  /* ── 3. M3 accents ─────────────────────────────────────────────────────────
+     ⚠️ กฎสำคัญที่สุดของ palette นี้:
+        primary-container (#2bb14f) + ตัวหนังสือขาว = 2.80:1 → ตก WCAG AA
+        foreground เดียวที่ถูกกฎหมายบนมันคือ on-primary-container (#003c13, 4.53:1)
+        ปุ่ม CTA จึงใช้ primary (#006e29) + on-primary (ขาว) = 6.44:1
+     -------------------------------------------------------------------------- */
+  --color-primary: #006e29; /* CTA fill — 6.44:1 กับตัวขาว              */
+  --color-on-primary: #ffffff;
+  --color-primary-container: #2bb14f; /* selected/accent fill เท่านั้น            */
+  --color-on-primary-container: #003c13; /* fg เดียวที่ผ่าน AA บน primary-container  */
+  --color-surface-tint: #006e29;
+  --color-inverse-primary: #60df77;
+  --color-primary-fixed: #7dfc90;
+  --color-primary-fixed-dim: #60df77;
+  --color-on-primary-fixed-variant: #00531d;
+
+  --color-secondary: #366847;
+  --color-on-secondary: #ffffff;
+  --color-secondary-container: #b8f0c5; /* chip เขียวอ่อน                          */
+  --color-on-secondary-container: #3d6f4d; /*  4.56:1 — ผ่านแบบเฉียดฉิว              */
+  --color-secondary-fixed: #b8f0c5;
+  --color-on-secondary-fixed-variant: #1d5031; /*  7.27:1 — PREFER ตัวนี้บน chip เขียวอ่อน */
+
+  --color-tertiary: #57615b;
+  --color-on-tertiary: #ffffff; /*  6.12:1 บน tertiary                     */
+  --color-tertiary-container: #939d97;
+  --color-on-tertiary-container: #2b3530; /*  4.54:1 — fg เดียวที่ผ่าน (ขาว = 2.80 ตก) */
+  --color-tertiary-fixed: #dbe5de;
+  --color-tertiary-fixed-dim: #bfc9c2;
+  --color-on-tertiary-fixed-variant: #3f4944;
+
+  --color-error: #ba1a1a;
+  --color-on-error: #ffffff;
+  --color-error-container: #ffdad6;
+  --color-on-error-container: #93000a;
+
+  /* ── 4. Token ที่ audit พิสูจน์ว่าชุด M3 เดิมขาด ───────────────────────────── */
+  /* mockup ใช้ `placeholder-outline-variant` = 1.71:1 ซึ่งเป็นบั๊ก a11y ที่แย่ที่สุดในชุด
+     ค่านี้คือเขียว-เทาที่อ่อนที่สุดที่ยังผ่าน AA (5.00:1 บนขาว, 4.76:1 บน surface) */
+  --color-placeholder: #667363;
+  --color-receipt-paper: #f7f7f2; /* พื้นกระดาษใบเสร็จ (mobile_9, tablet_10)  */
+  --color-receipt-rule: #e5e7eb; /* เส้นปรุ/เส้นประในใบเสร็จ                */
+
+  /* สีหมวดหมู่ (FR-2.1) + chart series — cap ไว้ 8 สี
+     ห้ามให้ categories.color เก็บ hex อิสระ ให้เก็บ index 1..8 แทน
+     mockup แอบใส่ #3b82f6 / #f59e0b / #10b981 / #ef4444 ดิบๆ เข้ามา — ตายที่นี่ */
+  --color-cat-1: #006e29;
+  --color-cat-2: #1a73e8;
+  --color-cat-3: #b26a00;
+  --color-cat-4: #8e24aa;
+  --color-cat-5: #00796b;
+  --color-cat-6: #c2185b;
+  --color-cat-7: #455a64;
+  --color-cat-8: #5d4037;
+
+  /* ── 5. Typography ─────────────────────────────────────────────────────────
+     8 ขั้น (ไม่ใช่ 9): `headline-lg-mobile` ใน mockup มีค่าเท่ากับ `headline-md` เป๊ะ
+
+     ⚠️ ไม่มี type token ลงท้าย `-mobile` — responsive เขียนเป็น breakpoint variant:
+        text-title-lg md:text-headline-md
+     ghost token ที่ mockup อ้างแต่ไม่เคย define (title-lg-mobile, headline-md-mobile,
+     h2, label, label-md) ตายที่นี่ ดู migration table T1 ใน docs/design-system.md
+
+     แต่ละขั้นพก size + line-height + weight (+ tracking) มาให้ครบในคลาสเดียว
+     override ได้ตามปกติ: v4 emit `font-weight: var(--tw-font-weight, <token>)`
+     และ `font-bold` เป็นตัว set `--tw-font-weight` ⇒ `text-title-lg font-bold`
+     ได้ 700 เสมอไม่ว่าลำดับ class จะเป็นอย่างไร (เช่นเดียวกับ leading- และ tracking-)
+     -------------------------------------------------------------------------- */
+  --font-sans:
+    var(--font-plex-thai), -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans Thai",
+    sans-serif;
+  --font-icon: var(--font-material-symbols);
+
+  --text-display-lg: 40px; /* ยอดเงินใหญ่: TOTAL, กำไรเดือนนี้ */
+  --text-display-lg--line-height: 48px;
+  --text-display-lg--letter-spacing: -0.02em;
+  --text-display-lg--font-weight: 700;
+
+  --text-headline-lg: 32px; /* หัวหน้าจอ (tablet)               */
+  --text-headline-lg--line-height: 40px;
+  --text-headline-lg--font-weight: 600;
+
+  --text-headline-md: 24px; /* หัวหน้าจอ (mobile), หัว section   */
+  --text-headline-md--line-height: 32px;
+  --text-headline-md--font-weight: 600;
+
+  --text-title-lg: 20px; /* หัว card, ยอดรวมรายการ          */
+  --text-title-lg--line-height: 28px;
+  --text-title-lg--font-weight: 600;
+
+  --text-body-lg: 18px; /* body เน้น                       */
+  --text-body-lg--line-height: 28px;
+  --text-body-lg--font-weight: 400;
+
+  --text-body-md: 16px; /* body มาตรฐาน                    */
+  --text-body-md--line-height: 24px;
+  --text-body-md--font-weight: 400;
+
+  --text-label-lg: 14px; /* label ปุ่ม/ฟอร์ม/chip            */
+  --text-label-lg--line-height: 20px;
+  --text-label-lg--letter-spacing: 0.01em;
+  --text-label-lg--font-weight: 500;
+
+  --text-label-sm: 12px; /* caption, label แท็บล่าง          */
+  --text-label-sm--line-height: 16px;
+  --text-label-sm--font-weight: 500;
+
+  /* ── 6. Radius ─────────────────────────────────────────────────────────────
+     ใช้ค่าที่ mockup render จริง แต่เปลี่ยนชื่อให้ monotonic
+     (DESIGN.md ระบุสเกลที่เพี้ยนไป 1 ขั้นเต็ม — screenshot คือสิ่งที่อนุมัติ)
+
+     ⚠️ ห้ามรัน `shadcn init` — มันจะเขียนทับ --radius-* ด้วย
+        calc(var(--radius) ± Npx) แล้ว 8/12/16/24 กลายเป็น 6/8/10/14 เงียบๆ
+     -------------------------------------------------------------------------- */
+  --radius-xs: 4px; /* เดิม `rounded`      — badge, มุมบนแท่งกราฟ  */
+  --radius-sm: 8px; /* เดิม `rounded-lg`   — input, ปุ่มรอง         */
+  --radius-md: 12px; /* เดิม `rounded-xl`   — card, KPI, product tile */
+  --radius-lg: 16px; /* เดิม `rounded-2xl`  — FAB, modal, bottom sheet */
+  --radius-xl: 24px; /* ใหม่                — hero container         */
+  /* `rounded-full` / `rounded-none` เป็น static utility ของ v4 ไม่ต้องมี token */
+
+  /* ── 7. Elevation ─────────────────────────────────────────────────────────
+     แทน arbitrary `shadow-[…]` กว่า 90 จุดใน mockup
+     ตรงกับ elevation ladder ที่ DESIGN.md ระบุไว้พอดี
+     -------------------------------------------------------------------------- */
+  --shadow-card: 0 4px 12px rgb(0 0 0 / 0.02); /*  7× list/product card    */
+  --shadow-raised: 0 4px 12px rgb(0 0 0 / 0.05); /* 27× sticky bar, FAB      */
+  --shadow-nav: 0 -4px 12px rgb(0 0 0 / 0.05); /* 14× bottom nav (เงาขึ้น) */
+  --shadow-overlay: 0 12px 32px rgb(0 0 0 / 0.1); /*  7× modal, bottom sheet  */
+  --shadow-primary: 0 4px 12px rgb(0 110 41 / 0.25); /* CTA glow — re-tint จาก rgba(43,177,79) ให้เข้ากับ #006e29 */
+
+  /* ── 8. Layout dimensions ──────────────────────────────────────────────────
+     เฉพาะขนาดที่ "เข้ารหัสการตัดสินใจ" เท่านั้นที่ได้ชื่อ
+     spacing ทั่วไปใช้เลข Tailwind (p-4 = 16px) — ไม่มี p-md/gap-gutter อีกแล้ว
+     -------------------------------------------------------------------------- */
+  --spacing-app-bar: 64px; /* h-16 — top app bar                    */
+  --spacing-bottom-nav: 64px; /* content box ของ bottom nav (+safe area) */
+  --spacing-fab-inset: 80px; /* nav + 16 — mockup ใช้ 72/88/96 มั่ว   */
+  --spacing-touch: 44px; /* NFR-1 touch target ขั้นต่ำ           */
+  --container-content: 1120px; /* max content width (DESIGN.md)         */
+  --container-bill-pane: 420px; /* คอลัมน์บิลขวาใน split view (FR-3.8)  */
+
+  /* ── 9. Motion ─────────────────────────────────────────────────────────── */
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-emphasized: cubic-bezier(0.05, 0.7, 0.1, 1);
+}

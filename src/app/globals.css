@@ -1,0 +1,27 @@
+/* =============================================================================
+   globals.css — composition root
+   ไฟล์ CSS เดียวที่ layout.tsx import ประกอบด้วย import ล้วน ไม่มีกฎของตัวเอง
+   ============================================================================= */
+
+/* ⚠️ `source("../")` ห้ามลบ ห้ามแก้
+   Tailwind v4 auto-detect content โดยไล่จากไฟล์ CSS ขึ้นไปถึง project root
+   ข้ามแค่ path ที่ .gitignore — แปลว่า pos_design/ * /code.html ทั้ง 28 ไฟล์
+   (ซึ่ง commit อยู่) จะถูกสแกน แล้ว emit CSS ให้ class ที่ตายไปแล้วอย่าง
+   `text-title-lg-mobile`, `px-md`, และ `dark:` อีก 156 ตัว
+   ผลคือความผิดพลาดตอนพอร์ต mockup จะเงียบสนิท แทนที่จะพัง
+   บรรทัดนี้ pin การ detect ไว้ที่ src/ อย่างเดียว
+   verify: grep 'title-lg-mobile' ใน CSS ที่ build แล้วต้องได้ 0 */
+@import "tailwindcss" source("../");
+@import "tw-animate-css";
+
+@import "../styles/theme.css"; /* @theme        — M3 token (canonical) */
+@import "../styles/shadcn.css"; /* @theme inline — shadcn alias layer  */
+@import "../styles/base.css"; /* @layer base   — element default     */
+@import "../styles/utilities.css"; /* @utility      — pb-safe, z-*, tnum  */
+
+/* Dark mode: define ไว้ แต่ไม่เปิดใช้ใน MVP
+   v4 default ของ `dark:` คือ @media (prefers-color-scheme: dark) — ถ้าไม่ override
+   บรรทัดนี้ `dark:` ที่หลุดมาจาก mockup หรือจาก shadcn จะทำงานจริงบนมือถือโหมดมืด
+   ทั้งที่ไม่เคยออกแบบและไม่เคย QA
+   บรรทัดนี้บังคับให้มันทำงานเฉพาะเมื่อมี .dark บน ancestor ซึ่งไม่มีอะไร set */
+@custom-variant dark (&:where(.dark, .dark *));
