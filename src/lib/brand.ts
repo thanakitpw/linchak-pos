@@ -10,10 +10,10 @@
 export const BRAND = {
   /** = `--color-surface` · พื้นแอป · แถบสถานะบนมือถือ + พื้น splash ตอนเปิดแอป */
   surface: "#f8f9ff",
-  /**
-   * = พื้นน้ำเงินของโลโก้ (sample จาก `brand/app-icon-master.png`)
-   * ใช้เฉพาะกับตัวไอคอน ไม่ใช่สีของ design system — อย่าเอาไปทำ token
-   * `scripts/build-brand.mjs` ถือค่าเดียวกันนี้ไว้อีกชุด
-   */
-  navy: "#012555",
 } as const;
+
+/**
+ * สีในตัวไอคอนแอปไม่ได้อยู่ที่นี่ — มันเป็นสีของรูปภาพ ไม่มีโค้ดฝั่ง TS ใช้
+ * `scripts/build-brand.mjs` ถือค่าไว้เอง (sample จาก `brand/app-icon-master.png`)
+ * ถ้าเอามาไว้ที่นี่จะกลายเป็นค่าที่ไม่มีใครใช้แล้วค้างไม่ตรงกับรูปจริง
+ */
