@@ -19,7 +19,11 @@ export function BottomNav() {
 
   return (
     <nav className="fixed inset-x-0 bottom-0 z-nav border-t border-outline-variant bg-surface-container-lowest pb-safe shadow-nav md:hidden">
-      <ul className="flex items-stretch justify-around">
+      {/* h-14 (56px) + pb-safe (8px + safe area) = 64px + safe = --spacing-bottom-nav พอดี
+          ตรึงความสูงไว้เพื่อให้ token **เป็นความจริง** — ทุกหน้าที่กันที่ให้แท็บนี้
+          (pb-nav, pb-bottom-nav-safe, bottom-fab) คำนวณจากตัวเลขนั้น
+          ถ้าปล่อยให้ความสูงมาจากเนื้อหา ตัวเลขจะเพี้ยนทีละ 2-3px แบบไม่มีใครรู้ */}
+      <ul className="flex h-14 items-stretch justify-around">
         {NAV_TABS.map((tab) => {
           const active = pathname === tab.href;
           return (
@@ -27,7 +31,7 @@ export function BottomNav() {
               <Link
                 href={tab.href}
                 aria-current={active ? "page" : undefined}
-                className="flex min-h-touch flex-col items-center justify-center gap-0.5 py-1 transition-transform active:scale-90"
+                className="flex h-full min-h-touch flex-col items-center justify-center gap-0.5 transition-transform active:scale-90"
               >
                 <span
                   className={cn(

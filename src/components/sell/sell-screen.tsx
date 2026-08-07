@@ -130,11 +130,15 @@ export function SellScreen({
   return (
     <div ref={restoreCart} className="flex h-dvh flex-col md:flex-row">
       {/* ── ซ้าย: สินค้า ────────────────────────────────────────────────── */}
-      {/* pb-bottom-nav: หน้านี้เป็น h-dvh + scroll ข้างใน (ไม่ใช่ min-h-dvh เหมือนหน้าอื่น)
+      {/* pb-bottom-nav-safe: หน้านี้เป็น h-dvh + scroll ข้างใน (ไม่ใช่ min-h-dvh เหมือนหน้าอื่น)
           ถ้าไม่กันที่ไว้ ท้าย list จะมุดใต้แท็บล่างที่เป็น fixed แล้วเลื่อนลงไม่ถึง
           — เห็นชัดสุดตอนกางฟอร์ม "เพิ่มสินค้าเร็ว" ปุ่มบันทึกจะโดนบัง
-          md ขึ้นไปไม่มีแท็บล่าง (BottomNav เป็น md:hidden) จึงคืนเป็น 0 */}
-      <section className="flex min-h-0 flex-1 flex-col pb-bottom-nav md:pb-0">
+          md ขึ้นไปไม่มีแท็บล่าง (BottomNav เป็น md:hidden) จึงคืนเป็น 0
+
+          ⚠️ ชื่อ utility ต้องลงท้าย -safe · `pb-bottom-nav` เฉยๆ ชนกับตัวที่
+          Tailwind สร้างจาก --spacing-bottom-nav แล้ว safe area หายเงียบๆ
+          (เหตุผลเต็มใน utilities.css) */}
+      <section className="flex min-h-0 flex-1 flex-col pb-bottom-nav-safe md:pb-0">
         <header className="flex h-app-bar items-center justify-between gap-2 border-b border-outline-variant bg-surface px-4">
           <h1 className="text-title-lg text-primary md:text-headline-md">{t("title")}</h1>
           <a
@@ -177,7 +181,7 @@ export function SellScreen({
         {/* แถบสรุปล่าง — มือถือเท่านั้น
             ⚠️ ห้ามใส่ `sticky bottom-0` · เคยมีแล้วแถบจมลงไปใต้แท็บล่าง
             sticky วัดระยะจาก scrollport (= viewport) ไม่ใช่จากกล่องแม่
-            `bottom-0` จึงดันตัวเองลงไปกินพื้นที่ pb-bottom-nav ที่กันไว้ให้แท็บล่างจนหมด
+            `bottom-0` จึงดันตัวเองลงไปกินพื้นที่ pb-bottom-nav-safe ที่กันไว้ให้แท็บล่างจนหมด
             ที่นี่ไม่ต้อง sticky อยู่แล้ว — section เป็น h-dvh flex-col และนี่คือลูกตัวสุดท้าย
             มันติดขอบล่างของ content box เองโดยธรรมชาติ */}
         {count > 0 && (

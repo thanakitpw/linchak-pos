@@ -30,8 +30,25 @@
 
 /* เท่าความสูงแท็บล่างเป๊ะๆ ไม่มีช่องว่างเพิ่ม — ใช้กับ container ที่สูงเต็มจอ (h-dvh)
    แล้วมีของแปะติดขอบล่างพอดี เช่นแถบสรุปบิลในหน้าขาย
-   ต่างจาก pb-nav ที่เผื่อ 16px ให้เนื้อหาที่ scroll ไม่ชิดจนอึดอัด */
-@utility pb-bottom-nav {
+   ต่างจาก pb-nav ที่เผื่อ 16px ให้เนื้อหาที่ scroll ไม่ชิดจนอึดอัด
+
+   🚨 **ห้ามตั้งชื่อว่า `pb-bottom-nav`** — เคยตั้งแล้วพังแบบเงียบสนิท
+   `--spacing-bottom-nav` ใน @theme ทำให้ Tailwind สร้าง `pb-bottom-nav` ให้เอง
+   อยู่แล้ว (เหมือน `h-app-bar` / `w-side-nav` ที่เราใช้ประโยชน์จากกลไกนี้)
+   พอชื่อชนกัน CSS ออกมาเป็นสองบรรทัดในกฎเดียว แล้วตัวของ Tailwind อยู่ทีหลัง:
+
+       .pb-bottom-nav {
+         padding-bottom: calc(var(--spacing-bottom-nav) + env(safe-area-inset-bottom,0px));
+         padding-bottom: var(--spacing-bottom-nav);   ← ชนะ · safe area หายไปเฉยๆ
+       }
+
+   ผลคือกันที่ให้แท็บล่างขาดไป 34pt เท่ากับ home indicator ของ iPhone พอดี
+   ไม่มี error ไม่มี warning เห็นได้ทางเดียวคือเปิดบนเครื่องจริงแล้วของจมใต้แท็บ
+   (บน simulator/เบราว์เซอร์ปกติ safe area = 0 จึงดูปกติทุกอย่าง)
+
+   ⚠️ ตั้งชื่อ @utility ใหม่เมื่อไหร่ ให้เช็คก่อนว่าไม่ตรงกับ
+   `<prefix>-<ชื่อ token ใน --spacing-*>` */
+@utility pb-bottom-nav-safe {
   padding-bottom: calc(var(--spacing-bottom-nav) + env(safe-area-inset-bottom, 0px));
 }
 
