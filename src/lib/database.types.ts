@@ -491,6 +491,9 @@ export type Database = {
       };
       workspaces: {
         Row: {
+          bank_account_name: string | null;
+          bank_account_no: string | null;
+          bank_code: string | null;
           bill_seq: number;
           branch: string | null;
           created_at: string;
@@ -513,6 +516,9 @@ export type Database = {
           updated_at: string;
         };
         Insert: {
+          bank_account_name?: string | null;
+          bank_account_no?: string | null;
+          bank_code?: string | null;
           bill_seq?: number;
           branch?: string | null;
           created_at?: string;
@@ -535,6 +541,9 @@ export type Database = {
           updated_at?: string;
         };
         Update: {
+          bank_account_name?: string | null;
+          bank_account_no?: string | null;
+          bank_code?: string | null;
           bill_seq?: number;
           branch?: string | null;
           created_at?: string;

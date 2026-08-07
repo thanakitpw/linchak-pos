@@ -16,7 +16,12 @@ import type { Route } from "next";
 export async function AuthShell({
   title,
   subtitle,
-  backHref = "/login",
+  /**
+   * ไม่ส่งมา = ไม่มีปุ่มย้อนกลับ
+   * หน้า login เป็นแบบนั้น — เป็นหน้าแรกสุด ไม่มี "หน้าเดิม" ให้กลับไป
+   * (ของเดิมชี้ไป `/` ซึ่งเด้งกลับมา login อยู่ดี = ปุ่มที่กดแล้วไม่เกิดอะไร)
+   */
+  backHref,
   children,
   footer,
 }: {
@@ -32,12 +37,16 @@ export async function AuthShell({
   return (
     <main className="flex min-h-dvh flex-col bg-surface md:items-center md:justify-center md:p-8">
       <header className="sticky top-0 z-appbar flex h-app-bar items-center gap-2 bg-surface px-4 md:hidden">
-        <Link
-          href={backHref}
-          className="flex size-11 items-center justify-center rounded-full text-on-surface transition-colors hover:bg-surface-container-low"
-        >
-          <Icon name="arrow_back" label={tCommon("back")} />
-        </Link>
+        {backHref ? (
+          <Link
+            href={backHref}
+            className="flex size-11 items-center justify-center rounded-full text-on-surface transition-colors hover:bg-surface-container-low"
+          >
+            <Icon name="arrow_back" label={tCommon("back")} />
+          </Link>
+        ) : (
+          <span className="size-11" aria-hidden />
+        )}
         <h1 className="flex-1 pr-11 text-center text-title-lg text-on-surface">{title}</h1>
       </header>
 

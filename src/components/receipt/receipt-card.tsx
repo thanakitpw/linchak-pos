@@ -1,4 +1,6 @@
 import { getTranslations } from "next-intl/server";
+import { BankBadge } from "@/components/settings/bank-badge";
+import { findBank, formatAccountNo } from "@/lib/banks";
 import { formatAmount, formatDateTime, formatTHB } from "@/lib/format";
 import { satang } from "@/lib/money";
 import type { Locale } from "@/i18n/locales";
@@ -27,6 +29,15 @@ export type ReceiptData = {
    * (`promptpay` = จ่ายเงิน FR-4.2 · `bill` = เปิดบิลออนไลน์ FR-4.3)
    */
   qr: { dataUrl: string; kind: "promptpay" | "bill" } | null;
+  /**
+   * บัญชีรับโอน — แสดงเฉพาะบิลที่จ่ายแบบ "โอนเงิน"
+   *
+   * บิลของแม่ค้าออนไลน์ถูกส่งไปให้ลูกค้า**ก่อน**จ่ายเงินเป็นเรื่องปกติ
+   * ถ้าไม่มีเลขบัญชีอยู่บนบิล ลูกค้าต้องย้อนกลับไปถามในแชท ซึ่งเป็นจุดที่ออร์เดอร์หลุด
+   * (จ่ายเงินสด/PromptPay ไม่ต้องเห็น — เป็นข้อมูลที่ไม่ได้ใช้และรกใบเสร็จเปล่าๆ)
+   */
+  bank: { code: string; accountNo: string; accountName: string | null } | null;
+  paymentMethod: string;
 };
 
 /**
@@ -48,6 +59,7 @@ export type ReceiptData = {
 export async function ReceiptCard({ data, locale }: { data: ReceiptData; locale: Locale }) {
   const t = await getTranslations({ locale, namespace: "receipt" });
   const tMoney = await getTranslations({ locale, namespace: "money" });
+  const bank = findBank(data.bank?.code);
 
   return (
     <div className="mx-auto w-full max-w-[360px] rounded-md bg-receipt-paper p-5 text-on-surface">
@@ -142,6 +154,27 @@ export async function ReceiptCard({ data, locale }: { data: ReceiptData; locale:
           </>
         )}
       </dl>
+
+      {/* บัญชีรับโอน — เฉพาะบิลที่จ่ายแบบโอนเงิน */}
+      {data.paymentMethod === "transfer" && bank && (
+        <>
+          <div className="my-4 border-t border-dashed border-receipt-rule" />
+          <div className="flex items-center gap-3">
+            <BankBadge bank={bank} />
+            <div className="min-w-0">
+              <p className="text-label-sm text-on-surface-variant">
+                {t("transferTo")} · {locale === "th" ? bank.nameTh : bank.nameEn}
+              </p>
+              <p className="text-title-lg text-on-surface tnum">
+                {formatAccountNo(data.bank!.accountNo)}
+              </p>
+              {data.bank!.accountName && (
+                <p className="text-label-sm text-on-surface-variant">{data.bank!.accountName}</p>
+              )}
+            </div>
+          </div>
+        </>
+      )}
 
       {/* QR — FR-4.2 (จ่ายเงิน ระบุยอดไว้แล้ว) หรือ FR-4.3 (เปิดบิลออนไลน์) */}
       {data.qr && (

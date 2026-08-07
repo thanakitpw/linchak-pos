@@ -30,7 +30,7 @@
     "signInSubtitle": "เข้าสู่ระบบเพื่อจัดการร้านค้าของคุณ",
     "or": "หรือ",
     "signInWithGoogle": "เข้าสู่ระบบด้วย Google",
-    "signUpFree": "สมัครฟรี 7 วัน",
+    "signUpFree": "สมัครสมาชิก",
     "signInFailed": "อีเมลหรือรหัสผ่านไม่ถูกต้อง",
     "signUpFailed": "สมัครไม่สำเร็จ ลองใหม่อีกครั้ง",
     "emailTaken": "อีเมลนี้ถูกใช้แล้ว",
@@ -126,6 +126,18 @@
     "promptpayPreviewHint": "ลองสแกนด้วยแอปธนาคารเพื่อเช็คว่าเข้าบัญชีถูก (ยังไม่ระบุยอด)",
     "promptpayNotSet": "ยังไม่ได้ตั้ง PromptPay — ใบเสร็จจะไม่มี QR รับเงิน",
     "removePromptpay": "ลบเลข PromptPay",
+    "bankSection": "บัญชีรับโอนเงิน",
+    "bankSectionHint": "ลูกค้าที่เลือกจ่ายแบบโอนเงินจะเห็นบัญชีนี้บนบิล",
+    "bank": "ธนาคาร",
+    "bankNone": "ยังไม่เลือกธนาคาร",
+    "bankAccountNo": "เลขที่บัญชี",
+    "bankAccountName": "ชื่อบัญชี",
+    "bankAccountNamePlaceholder": "ชื่อตามสมุดบัญชี",
+    "bankNotSet": "ยังไม่ได้ใส่บัญชี ลูกค้าที่โอนเงินจะต้องถามเลขบัญชีทางแชท",
+    "bankPreview": "ตัวอย่างที่ลูกค้าจะเห็นบนบิล",
+    "removeBank": "ลบบัญชี",
+    "errBankAccountNo": "เลขที่บัญชีต้องเป็นตัวเลข 10-15 หลัก",
+    "errBankMissing": "เลือกธนาคารด้วย",
     "errEmpty": "กรอกเลข PromptPay",
     "errNotDigits": "ใส่ได้แต่ตัวเลข ขีด และเว้นวรรค",
     "errWrongLengthPhone": "เบอร์มือถือต้อง 10 หลัก",
@@ -405,6 +417,7 @@
     "thankYou": "ขอบคุณที่ใช้บริการ",
     "notFoundTitle": "ไม่พบบิลนี้",
     "notFoundBody": "ลิงก์อาจไม่ครบหรือพิมพ์ผิด ลองขอลิงก์ใหม่จากร้านค้าอีกครั้ง",
-    "poweredBy": "ออกบิลด้วย {app}"
+    "poweredBy": "ออกบิลด้วย {app}",
+    "transferTo": "โอนเข้าบัญชี"
   }
 }

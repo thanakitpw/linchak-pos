@@ -18,8 +18,10 @@ export default async function LoginPage({ searchParams }: PageProps<"/login">) {
   const t = await getTranslations("auth");
   const { next } = await searchParams;
 
+  // ไม่ส่ง backHref — login เป็นหน้าแรกสุด ไม่มีหน้าเดิมให้กลับไป
+  // (ของเดิมชี้ไป `/` ซึ่ง proxy เด้งกลับมา login อยู่ดี = ปุ่มที่กดแล้วไม่เกิดอะไร)
   return (
-    <AuthShell title={t("signIn")} subtitle={t("signInSubtitle")} backHref="/">
+    <AuthShell title={t("signIn")} subtitle={t("signInSubtitle")}>
       <AuthForm action={signIn} submitLabel={t("signIn")} pendingLabel={t("signingIn")}>
         <input type="hidden" name="next" value={typeof next === "string" ? next : ""} />
 

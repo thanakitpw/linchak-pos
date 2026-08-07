@@ -195,6 +195,7 @@
      -------------------------------------------------------------------------- */
   --spacing-app-bar: 64px; /* h-16 — top app bar                    */
   --spacing-bottom-nav: 64px; /* content box ของ bottom nav (+safe area) */
+  --spacing-side-nav: 88px; /* rail ซ้ายบน md+ — พอสำหรับไอคอน 24 + label ไทย */
   --spacing-fab-inset: 80px; /* nav + 16 — mockup ใช้ 72/88/96 มั่ว   */
   --spacing-touch: 44px; /* NFR-1 touch target ขั้นต่ำ           */
   --container-content: 1120px; /* max content width (DESIGN.md)         */

@@ -90,7 +90,12 @@ const RULES = [
     only: TSX_ONLY,
     // messages/ คือปลายทางที่ถูกต้อง · test อ่านง่ายกว่าถ้าเขียนไทยตรงๆ
     // dev/ ไม่เคยขึ้น production (gate ด้วย NODE_ENV) จึงไม่อยู่ใต้ NFR-2
-    skip: /^src\/messages\/|\.test\.tsx?$|^src\/(?:app\/dev|components\/dev)\/|^src\/lib\/design-tokens\.ts$/,
+    //
+    // banks.ts ยกเว้นเพราะเป็น **ตารางอ้างอิง ไม่ใช่ copy ของ UI**:
+    // ชื่อธนาคารเป็นวิสามานยนาม มี th/en อยู่คู่กันในแถวเดียวกับรหัสและสีแบรนด์
+    // ถ้าแยกไป messages/ จะได้ 30 key ที่ต้องคอยจับคู่กับ code เอง ซึ่งพลาดง่ายกว่ามาก
+    // เจตนาของกฎ (ผู้ใช้ต้องไม่เจอไทยที่แปลไม่ได้) ยังอยู่ครบ — component เลือกตาม locale
+    skip: /^src\/messages\/|\.test\.tsx?$|^src\/(?:app\/dev|components\/dev)\/|^src\/lib\/(?:design-tokens|banks)\.ts$/,
   },
   {
     id: "lucide-import",

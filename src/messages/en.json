@@ -30,7 +30,7 @@
     "signInSubtitle": "Sign in to manage your store",
     "or": "or",
     "signInWithGoogle": "Sign in with Google",
-    "signUpFree": "Start 7 days free",
+    "signUpFree": "Sign up",
     "signInFailed": "Email or password is incorrect",
     "signUpFailed": "Sign up failed, please try again",
     "emailTaken": "That email is already registered",
@@ -126,6 +126,18 @@
     "promptpayPreviewHint": "Scan with your banking app to check it reaches the right account (no amount set)",
     "promptpayNotSet": "PromptPay not set — receipts will have no payment QR",
     "removePromptpay": "Remove PromptPay ID",
+    "bankSection": "Bank account for transfers",
+    "bankSectionHint": "Customers paying by transfer see this account on their bill",
+    "bank": "Bank",
+    "bankNone": "No bank selected",
+    "bankAccountNo": "Account number",
+    "bankAccountName": "Account name",
+    "bankAccountNamePlaceholder": "Name on the account",
+    "bankNotSet": "No account yet — customers paying by transfer will have to ask for it",
+    "bankPreview": "What the customer sees on the bill",
+    "removeBank": "Remove account",
+    "errBankAccountNo": "Account number must be 10–15 digits",
+    "errBankMissing": "Choose a bank",
     "errEmpty": "Enter a PromptPay ID",
     "errNotDigits": "Digits, dashes and spaces only",
     "errWrongLengthPhone": "A mobile number must be 10 digits",
@@ -405,6 +417,7 @@
     "thankYou": "Thank you",
     "notFoundTitle": "Bill not found",
     "notFoundBody": "The link may be incomplete or mistyped. Ask the shop for the link again.",
-    "poweredBy": "Billed with {app}"
+    "poweredBy": "Billed with {app}",
+    "transferTo": "Transfer to"
   }
 }

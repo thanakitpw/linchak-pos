@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { ReceiptCard, type ReceiptData } from "@/components/receipt/receipt-card";
+import { HistoryBack } from "@/components/ui/history-back";
 import { DEFAULT_LOCALE, isLocale } from "@/i18n/locales";
 
 /**
@@ -39,12 +40,16 @@ type PublicReceipt = {
   total: number;
   received: number | null;
   change_amount: number | null;
+  payment_method: string;
   store: {
     name: string;
     branch: string | null;
     phone: string | null;
     logo_path: string | null;
     language: string;
+    bank_code: string | null;
+    bank_account_no: string | null;
+    bank_account_name: string | null;
   };
   items: { name: string; price: number; qty: number; total: number }[];
 };
@@ -62,6 +67,7 @@ export default async function PublicReceiptPage({ params }: PageProps<"/r/[token
   const locale = isLocale(receipt.store.language) ? receipt.store.language : DEFAULT_LOCALE;
   const t = await getTranslations({ locale, namespace: "receipt" });
   const tApp = await getTranslations({ locale, namespace: "app" });
+  const tCommon = await getTranslations({ locale, namespace: "common" });
 
   const logoUrl = receipt.store.logo_path
     ? supabase.storage.from("logos").getPublicUrl(receipt.store.logo_path).data.publicUrl
@@ -86,6 +92,15 @@ export default async function PublicReceiptPage({ params }: PageProps<"/r/[token
     taxEnabled: receipt.tax_enabled,
     taxRate: Number(receipt.tax_rate),
     qr: null,
+    paymentMethod: receipt.payment_method,
+    bank:
+      receipt.store.bank_code && receipt.store.bank_account_no
+        ? {
+            code: receipt.store.bank_code,
+            accountNo: receipt.store.bank_account_no,
+            accountName: receipt.store.bank_account_name,
+          }
+        : null,
   };
 
   return (
@@ -95,6 +110,11 @@ export default async function PublicReceiptPage({ params }: PageProps<"/r/[token
       <h1 className="sr-only">
         {t("title")} {receipt.bill_no}
       </h1>
+
+      {/* โผล่เฉพาะคนที่กดเข้ามาจากในแอป (แม่ค้า) — ลูกค้าที่เปิดลิงก์จาก LINE
+          เป็นหน้าแรกของแท็บ ปุ่มจะไม่ขึ้น · จำเป็นตอนติดตั้งเป็นแอปแล้ว
+          เพราะโหมด standalone ไม่มีปุ่ม back ของเบราว์เซอร์ให้กด */}
+      <HistoryBack label={tCommon("back")} />
 
       <ReceiptCard data={view} locale={locale} />
 

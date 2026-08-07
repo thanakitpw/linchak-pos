@@ -28,7 +28,7 @@ export default async function ReceiptPage({ params }: PageProps<"/receipt/[id]">
   const { data: order } = await supabase
     .from("orders")
     .select(
-      "id, bill_no, ordered_at, subtotal, discount, tax_amount, total, received, change_amount, public_token, workspace_id"
+      "id, bill_no, ordered_at, subtotal, discount, tax_amount, total, received, change_amount, payment_method, public_token, workspace_id"
     )
     .eq("id", id)
     .maybeSingle();
@@ -42,7 +42,9 @@ export default async function ReceiptPage({ params }: PageProps<"/receipt/[id]">
       .order("sort_order"),
     supabase
       .from("workspaces")
-      .select("name, branch, phone, logo_path, promptpay_id, tax_enabled, tax_rate")
+      .select(
+        "name, branch, phone, logo_path, promptpay_id, tax_enabled, tax_rate, bank_code, bank_account_no, bank_account_name"
+      )
       .eq("id", order.workspace_id)
       .maybeSingle(),
   ]);
@@ -89,6 +91,15 @@ export default async function ReceiptPage({ params }: PageProps<"/receipt/[id]">
     taxEnabled: ws.tax_enabled,
     taxRate: Number(ws.tax_rate),
     qr,
+    paymentMethod: order.payment_method,
+    bank:
+      ws.bank_code && ws.bank_account_no
+        ? {
+            code: ws.bank_code,
+            accountNo: ws.bank_account_no,
+            accountName: ws.bank_account_name,
+          }
+        : null,
   };
 
   return (

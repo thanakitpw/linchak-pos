@@ -106,14 +106,16 @@ export function ReceiptActions({
         </p>
       )}
 
-      {/* FR-4.6 · เปิดหน้าเดียวกับที่ลูกค้าจะเห็น — แท็บใหม่เพราะแม่ค้ายังอยู่กลางการขาย
+      {/* FR-4.6 · เปิดหน้าเดียวกับที่ลูกค้าจะเห็น
           ใช้ <a> ไม่ใช่ <Link> ตั้งใจ: นี่คือ URL เต็มข้ามได้ทั้ง origin
-          และเป็นการ "ดูของจริง" ไม่ใช่ navigation ภายในแอป */}
+          และเป็นการ "ดูของจริง" ไม่ใช่ navigation ภายในแอป
+
+          ⚠️ ไม่ใช้ target="_blank" แล้ว — พอติดตั้งเป็นแอป โหมด standalone
+          ไม่มีปุ่ม back ของเบราว์เซอร์ แท็บใหม่จึงกลายเป็นทางตัน
+          อยู่แท็บเดิมแล้วให้ <HistoryBack/> ในหน้านั้นพากลับมาแทน */}
       <p className="text-center">
         <a
           href={publicUrl}
-          target="_blank"
-          rel="noopener noreferrer"
           className="inline-flex min-h-touch items-center gap-1 text-label-lg text-primary underline underline-offset-4"
         >
           <Icon name="qr_code_scanner" size={20} />

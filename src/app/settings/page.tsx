@@ -8,6 +8,7 @@ import { StoreSection } from "@/components/settings/store-section";
 import { PromptPaySection } from "@/components/settings/promptpay-section";
 import { TaxSection } from "@/components/settings/tax-section";
 import { LanguageSection } from "@/components/settings/language-section";
+import { BankSection } from "@/components/settings/bank-section";
 import { AccountSection } from "@/components/settings/account-section";
 import type { PromptPayType } from "@/lib/promptpay";
 
@@ -34,7 +35,7 @@ export default async function SettingsPage() {
     supabase
       .from("workspaces")
       .select(
-        "name, branch, phone, logo_path, promptpay_id, promptpay_type, tax_enabled, tax_rate, language"
+        "name, branch, phone, logo_path, promptpay_id, promptpay_type, tax_enabled, tax_rate, language, bank_code, bank_account_no, bank_account_name"
       )
       .eq("id", workspaceId)
       .maybeSingle(),
@@ -68,6 +69,11 @@ export default async function SettingsPage() {
         <PromptPaySection
           initialId={ws.promptpay_id}
           initialType={ws.promptpay_type as PromptPayType | null}
+        />
+        <BankSection
+          initialCode={ws.bank_code}
+          initialAccountNo={ws.bank_account_no}
+          initialAccountName={ws.bank_account_name}
         />
         <TaxSection initialEnabled={ws.tax_enabled} initialRate={Number(ws.tax_rate)} />
         <LanguageSection current={ws.language} />

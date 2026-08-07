@@ -6,6 +6,7 @@ import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { LOCALE_COOKIE, isLocale } from "@/i18n/locales";
 import { validatePromptPayId, type PromptPayType } from "@/lib/promptpay";
+import { isBankCode, isValidAccountNo, normaliseAccountNo } from "@/lib/banks";
 import { currentWorkspaceId } from "@/lib/workspace";
 
 export type SettingsState = { error?: string; ok?: string };
@@ -101,6 +102,50 @@ export async function updatePromptPay(
   const { error } = await supabase
     .from("workspaces")
     .update({ promptpay_id: result.value, promptpay_type: type })
+    .eq("id", id);
+
+  if (error) return saveFailure(t, error);
+  revalidatePath("/settings");
+  return { ok: t("saved") };
+}
+
+/**
+ * บัญชีรับโอนเงิน
+ *
+ * ว่างทั้งสองช่อง = ลบบัญชีทิ้ง (เหมือน updatePromptPay) — ไม่ต้องมีปุ่มลบแยก
+ * แต่กรอกมาครึ่งเดียวคือ error ไม่ใช่การลบ: บัญชีที่มีเลขแต่ไม่รู้ธนาคาร
+ * โอนไม่ได้จริง การบันทึกไว้เฉยๆ คือปล่อยให้พังตอนลูกค้าจะโอน
+ */
+export async function updateBank(_prev: SettingsState, formData: FormData): Promise<SettingsState> {
+  const t = await getTranslations("settings");
+  const supabase = await createClient();
+  const id = await currentWorkspaceId();
+  if (!id) return { error: t("saveFailed") };
+
+  const code = String(formData.get("bank_code") ?? "").trim();
+  const digits = normaliseAccountNo(String(formData.get("bank_account_no") ?? ""));
+  const accountName = String(formData.get("bank_account_name") ?? "").trim();
+
+  if (code === "" && digits === "") {
+    const { error } = await supabase
+      .from("workspaces")
+      .update({ bank_code: null, bank_account_no: null, bank_account_name: null })
+      .eq("id", id);
+    if (error) return saveFailure(t, error);
+    revalidatePath("/settings");
+    return { ok: t("saved") };
+  }
+
+  if (!isBankCode(code)) return { error: t("errBankMissing") };
+  if (!isValidAccountNo(digits)) return { error: t("errBankAccountNo") };
+
+  const { error } = await supabase
+    .from("workspaces")
+    .update({
+      bank_code: code,
+      bank_account_no: digits,
+      bank_account_name: accountName || null,
+    })
     .eq("id", id);
 
   if (error) return saveFailure(t, error);
