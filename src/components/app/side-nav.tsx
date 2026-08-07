@@ -27,7 +27,10 @@ export function SideNav() {
   const pathname = usePathname();
 
   return (
-    <nav className="hidden w-side-nav shrink-0 flex-col border-r border-outline-variant bg-surface-container-lowest md:flex">
+    /* sticky + self-start + h-dvh: ค้างอยู่กับที่เวลาเลื่อนหน้า
+       ต้องมี self-start ด้วย — flex item ปกติถูกยืดเต็มความสูงของแถว (align stretch)
+       พอสูงเท่ากล่องแม่แล้ว sticky ไม่มีระยะให้เลื่อน มันเลยดูเหมือนไม่ทำงาน */
+  <nav className="sticky top-0 hidden h-dvh w-side-nav shrink-0 flex-col self-start border-r border-outline-variant bg-surface-container-lowest md:flex">
       <div className="flex h-app-bar items-center justify-center border-b border-outline-variant px-2">
         <Link href="/sell" className="flex items-center">
           <Image src={wordmark} alt="" unoptimized className="h-5 w-auto" />

@@ -141,9 +141,11 @@ export function SellScreen({
       <section className="flex min-h-0 flex-1 flex-col pb-bottom-nav-safe md:pb-0">
         <header className="flex h-app-bar items-center justify-between gap-2 border-b border-outline-variant bg-surface px-4">
           <h1 className="text-title-lg text-primary md:text-headline-md">{t("title")}</h1>
+          {/* md ขึ้นไปมีตั้งค่าอยู่ใน rail ซ้ายแล้ว ปุ่มนี้จึงซ้ำ
+              มือถือยังต้องมี เพราะแท็บล่างมีแค่ 4 อันและไม่มีตั้งค่า */}
           <a
             href="/settings"
-            className="flex size-11 items-center justify-center rounded-full text-on-surface-variant transition-colors hover:bg-surface-container-low"
+            className="flex size-11 items-center justify-center rounded-full text-on-surface-variant transition-colors hover:bg-surface-container-low md:hidden"
           >
             <Icon name="settings" label={t("title")} />
           </a>

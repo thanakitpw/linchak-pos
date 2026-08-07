@@ -51,9 +51,10 @@ export default async function ReportsPage({ searchParams }: PageProps<"/reports"
     <main className="min-h-dvh pb-nav">
       <header className="flex h-app-bar items-center gap-2 border-b border-outline-variant bg-surface px-4">
         <h1 className="flex-1 text-title-lg text-primary md:text-headline-md">{t("title")}</h1>
+        {/* เหตุผลเดียวกับหน้าขาย — md ขึ้นไปมีใน rail ซ้ายแล้ว */}
         <Link
           href="/settings"
-          className="flex size-11 items-center justify-center rounded-full text-on-surface-variant transition-colors hover:bg-surface-container-low"
+          className="flex size-11 items-center justify-center rounded-full text-on-surface-variant transition-colors hover:bg-surface-container-low md:hidden"
         >
           <Icon name="account_circle" label={t("title")} />
         </Link>
@@ -102,7 +103,7 @@ export default async function ReportsPage({ searchParams }: PageProps<"/reports"
             </div>
             {/* ใช้ลิงก์ไม่ใช่ปุ่ม — เปลี่ยนช่วงคือการเปลี่ยนสิ่งที่หน้านี้แสดง
                 ควรอยู่ใน URL และย้อนกลับได้ ไม่ใช่ state ที่หายตอนรีเฟรช */}
-            <nav className="flex shrink-0 gap-2">
+            <nav className="flex shrink-0 items-center gap-2">
               {RANGES.map((r) => (
                 <Link
                   key={r}
@@ -117,6 +118,17 @@ export default async function ReportsPage({ searchParams }: PageProps<"/reports"
                   {t(`days${r}`)}
                 </Link>
               ))}
+              {/* <a> ธรรมดาไม่ใช่ <Link> — ปลายทางเป็นไฟล์ ไม่ใช่หน้าในแอป
+                  ถ้าใช้ Link จะโดน client router จับแล้วพยายาม render เป็นหน้า */}
+              <a
+                href={`/reports/export?days=${days}`}
+                download
+                title={t("exportHint")}
+                className="flex min-h-touch items-center gap-1 rounded-full border border-outline-variant px-4 text-label-lg text-on-surface transition-colors hover:bg-surface-container-low"
+              >
+                <Icon name="download" size={20} />
+                <span className="sr-only sm:not-sr-only">{t("export")}</span>
+              </a>
             </nav>
           </div>
           <LineChart points={points} locale={locale} emptyLabel={t("noOrders")} />

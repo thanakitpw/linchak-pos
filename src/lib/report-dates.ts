@@ -71,3 +71,11 @@ export function dayMonthLabel(isoDate: string, locale: Locale): string {
     timeZone: TZ,
   }).format(new Date(`${isoDate}T00:00:00+07:00`));
 }
+
+/** วันที่ย้อนหลัง N วันจากวันนี้ (เวลาไทย) รูปแบบ YYYY-MM-DD */
+export function bangkokDaysAgo(days: number): string {
+  const [y, m, d] = bangkokToday().split("-").map(Number);
+  // ใช้ UTC ทำเลขล้วน — เลื่อนวันบน Date ที่ผูก timezone ของเครื่องจะเพี้ยนช่วงข้ามเดือน
+  const shifted = new Date(Date.UTC(y, m - 1, d - days));
+  return shifted.toISOString().slice(0, 10);
+}
