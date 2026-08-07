@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
+import { currentWorkspaceId } from "@/lib/workspace";
 import { Icon } from "@/components/ui/icon";
 import { StoreSection } from "@/components/settings/store-section";
 import { PromptPaySection } from "@/components/settings/promptpay-section";
@@ -25,14 +26,17 @@ export default async function SettingsPage() {
 
   // ยิงพร้อมกัน ไม่ใช่ต่อคิว — สองอย่างนี้ไม่ขึ้นต่อกัน
   // แต่ละ round trip ไป Supabase คือเวลาที่ผู้ใช้รอจริง จึงไม่ควรบวกกัน
+  // ⚠️ ต้องระบุ id เสมอ ห้าม limit(1) — เหตุผลเต็มใน src/lib/workspace.ts
+  const workspaceId = await currentWorkspaceId();
+  if (!workspaceId) notFound();
+
   const [{ data: ws }, { data: claims }] = await Promise.all([
-    // RLS คืนเฉพาะร้านที่ผู้ใช้เป็นสมาชิก — ไม่ต้องกรอง workspace_id เอง
     supabase
       .from("workspaces")
       .select(
         "name, branch, phone, logo_path, promptpay_id, promptpay_type, tax_enabled, tax_rate, language"
       )
-      .limit(1)
+      .eq("id", workspaceId)
       .maybeSingle(),
     // อีเมลมาจาก claims ของ session ไม่ใช่จากตาราง — เป็นข้อมูลของ auth ไม่ใช่ของร้าน
     supabase.auth.getClaims(),

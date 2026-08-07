@@ -3,18 +3,13 @@
 import { revalidatePath } from "next/cache";
 import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
+import { currentWorkspaceId } from "@/lib/workspace";
 
 export type CheckoutResult =
   { ok: true; orderId: string; billNo: string } | { ok: false; error: string };
 
 export type QuickAddResult =
   { ok: true; id: string; name: string; price: number } | { ok: false; error: string };
-
-async function currentWorkspaceId() {
-  const supabase = await createClient();
-  const { data } = await supabase.from("workspaces").select("id").limit(1).maybeSingle();
-  return data?.id ?? null;
-}
 
 /**
  * FR-3.7 · บันทึกบิล

@@ -6,22 +6,12 @@ import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { LOCALE_COOKIE, isLocale } from "@/i18n/locales";
 import { validatePromptPayId, type PromptPayType } from "@/lib/promptpay";
+import { currentWorkspaceId } from "@/lib/workspace";
 
 export type SettingsState = { error?: string; ok?: string };
 
 const MAX_LOGO_BYTES = 2 * 1024 * 1024;
 const LOGO_TYPES = ["image/png", "image/jpeg", "image/webp"];
-
-/**
- * หา workspace ของผู้ใช้ปัจจุบัน
- * RLS กรองให้แล้วว่าเห็นเฉพาะร้านที่ตัวเองเป็นสมาชิก จึงไม่ต้องส่ง id มาจาก client
- * (ถ้ารับ id จาก client จะต้องมาตรวจซ้ำว่าเป็นของเขาจริงไหม — ไม่รับตั้งแต่แรกง่ายกว่า)
- */
-async function currentWorkspaceId() {
-  const supabase = await createClient();
-  const { data } = await supabase.from("workspaces").select("id").limit(1).maybeSingle();
-  return data?.id ?? null;
-}
 
 /**
  * RLS ปฏิเสธการเขียนอยู่แล้วถ้าไม่ใช่ owner แต่ error ที่ได้จะเป็นข้อความดิบ

@@ -7,6 +7,7 @@ import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { LOCALE_COOKIE, isLocale } from "@/i18n/locales";
 import { absoluteUrl } from "@/lib/public-url";
+import { currentWorkspaceId } from "@/lib/workspace";
 
 /** ค่าที่กรอกไว้ ส่งกลับไปเติมในฟอร์มเมื่อ submit ไม่ผ่าน — ไม่รวมรหัสผ่าน */
 export type AuthState = {
@@ -62,7 +63,14 @@ async function translateAuthError(
  */
 async function seedLocaleFromWorkspace() {
   const supabase = await createClient();
-  const { data } = await supabase.from("workspaces").select("language").limit(1).maybeSingle();
+  const workspaceId = await currentWorkspaceId();
+  if (!workspaceId) return;
+
+  const { data } = await supabase
+    .from("workspaces")
+    .select("language")
+    .eq("id", workspaceId)
+    .maybeSingle();
   if (isLocale(data?.language)) {
     const store = await cookies();
     store.set(LOCALE_COOKIE, data.language, {

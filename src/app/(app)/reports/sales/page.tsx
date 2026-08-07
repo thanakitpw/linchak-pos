@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getLocale, getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
+import { currentWorkspaceId } from "@/lib/workspace";
 import { Icon } from "@/components/ui/icon";
 import { RangeForm } from "@/components/reports/range-form";
 import { formatDate, formatTHB } from "@/lib/format";
@@ -36,11 +37,10 @@ export default async function SalesReportPage({ searchParams }: PageProps<"/repo
   const { data } = await supabase.rpc("report_sales", { p_from: from, p_to: to });
   const r = (data as SalesRow | null) ?? { sales: 0, bills: 0, discount: 0, tax: 0 };
 
-  const { data: ws } = await supabase
-    .from("workspaces")
-    .select("tax_enabled")
-    .limit(1)
-    .maybeSingle();
+  const workspaceId = await currentWorkspaceId();
+  const { data: ws } = workspaceId
+    ? await supabase.from("workspaces").select("tax_enabled").eq("id", workspaceId).maybeSingle()
+    : { data: null };
 
   return (
     <main className="mx-auto min-h-dvh max-w-content space-y-3 p-4 pb-nav">

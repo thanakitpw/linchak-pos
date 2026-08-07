@@ -4,17 +4,12 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
+import { currentWorkspaceId } from "@/lib/workspace";
 
 export type CostState = { error?: string; ok?: string };
 
 const MAX_SLIP_BYTES = 10 * 1024 * 1024; // ตรงกับ file_size_limit ของ bucket `slips`
 const SLIP_TYPES = ["image/png", "image/jpeg", "image/webp", "application/pdf"];
-
-async function currentWorkspaceId() {
-  const supabase = await createClient();
-  const { data } = await supabase.from("workspaces").select("id").limit(1).maybeSingle();
-  return data?.id ?? null;
-}
 
 function failure(t: (k: string) => string, error: { code?: string; message: string }): CostState {
   if (error.code === "42501" || error.message.toLowerCase().includes("policy")) {

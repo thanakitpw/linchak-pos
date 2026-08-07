@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import { currentWorkspaceId } from "@/lib/workspace";
 import { SellScreen } from "@/components/sell/sell-screen";
 import { signProductImages } from "@/lib/product-images";
 import type { Product } from "@/lib/catalog";
@@ -14,10 +15,13 @@ import type { Product } from "@/lib/catalog";
 export default async function SellPage() {
   const supabase = await createClient();
 
+  const workspaceId = await currentWorkspaceId();
+  if (!workspaceId) notFound();
+
   const { data: ws } = await supabase
     .from("workspaces")
     .select("id, tax_enabled, tax_rate")
-    .limit(1)
+    .eq("id", workspaceId)
     .maybeSingle();
   if (!ws) notFound();
 

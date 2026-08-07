@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import { currentWorkspaceId } from "@/lib/workspace";
 import { ProductsScreen } from "@/components/products/products-screen";
 import { signProductImages } from "@/lib/product-images";
 
@@ -12,8 +13,7 @@ import { signProductImages } from "@/lib/product-images";
 export default async function ProductsPage() {
   const supabase = await createClient();
 
-  const { data: ws } = await supabase.from("workspaces").select("id").limit(1).maybeSingle();
-  if (!ws) notFound();
+  if (!(await currentWorkspaceId())) notFound();
 
   const [{ data: products }, { data: categories }] = await Promise.all([
     supabase

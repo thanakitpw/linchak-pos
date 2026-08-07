@@ -174,12 +174,17 @@ export function SellScreen({
           />
         </div>
 
-        {/* แถบสรุปล่าง — มือถือเท่านั้น · ที่ว่างใต้แท็บล่างมาจาก pb-bottom-nav ของ section */}
+        {/* แถบสรุปล่าง — มือถือเท่านั้น
+            ⚠️ ห้ามใส่ `sticky bottom-0` · เคยมีแล้วแถบจมลงไปใต้แท็บล่าง
+            sticky วัดระยะจาก scrollport (= viewport) ไม่ใช่จากกล่องแม่
+            `bottom-0` จึงดันตัวเองลงไปกินพื้นที่ pb-bottom-nav ที่กันไว้ให้แท็บล่างจนหมด
+            ที่นี่ไม่ต้อง sticky อยู่แล้ว — section เป็น h-dvh flex-col และนี่คือลูกตัวสุดท้าย
+            มันติดขอบล่างของ content box เองโดยธรรมชาติ */}
         {count > 0 && (
           <button
             type="button"
             onClick={() => setSheetOpen(true)}
-            className="sticky bottom-0 z-sticky flex items-center gap-3 border-t border-outline-variant bg-surface-container-lowest px-4 py-3 shadow-raised md:hidden"
+            className="flex items-center gap-3 border-t border-outline-variant bg-surface-container-lowest px-4 py-3 shadow-raised md:hidden"
           >
             <span className="relative flex size-11 items-center justify-center rounded-full bg-primary text-on-primary">
               <Icon name="shopping_cart" size={24} />

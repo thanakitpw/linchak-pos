@@ -5,21 +5,12 @@ import { redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { isCategoryColor } from "@/lib/category-colors";
+import { currentWorkspaceId } from "@/lib/workspace";
 
 export type ProductState = { error?: string; ok?: string };
 
 const MAX_IMAGE_BYTES = 5 * 1024 * 1024; // ตรงกับ file_size_limit ของ bucket `products`
 const IMAGE_TYPES = ["image/png", "image/jpeg", "image/webp"];
-
-/**
- * RLS กรองให้แล้วว่าเห็นเฉพาะร้านที่ตัวเองเป็นสมาชิก จึงไม่ต้องรับ id จาก client
- * (รับมาแล้วต้องมาตรวจซ้ำว่าเป็นของเขาจริงไหม — ไม่รับตั้งแต่แรกง่ายกว่าและพลาดยากกว่า)
- */
-async function currentWorkspaceId() {
-  const supabase = await createClient();
-  const { data } = await supabase.from("workspaces").select("id").limit(1).maybeSingle();
-  return data?.id ?? null;
-}
 
 /**
  * แปลง error ดิบจาก Postgres เป็นข้อความที่แม่ค้าอ่านรู้เรื่อง

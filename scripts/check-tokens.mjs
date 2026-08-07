@@ -98,6 +98,19 @@ const RULES = [
     msg: "ใช้ <Icon name=…/> (Material Symbols) — lucide ใช้ได้เฉพาะภายใน src/components/ui/",
     skip: /^src\/components\/ui\//,
   },
+  {
+    /**
+     * เคยพังของจริงบน production: บัญชีที่เป็นทั้งเจ้าของร้านและ platform admin
+     * กดออกบิลไม่ได้ เพราะ query นี้คืน "ร้านของลูกค้าอีกคน" — policy ตอนนั้น
+     * ให้ admin เห็นทุกร้าน และ limit 1 ที่ไม่มี order by ไม่รับประกันลำดับ
+     * (หน้าตั้งค่าก็กำลังโชว์เลข PromptPay ของร้านคนอื่นอยู่ด้วย)
+     *
+     * แก้ policy แล้ว แต่ pattern นี้ยังไม่ปลอดภัยอยู่ดีถ้าคนหนึ่งมีหลายร้าน
+     */
+    id: "workspace-limit1",
+    re: /from\(\s*["']workspaces["']\s*\)[\s\S]{0,300}?\.limit\(\s*1\s*\)/g,
+    msg: "ห้าม from('workspaces')…limit(1) — ใช้ currentWorkspaceId() แล้ว .eq('id', …) (ดู src/lib/workspace.ts)",
+  },
 ];
 
 /** บรรทัดที่จงใจยกเว้น: ต่อท้ายด้วย `lint-tokens-ok` */
