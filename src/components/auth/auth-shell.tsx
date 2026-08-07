@@ -1,6 +1,8 @@
+import Image from "next/image";
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import { Icon } from "@/components/ui/icon";
+import wordmark from "@/assets/brand/logo-wordmark.png";
 import type { Route } from "next";
 
 /**
@@ -40,14 +42,31 @@ export async function AuthShell({
       </header>
 
       <div className="w-full max-w-form self-center px-4 pb-8 md:rounded-lg md:border md:border-outline-variant md:bg-surface-container-lowest md:px-8 md:py-10 md:shadow-overlay">
+        {/* โลโก้แบบมีชื่อแบรนด์อยู่ในรูปแล้ว จึงไม่ต้องมีบรรทัดชื่อแอปซ้ำเหมือนเดิม
+            alt เป็นชื่อแบรนด์ ไม่ใช่คำว่า "โลโก้" — คนใช้ screen reader ต้องได้ยินชื่อร้านค้า
+            เรนเดอร์สองที่เพราะ h1 บนมือถืออยู่ใน app bar แล้ว (ตัวนี้จึงเป็น h1 เฉพาะ md ขึ้นไป)
+            src เดียวกัน เบราว์เซอร์ดาวน์โหลดครั้งเดียว */}
+        {/* unoptimized: ไฟล์ 3.4 KB สีแบน 3 สี ผ่าน optimizer แล้วไม่ได้เล็กลง
+            แถมเสียค่า image transformation ของ Vercel ต่อขนาด · เสิร์ฟไฟล์ตรงจาก CDN คุ้มกว่า */}
         <div className="flex flex-col items-center gap-3 py-8 md:py-0 md:pb-6">
-          <div className="flex size-20 items-center justify-center rounded-lg bg-primary-container text-on-primary-container md:size-16 md:rounded-full">
-            <Icon name="storefront" size={40} filled className="md:hidden" />
-            <Icon name="storefront" size={32} filled className="hidden md:inline-block" />
-          </div>
+          <Image
+            src={wordmark}
+            alt={tApp("name")}
+            priority
+            unoptimized
+            className="h-12 w-auto md:hidden"
+          />
           <div className="hidden text-center md:block">
-            <h1 className="text-headline-md text-primary">{tApp("name")}</h1>
-            <p className="text-body-md text-on-surface-variant">{subtitle}</p>
+            <h1>
+              <Image
+                src={wordmark}
+                alt={tApp("name")}
+                priority
+                unoptimized
+                className="mx-auto h-10 w-auto"
+              />
+            </h1>
+            <p className="mt-3 text-body-md text-on-surface-variant">{subtitle}</p>
           </div>
         </div>
 

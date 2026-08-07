@@ -14,6 +14,7 @@
     "format:check": "prettier --check .",
     "icons:build": "node scripts/fetch-icon-font.mjs",
     "icons:check": "node scripts/fetch-icon-font.mjs --check",
+    "brand:build": "node scripts/build-brand.mjs",
     "verify": "pnpm lint && pnpm lint:tokens && pnpm icons:check && pnpm typecheck && pnpm test && pnpm build",
     "db:types": "supabase gen types typescript --project-id txuqhvbbzjpkmkewezhv > src/lib/database.types.ts",
     "db:push": "supabase db push"

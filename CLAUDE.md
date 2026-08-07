@@ -35,6 +35,7 @@ pnpm verify         lint → lint:tokens → icons:check → typecheck → test 
 pnpm lint           ESLint — จับ class ที่ไม่มีอยู่จริง + lucide ที่หลุดออกนอก ui/
 pnpm lint:tokens    guard นโยบาย — arbitrary value, ghost token, ข้อความไทย hardcode
 pnpm icons:build    สร้าง icon font subset ใหม่จาก ICON_NAMES
+pnpm brand:build    ย่อโลโก้จาก brand/ → favicon + app icon + wordmark (รันเมื่อแบรนด์เปลี่ยน)
 pnpm format         Prettier (เรียง Tailwind class ให้เป็นระเบียบเดียว)
 ```
 
@@ -45,8 +46,11 @@ SOURCE      src/            โค้ดแอป
             docs/design-system.md    ← กฎ design system + migration table (สำคัญที่สุด)
 REFERENCE   pos_design/     mockup 28 ไฟล์ — อ่านอย่างเดียว ไม่เคยถูก import/build
             docs/pos-prd.md, docs/pos-business-plan.md
+            brand/          โลโก้ต้นฉบับความละเอียดเต็ม — ไม่ถูก build (อยู่นอก source("../"))
 GENERATED   AGENTS.md       Next.js เขียนทับทุกครั้งที่รัน `next dev` — ห้ามแก้มือ
             src/assets/fonts/*.woff2   สร้างจาก pnpm icons:build (commit ไว้ CI เช็ค hash)
+            src/app/{icon,icon1,apple-icon}.png + src/assets/brand/logo-wordmark.png
+                            ย่อจาก brand/ ด้วย pnpm brand:build
 ```
 
 ## กฎเหล็ก
