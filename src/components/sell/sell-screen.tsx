@@ -130,7 +130,11 @@ export function SellScreen({
   return (
     <div ref={restoreCart} className="flex h-dvh flex-col md:flex-row">
       {/* ── ซ้าย: สินค้า ────────────────────────────────────────────────── */}
-      <section className="flex min-h-0 flex-1 flex-col">
+      {/* pb-bottom-nav: หน้านี้เป็น h-dvh + scroll ข้างใน (ไม่ใช่ min-h-dvh เหมือนหน้าอื่น)
+          ถ้าไม่กันที่ไว้ ท้าย list จะมุดใต้แท็บล่างที่เป็น fixed แล้วเลื่อนลงไม่ถึง
+          — เห็นชัดสุดตอนกางฟอร์ม "เพิ่มสินค้าเร็ว" ปุ่มบันทึกจะโดนบัง
+          md ขึ้นไปไม่มีแท็บล่าง (BottomNav เป็น md:hidden) จึงคืนเป็น 0 */}
+      <section className="flex min-h-0 flex-1 flex-col pb-bottom-nav md:pb-0">
         <header className="flex h-app-bar items-center justify-between gap-2 border-b border-outline-variant bg-surface px-4">
           <h1 className="text-title-lg text-primary md:text-headline-md">{t("title")}</h1>
           <a
@@ -170,12 +174,12 @@ export function SellScreen({
           />
         </div>
 
-        {/* แถบสรุปล่าง — มือถือเท่านั้น · เว้นที่ให้ bottom nav */}
+        {/* แถบสรุปล่าง — มือถือเท่านั้น · ที่ว่างใต้แท็บล่างมาจาก pb-bottom-nav ของ section */}
         {count > 0 && (
           <button
             type="button"
             onClick={() => setSheetOpen(true)}
-            className="sticky bottom-0 z-sticky mb-[calc(var(--spacing-bottom-nav)+env(safe-area-inset-bottom,0px))] flex items-center gap-3 border-t border-outline-variant bg-surface-container-lowest px-4 py-3 shadow-raised md:hidden"
+            className="sticky bottom-0 z-sticky flex items-center gap-3 border-t border-outline-variant bg-surface-container-lowest px-4 py-3 shadow-raised md:hidden"
           >
             <span className="relative flex size-11 items-center justify-center rounded-full bg-primary text-on-primary">
               <Icon name="shopping_cart" size={24} />

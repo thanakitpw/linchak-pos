@@ -28,6 +28,13 @@
   );
 }
 
+/* เท่าความสูงแท็บล่างเป๊ะๆ ไม่มีช่องว่างเพิ่ม — ใช้กับ container ที่สูงเต็มจอ (h-dvh)
+   แล้วมีของแปะติดขอบล่างพอดี เช่นแถบสรุปบิลในหน้าขาย
+   ต่างจาก pb-nav ที่เผื่อ 16px ให้เนื้อหาที่ scroll ไม่ชิดจนอึดอัด */
+@utility pb-bottom-nav {
+  padding-bottom: calc(var(--spacing-bottom-nav) + env(safe-area-inset-bottom, 0px));
+}
+
 /* ── scrollbar ─────────────────────────────────────────────────────────────
    mockup มี 3 ชื่อสำหรับสิ่งเดียวกัน: no-scrollbar / hide-scrollbar / scrollbar-hide
    (อันหลังไม่เคย define เลย) เหลือชื่อเดียว
