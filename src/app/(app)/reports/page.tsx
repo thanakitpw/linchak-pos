@@ -5,34 +5,47 @@ import { Icon } from "@/components/ui/icon";
 import { LineChart, type Point } from "@/components/reports/line-chart";
 import { formatTHB } from "@/lib/format";
 import { toSatang } from "@/lib/money";
-import { bangkokToday, weekdayLabel } from "@/lib/report-dates";
+import { bangkokToday, dayMonthLabel, weekdayLabel } from "@/lib/report-dates";
 import type { IconName } from "@/lib/icons";
 import type { Locale } from "@/i18n/locales";
 
 type SalesRow = { sales: number; bills: number; discount: number; tax: number };
 type ProfitRow = { sales: number; costs: number; profit: number; bills: number };
 
+/**
+ * ช่วงที่เลือกได้ของกราฟ
+ * อยู่ใน query string ไม่ใช่ state — ลิงก์ส่งต่อได้ ปุ่มย้อนกลับทำงานถูก
+ * และไม่ต้องทำให้ทั้งหน้ากลายเป็น client component เพราะ chip 3 อัน
+ */
+const RANGES = [7, 30, 90] as const;
+type Range = (typeof RANGES)[number];
+
 /** สรุป — FR-6.1 · พอร์ตจาก dashboard_mobile */
-export default async function ReportsPage() {
+export default async function ReportsPage({ searchParams }: PageProps<"/reports">) {
   const t = await getTranslations("reports");
   const locale = (await getLocale()) as Locale;
   const supabase = await createClient();
+
+  const { days: daysParam } = await searchParams;
+  const days: Range = RANGES.find((r) => String(r) === daysParam) ?? 7;
 
   const today = bangkokToday();
   const [{ data: todayRow }, { data: profitRow }, { data: dailyRow }] = await Promise.all([
     supabase.rpc("report_sales", { p_from: today, p_to: today }),
     supabase.rpc("report_monthly_profit"),
-    supabase.rpc("report_daily_sales", { p_days: 7 }),
+    supabase.rpc("report_daily_sales", { p_days: days }),
   ]);
 
   const todaySales = (todayRow as SalesRow | null) ?? { sales: 0, bills: 0, discount: 0, tax: 0 };
   const profit = (profitRow as ProfitRow | null) ?? { sales: 0, costs: 0, profit: 0, bills: 0 };
   const daily = (dailyRow as { day: string; total: number }[] | null) ?? [];
 
+  // 7 วันใช้ตัวย่อวัน (จ อ พ) ได้เพราะไม่ซ้ำ · ช่วงยาวกว่านั้นต้องเป็นวันที่
   const points: Point[] = daily.map((d) => ({
-    label: weekdayLabel(d.day, locale),
+    label: days <= 7 ? weekdayLabel(d.day, locale) : dayMonthLabel(d.day, locale),
     value: Number(d.total),
   }));
+  const rangeTotal = points.reduce((sum, p) => sum + p.value, 0);
 
   return (
     <main className="min-h-dvh pb-nav">
@@ -77,7 +90,35 @@ export default async function ReportsPage() {
         </div>
 
         <section className="rounded-md border border-outline-variant bg-surface-container-lowest p-4 shadow-card">
-          <h2 className="mb-3 text-title-lg text-on-surface">{t("last7Days")}</h2>
+          <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
+            <div className="min-w-0">
+              <h2 className="text-title-lg text-on-surface">{t("salesTrend")}</h2>
+              <p className="text-label-sm text-on-surface-variant">
+                {t("rangeTotal")}{" "}
+                <span className="text-on-surface tnum">
+                  {formatTHB(toSatang(rangeTotal), locale)}
+                </span>
+              </p>
+            </div>
+            {/* ใช้ลิงก์ไม่ใช่ปุ่ม — เปลี่ยนช่วงคือการเปลี่ยนสิ่งที่หน้านี้แสดง
+                ควรอยู่ใน URL และย้อนกลับได้ ไม่ใช่ state ที่หายตอนรีเฟรช */}
+            <nav className="flex shrink-0 gap-2">
+              {RANGES.map((r) => (
+                <Link
+                  key={r}
+                  href={r === 7 ? "/reports" : `/reports?days=${r}`}
+                  aria-current={r === days ? "page" : undefined}
+                  className={
+                    r === days
+                      ? "flex min-h-touch items-center rounded-full border border-primary-container bg-primary-container px-4 text-label-lg text-on-primary-container"
+                      : "flex min-h-touch items-center rounded-full border border-outline-variant px-4 text-label-lg text-on-surface transition-colors hover:bg-surface-container-low"
+                  }
+                >
+                  {t(`days${r}`)}
+                </Link>
+              ))}
+            </nav>
+          </div>
           <LineChart points={points} locale={locale} emptyLabel={t("noOrders")} />
         </section>
 

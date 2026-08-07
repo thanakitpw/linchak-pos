@@ -57,3 +57,17 @@ export function recentMonths(count: number): string[] {
     return `${d.getUTCFullYear()}-${String(d.getUTCMonth() + 1).padStart(2, "0")}-01`;
   });
 }
+
+/**
+ * "08/07" — ป้ายแกน X ตอนดูช่วงยาว
+ *
+ * ช่วง 7 วันใช้ตัวย่อวัน (จ อ พ) ได้เพราะไม่ซ้ำ แต่ 30 วันจะวนซ้ำ 4 รอบ
+ * จนบอกไม่ได้ว่าจุดไหนคือวันไหน
+ */
+export function dayMonthLabel(isoDate: string, locale: Locale): string {
+  return new Intl.DateTimeFormat(locale === "th" ? "th-TH-u-ca-gregory" : "en-GB", {
+    day: "2-digit",
+    month: "2-digit",
+    timeZone: TZ,
+  }).format(new Date(`${isoDate}T00:00:00+07:00`));
+}

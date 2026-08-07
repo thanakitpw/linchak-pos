@@ -97,3 +97,47 @@ export function formatPercent(ratio: number, locale: Locale = "th"): string {
     maximumFractionDigits: 0,
   }).format(ratio);
 }
+
+/**
+ * "8.3พัน" / "8.3K" — ตัวเลขย่อสำหรับแกน Y ของกราฟ (ไม่มีสัญลักษณ์สกุลเงิน)
+ *
+ * รับเป็น **บาท** ไม่ใช่สตางค์ เพราะแกนกราฟทำงานกับสเกลที่คนอ่าน ไม่ใช่หน่วยเก็บ
+ *
+ * ⚠️ เขียนเองไม่ใช้ `Intl.NumberFormat({notation:"compact"})` สองเหตุผล:
+ *
+ * 1. **ICU ของ Node กับของเบราว์เซอร์ไม่ตรงกัน** — Node ตอบ "1.4K" สำหรับ th
+ *    ส่วนเบราว์เซอร์ตอบ "1.4พัน" · กราฟเป็น client component ที่ SSR ด้วย
+ *    ตัวเลขจึงเปลี่ยนตอน hydrate = React ฟ้อง mismatch และจอกระพริบ
+ * 2. ภาษาไทยมี **หมื่น/แสน** ซึ่งไม่มีในระบบ K/M — 12,500 บาทคนไทยอ่านว่า
+ *    "1.25 หมื่น" ไม่ใช่ "12.5 พัน"
+ */
+// lint-tokens-ok ต่อบรรทัด: หน่วยนับของภาษาไทย ไม่ใช่ copy ที่แปลได้
+// ย้ายไป messages/ ไม่ได้เพราะต้องจับคู่กับตัวคูณในตารางเดียวกัน
+const COMPACT_TH = [
+  { at: 1e6, unit: "ล้าน" }, // lint-tokens-ok
+  { at: 1e5, unit: "แสน" }, // lint-tokens-ok
+  { at: 1e4, unit: "หมื่น" }, // lint-tokens-ok
+  { at: 1e3, unit: "พัน" }, // lint-tokens-ok
+] as const;
+
+const COMPACT_EN = [
+  { at: 1e9, unit: "B" },
+  { at: 1e6, unit: "M" },
+  { at: 1e3, unit: "K" },
+] as const;
+
+export function formatCompactBaht(baht: number, locale: Locale = "th"): string {
+  const sign = baht < 0 ? "−" : "";
+  const n = Math.abs(baht);
+  const scale = locale === "th" ? COMPACT_TH : COMPACT_EN;
+
+  for (const { at, unit } of scale) {
+    if (n >= at) {
+      const v = n / at;
+      // ≥10 ไม่ต้องมีทศนิยม "12หมื่น" อ่านง่ายกว่า "12.0หมื่น" และสั้นกว่าบนแกน
+      return `${sign}${v >= 10 ? Math.round(v) : Math.round(v * 10) / 10}${unit}`;
+    }
+  }
+  // ต่ำกว่าพัน แสดงเต็มแต่ตัดทศนิยมทิ้ง — แกนกราฟไม่ต้องการความละเอียดระดับสตางค์
+  return `${sign}${Math.round(n)}`;
+}
